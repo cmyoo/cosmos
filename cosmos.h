@@ -12,6 +12,13 @@
 #include <fstream>
 #include <cstdio>
 #include <cstdlib>
+#ifndef M_PI 
+#define M_PI 3.14159265358979323846
+#endif
+#ifndef M_E 
+#define M_E 2.71828182845904523536
+#endif
+
 using namespace std;
 
 class Fmv0{
@@ -2438,6 +2445,7 @@ public:
 	void initial_nonsph(double mu,double k,double xi2,double xi3,double xit2,double xit3,double w);
 	void set_initial_scalar(double mu,double k,double xi2,double xi3);
 	void set_initial_fluid(double mu,double k,double xi2,double xi3);
+	void initial(double mu);
 
 };
 
