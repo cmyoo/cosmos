@@ -3,7 +3,7 @@
 ##   ver1.00 by Chulmoon Yoo               #######################################
 ##################################################################################
 999999	        # maximum step of the main loop 
-2.	            # maximum time to evolve
+1.	            # maximum time to evolve
 3	            # tab number of the bufer grids
 0.	            # amp
 -40	            # minimum grid number of x =-nmax-1
@@ -45,7 +45,7 @@ out_all.dat	    # continue file
 10.	            # wave number for the scalar field (NON-use in pert.)
 15.	            # xi2s (NON-use in pert.)
 0.	            # xi3s (NON-use in pert.)
-2.0	        # Hubble
+2.0	            # Hubble
 
 ##################################################################################
 ###  fluid parameters
@@ -57,6 +57,6 @@ out_all.dat	    # continue file
 ##################################################################################
 ###  parameters for output
 ##################################################################################
-0.25	            #1st part print interval boundary time
+0.25	        #1st part print interval boundary time
 0.5	            #2nd part
 100.	        #changing time for print interval

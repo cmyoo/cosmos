@@ -386,6 +386,7 @@ int main(int argc,char* argv[])
 		//fmv->set_initial_scalar(mus,kks,xi2s,xi3s);
 		//#pragma omp barrier
 		fmv->initial_nonsph(mu,kk,xi2,xi3,xi2s,xi3s,w3);
+		// fmv->initial(mu);
 		#pragma omp barrier
 		printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
 		//initial data setting end
@@ -424,7 +425,7 @@ int main(int argc,char* argv[])
 	//time step settings end
 
 	//other settings for main loop start
-	nexttimeprint=t;
+	nexttimeprint=t+ptintval1;
 	bool AHFflag=false;							//true for actuation
 	bool prehorizon=false;						//previous apparent horizon search?
 	//other settings for main loop end

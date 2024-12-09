@@ -34,7 +34,7 @@ DEP = .dep.inc
 .SUFFIXES: .cpp .o
 
 # source file
-SRC = $(PROG).cpp ./cosmos_bssn.cpp cosmos_initial_pert.cpp ../cosmos_output.cpp ../cosmos_boundary.cpp ../cosmos_ahf.cpp ../cosmos_ipol.cpp ../cosmos_solveconst.cpp ../cosmos_maxslice.cpp ../cosmos_fluid.cpp ../cosmos_mindis.cpp ../cosmos_fmr.cpp 
+SRC = $(PROG).cpp cosmos_bssn.cpp ../cosmos_initial.cpp cosmos_initial_pert.cpp ../cosmos_output.cpp ../cosmos_boundary.cpp ../cosmos_ahf.cpp ../cosmos_ipol.cpp ../cosmos_solveconst.cpp ../cosmos_maxslice.cpp ../cosmos_fluid.cpp ../cosmos_mindis.cpp ../cosmos_fmr.cpp 
 OBJS = $(SRC:%.$(LANG)=%.o)
 
 .PHONY: all

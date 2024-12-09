@@ -42,7 +42,7 @@ $(PROG): $(OBJS)
 	$(CXX) $(CFLAGS) -o $(PROG) $(OBJS)
 
 .$(LANG).o:
-	$(CXX) $(CFLAGS) -c $<
+	$(CXX) $(CFLAGS) -o $@ -c  $<
 
 # clean rule
 .PHONY: clean
