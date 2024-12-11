@@ -574,21 +574,6 @@ int main(int argc,char* argv[])
 		<< endl;
 		//constraint check for higher layers end //////////////////////////////////////
 
-		//output judge start //////////////////////////////////////
-		bool printflag=false;
-		
-		if(t>nexttimeprint-1.0e-10)
-		{
-			cout << "t=" << t << " nexttimeprint=" << nexttimeprint << endl;
-			printflag=true;
-			
-			if(t+ptintval1>changept)
-			nexttimeprint+=ptintval2;
-			else
-			nexttimeprint+=ptintval1;
-		}
-		//output judge end //////////////////////////////////////////
-		
 		//time forward start ////////////////////////////////////////
 		t=fmv->get_t()+fmv->get_dt0();
 		fmv->set_t(t);
@@ -605,6 +590,21 @@ int main(int argc,char* argv[])
 		}
 		//time forward end /////////////////////////////////////////////
 
+		//output judge start //////////////////////////////////////
+		bool printflag=false;
+		
+		if(t>nexttimeprint-1.0e-10)
+		{
+			cout << "t=" << t << " nexttimeprint=" << nexttimeprint << endl;
+			printflag=true;
+			
+			if(t+ptintval1>changept)
+			nexttimeprint+=ptintval2;
+			else
+			nexttimeprint+=ptintval1;
+		}
+		//output judge end //////////////////////////////////////////
+		
 		//AHF judge 
 		if(!AHFflag && (t>AHFstart || ln==laymax))
 		{
