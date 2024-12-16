@@ -2020,13 +2020,13 @@ void Fmv0::BSSN(int itype)
 						//KK_zy=KK_yz;
 						
 						
-						//nnRiem_12=-KK_12+exp(4.*wa_p)*rc_12_p+ek_p*exK_12+pi4*((trs-Ene)*g12_p-2.*s12);
-						nnRiem_xx=-KK_xx+rc_xx_p/ewa4i+ek_p*exK_xx+pi4*((trs-Ene)*gxx_p-2.*sxx);
-						nnRiem_yy=-KK_yy+rc_yy_p/ewa4i+ek_p*exK_yy+pi4*((trs-Ene)*gyy_p-2.*syy);
-						nnRiem_zz=-KK_zz+rc_zz_p/ewa4i+ek_p*exK_zz+pi4*((trs-Ene)*gzz_p-2.*szz);
-						nnRiem_xy=-KK_xy+rc_xy_p/ewa4i+ek_p*exK_xy+pi4*((trs-Ene)*gxy_p-2.*sxy);
-						nnRiem_xz=-KK_xz+rc_xz_p/ewa4i+ek_p*exK_xz+pi4*((trs-Ene)*gxz_p-2.*sxz);
-						nnRiem_yz=-KK_yz+rc_yz_p/ewa4i+ek_p*exK_yz+pi4*((trs-Ene)*gyz_p-2.*syz);
+						//nnRiem_12=-KK_12+exp(4.*wa_p)*rc_12_p+ek_p*exK_12+pi4*((trs-Ene)*g12_p/ewa4i-2.*s12);
+						nnRiem_xx=-KK_xx+rc_xx_p/ewa4i+ek_p*exK_xx+pi4*((trs-Ene)*gxx_p/ewa4i-2.*sxx);
+						nnRiem_yy=-KK_yy+rc_yy_p/ewa4i+ek_p*exK_yy+pi4*((trs-Ene)*gyy_p/ewa4i-2.*syy);
+						nnRiem_zz=-KK_zz+rc_zz_p/ewa4i+ek_p*exK_zz+pi4*((trs-Ene)*gzz_p/ewa4i-2.*szz);
+						nnRiem_xy=-KK_xy+rc_xy_p/ewa4i+ek_p*exK_xy+pi4*((trs-Ene)*gxy_p/ewa4i-2.*sxy);
+						nnRiem_xz=-KK_xz+rc_xz_p/ewa4i+ek_p*exK_xz+pi4*((trs-Ene)*gxz_p/ewa4i-2.*sxz);
+						nnRiem_yz=-KK_yz+rc_yz_p/ewa4i+ek_p*exK_yz+pi4*((trs-Ene)*gyz_p/ewa4i-2.*syz);
 
 						
 						//unnRiem_12=exp(-8.*wa_p)*(
