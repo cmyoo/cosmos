@@ -35,7 +35,7 @@
 ###  initial data parameter
 ##################################################################################
 0	            # 0:no continue 1:continue
-out_all.dat	    # continue file
+ini_all.dat	    # continue file
 0.50	        # amplitude 
 10.	            # wave number 
 10.	            # xi2 nonsphericity parameter 1

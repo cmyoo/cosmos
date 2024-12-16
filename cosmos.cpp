@@ -678,7 +678,8 @@ int main(int argc,char* argv[])
 			// file3d.close();
 
 			//output all data start
-			fileall.open(file_continue, ios::out );
+			//fileall.open(file_continue, ios::out );
+			fileall.open("out_all.dat", ios::out );
 			fileall.setf(ios_base::scientific, ios_base::floatfield);
 			fileall.precision(10);
 			fileall << "##ln="<< ln << endl; 
@@ -709,7 +710,8 @@ int main(int argc,char* argv[])
 		}
 	
 		//output all data start
-		fileall.open(file_continue, ios::out );
+		//fileall.open(file_continue, ios::out );
+		fileall.open("out_all.dat", ios::out );
 		fileall.setf(ios_base::scientific, ios_base::floatfield);
 		fileall.precision(10);
 		fileall << "##ln="<< ln << endl; 
