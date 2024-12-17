@@ -2443,9 +2443,11 @@ public:
 	void set_Psi_nonsph(double mu,double k,double xi2,double xi3);
 	void set_Psi_nonsph(double mu,double k,double xi2,double xi3,double xit2,double xit3,double w);
 	void initial_nonsph(double mu,double k,double xi2,double xi3,double xit2,double xit3,double w);
+	void initial_nonsph(double mu,double k,double xi2,double xi3);
 	void set_initial_scalar(double mu,double k,double xi2,double xi3);
 	void set_initial_fluid(double mu,double k,double xi2,double xi3);
 	void initial(double mu);
+	void set_ini_from_Psi();
 
 };
 

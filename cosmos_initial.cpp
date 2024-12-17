@@ -142,7 +142,25 @@ void Fmv::initial_nonsph(double mu,double k,double xi2,double xi3,double xit2,do
 	
 	#pragma omp barrier
 	set_Psi_nonsph(mu,k,xi2,xi3,xit2,xit3,w);
+
+	#pragma omp barrier
+	set_ini_from_Psi();
+}
+
+void Fmv::initial_nonsph(double mu,double k,double xi2,double xi3)
+{
+	//setting flatdet and Gamma
+	set_flat();
 	
+	#pragma omp barrier
+	set_Psi_nonsph(mu,k,xi2,xi3);
+
+	#pragma omp barrier
+	set_ini_from_Psi();
+}
+
+void Fmv::set_ini_from_Psi()
+{
 	double fGam=1.+fluidw;
 	double Hbi2;
 	double Hbi3;
@@ -441,6 +459,7 @@ void Fmv::initial_nonsph(double mu,double k,double xi2,double xi3,double xit2,do
 	
 	return;
 }
+
 
 //setting initial Gamma^i for evolution (Gamma^i will be treated as dynamical variables)
 void Fmv0::set_Gam()
