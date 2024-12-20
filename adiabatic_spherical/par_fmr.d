@@ -6,17 +6,17 @@
 2		
 ##x-grid number for fmr region
 10
-20
+10
 0
 ##y-grid number for fmr region
 10
-20
+10
 0
 ##z-grid number for fmr region
 10
-20
+10
 0
 ##values of the lapse for starting fmr
+0.3
 0.15
-0.1
 0.

@@ -48,6 +48,37 @@ ofstream& filez,
 ofstream& filex0z,
 ofstream& filexy0);
 
+void check_continue_file(					//checking parameter consistency with the continue file
+ifstream& fcontinue, 						//initial parameter file
+int& tab, 									//tab num for buf grids
+int& nxmin, 								//min grid num of x
+int& nxmax, 								//max grid num of x
+int& nymin,									//min grid num of y
+int& nymax, 								//max grid num of y
+int& nzmin, 								//min grid num of z
+int& nzmax, 								//max grid num of z
+int& laymax,								//max fmr layer number
+int& ln,									//fmr layer number
+int *jbs,									//grid number for fmr region on x-axis
+int *kbs,									//grid number for fmr region on y-axis
+int *lbs									//grid number for fmr region on z-axis
+);
+
+void output_params(							//output all needed parameters for continue
+ofstream& fcontinue, 						//initial parameter file
+int& tab, 									//tab num for buf grids
+int& nxmin, 								//min grid num of x
+int& nxmax, 								//max grid num of x
+int& nymin,									//min grid num of y
+int& nymax, 								//max grid num of y
+int& nzmin, 								//min grid num of z
+int& nzmax, 								//max grid num of z
+int& laymax,								//max fmr layer number
+int& ln,									//fmr layer number
+int *jbs,									//grid number for fmr region on x-axis
+int *kbs,									//grid number for fmr region on y-axis
+int *lbs									//grid number for fmr region on z-axis
+);
 
 void initial_read(							//reading inital para
 ifstream& fin, 								//initial parameter file
@@ -320,16 +351,11 @@ int main(int argc,char* argv[])
 		ifstream fcontinue(file_continue);
 		if(fcontinue.fail()){
 			cout << "Initial data file to continue is not found." << endl;
-			abort();
+			exit(1);
 		}
-
-		string buf;
-		getline(fcontinue, buf);
-		cout << buf << endl;
-		//file preparateion end
-		
-		//get the number of layers
-		sscanf(buf.data(),"##ln=%d",&ln);
+	
+		//parameter consistency check
+		check_continue_file(fcontinue,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
 
 		//initial date loading 
 		fmv->initial_continue(fcontinue);
@@ -340,6 +366,7 @@ int main(int argc,char* argv[])
 		fmv->boundary_reflection();
 
 		//line spaces
+		string buf;
 		getline(fcontinue, buf);
 		getline(fcontinue, buf);
 
@@ -681,9 +708,9 @@ int main(int argc,char* argv[])
 			//output all data start
 			//fileall.open(file_continue, ios::out );
 			fileall.open("out_all.dat", ios::out );
-			fileall.setf(ios_base::scientific, ios_base::floatfield);
-			fileall.precision(10);
-			fileall << "##ln="<< ln << endl; 
+
+			output_params(fileall,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+			
 			for(int i=0;i<=ln;i++)
 			{	
 				fmv0[i]->print_all(fileall);
@@ -713,9 +740,9 @@ int main(int argc,char* argv[])
 		//output all data start
 		//fileall.open(file_continue, ios::out );
 		fileall.open("out_all.dat", ios::out );
-		fileall.setf(ios_base::scientific, ios_base::floatfield);
-		fileall.precision(10);
-		fileall << "##ln="<< ln << endl; 
+
+		output_params(fileall,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+
 		for(int i=0;i<=ln;i++)
 		{	
 			fmv0[i]->print_all(fileall);
@@ -1147,4 +1174,178 @@ double *alp_fmr	){
 	return;
 }
 
+void check_continue_file(					//checking parameter consistency with the continue file
+ifstream& fcontinue, 						//initial parameter file
+int& tab, 									//tab num for buf grids
+int& nxmin, 								//min grid num of x
+int& nxmax, 								//max grid num of x
+int& nymin,									//min grid num of y
+int& nymax, 								//max grid num of y
+int& nzmin, 								//min grid num of z
+int& nzmax, 								//max grid num of z
+int& laymax,								//max fmr layer number
+int& ln,									//fmr layer number
+int *jbs,									//grid number for fmr region on x-axis
+int *kbs,									//grid number for fmr region on y-axis
+int *lbs									//grid number for fmr region on z-axis
+){
+		string buf;
+		//file preparateion end
+		int cpar;
+		//get the parameters of the continue file
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##tab=%d",&cpar);
+		if(cpar!=tab)
+		{
+			cout << "tab is different from the initial data file" << endl
+				<< "tab in data file=" << cpar << endl
+				<< "tab in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##nxmin=%d",&cpar);
+		if(cpar!=nxmin)
+		{
+			cout << "nxmin is different from the initial data file" << endl
+				<< "nxmin in data file=" << cpar << endl
+				<< "nxmin in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##nxmax=%d",&cpar);
+		if(cpar!=nxmax)
+		{
+			cout << "nxmax is different from the initial data file" << endl
+				<< "nxmax in data file=" << cpar << endl
+				<< "nxmax in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##nymin=%d",&cpar);
+		if(cpar!=nymin)
+		{
+			cout << "nymin is different from the initial data file" << endl
+				<< "nymin in data file=" << cpar << endl
+				<< "nymin in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##nymax=%d",&cpar);
+		if(cpar!=nymax)
+		{
+			cout << "nymax is different from the initial data file" << endl
+				<< "nymax in data file=" << cpar << endl
+				<< "nymax in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##nzmin=%d",&cpar);
+		if(cpar!=nzmin)
+		{
+			cout << "nzmin is different from the initial data file" << endl
+				<< "nzmin in data file=" << cpar << endl
+				<< "nzmin in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##nzmax=%d",&cpar);
+		if(cpar!=nzmax)
+		{
+			cout << "nzmax is different from the initial data file" << endl
+				<< "nzmax in data file=" << cpar << endl
+				<< "nzmax in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##ln=%d",&cpar);
+		if(cpar>laymax)
+		{
+			cout << "ln is larger than laymax" << endl
+				<< "ln in data file=" << cpar << endl
+				<< "laymax in par_fmr.d=" << laymax << endl;
+			exit(1);
+		}
+		ln=cpar;
+		for(int i=0;i<ln;i++)
+		{
+			getline(fcontinue, buf);
+			cout << buf << endl;
+			sscanf(buf.data(),"##fmrxgnum=%d",&cpar);
+			if(cpar!=jbs[i])
+			{
+				cout << i+1 << "-th fmrxgnum is different from the initial data file" << endl 
+					<< "fmrxgnum in data file=" << cpar << endl
+					<< "fmrxgnum in par_ini.d=" << tab << endl;
+			exit(1);
+			}
+		}
+		for(int i=0;i<ln;i++)
+		{
+			getline(fcontinue, buf);
+			cout << buf << endl;
+			sscanf(buf.data(),"##fmrygnum=%d",&cpar);
+			if(cpar!=kbs[i])
+			{
+				cout << i+1 << "-th fmrygnum is different from the initial data file" << endl 
+					<< "fmrygnum in data file=" << cpar << endl
+					<< "fmrygnum in par_ini.d=" << tab << endl;
+			exit(1);
+			}
+		}
+		for(int i=0;i<ln;i++)
+		{
+			getline(fcontinue, buf);
+			cout << buf << endl;
+			sscanf(buf.data(),"##fmrzgnum=%d",&cpar);
+			if(cpar!=lbs[i])
+			{
+				cout << i+1 << "-th fmrzgnum is different from the initial data file" << endl 
+					<< "fmrzgnum in data file=" << cpar << endl
+					<< "fmrzgnum in par_ini.d=" << tab << endl;
+			exit(1);
+			}
+		}
+	return;
+}
 
+void output_params(							//output all needed parameters for continue
+ofstream& fileall, 							//initial parameter file
+int& tab, 									//tab num for buf grids
+int& nxmin, 								//min grid num of x
+int& nxmax, 								//max grid num of x
+int& nymin,									//min grid num of y
+int& nymax, 								//max grid num of y
+int& nzmin, 								//min grid num of z
+int& nzmax, 								//max grid num of z
+int& laymax,								//max fmr layer number
+int& ln,									//fmr layer number
+int *jbs,									//grid number for fmr region on x-axis
+int *kbs,									//grid number for fmr region on y-axis
+int *lbs									//grid number for fmr region on z-axis
+){
+	fileall.setf(ios_base::scientific, ios_base::floatfield);
+	fileall.precision(10);
+	fileall << "##tab="<< tab << endl
+	<< "##nxmin="<< nxmin << endl
+	<< "##nxmax="<< nxmax << endl
+	<< "##nymin="<< nymin << endl
+	<< "##nymax="<< nymax << endl
+	<< "##nzmin="<< nzmin << endl
+	<< "##nzmax="<< nzmax << endl
+	<< "##ln="<< ln << endl;
+	for(int i=0;i<ln;i++)
+	fileall << "##fmrxgnum="<< jbs[i] << endl;
+	for(int i=0;i<ln;i++)
+	fileall << "##fmrygnum="<< kbs[i] << endl;
+	for(int i=0;i<ln;i++)
+	fileall << "##fmrzgnum="<< lbs[i] << endl;
+
+}
