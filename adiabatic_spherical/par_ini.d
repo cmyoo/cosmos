@@ -34,7 +34,7 @@
 ##################################################################################
 ###  initial data parameter
 ##################################################################################
-1	            # 0:no continue 1:continue
+0	            # 0:no continue 1:continue
 ini_all.dat	    # continue file
 0.83	        # amplitude 
 10.	            # wave number 
