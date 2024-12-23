@@ -403,7 +403,7 @@ int main(int argc,char* argv[])
 		fcontinue.close();
 		t=fmv->get_t();
 		fmv->setv0();
-		printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
+		//printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
 	}
 	else
 	{
@@ -505,7 +505,7 @@ int main(int argc,char* argv[])
 		mommax=fmv->get_mommax();
 		#pragma omp barrier
 		cout << " time=" << t 
-			<< " step=" << step+1 << endl
+			<< " step=" << step << endl
 			<< " alp=" << fmv->get_bv(fmv->get_lli(),fmv->get_kli(),0,0) 
 			<< " -ek=" << abs(fmv->get_bv(nxmax,nymax,nzmax,20)) 
 			<< endl 

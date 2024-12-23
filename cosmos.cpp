@@ -403,7 +403,7 @@ int main(int argc,char* argv[])
 		fcontinue.close();
 		t=fmv->get_t();
 		fmv->setv0();
-		printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
+		//printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
 	}
 	else
 	{

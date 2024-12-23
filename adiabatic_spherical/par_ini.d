@@ -2,7 +2,7 @@
 ##   parameters for COSMOS code            #######################################
 ##   ver1.00 by Chulmoon Yoo               #######################################
 ##################################################################################
-1	        # maximum step of the main loop 
+1	            # maximum step of the main loop 
 400.	        # maximum time to evolve
 3	            # tab number of the bufer grids
 10.	            # amp
@@ -57,6 +57,6 @@ ini_all.dat	    # continue file
 ##################################################################################
 ###  parameters for output
 ##################################################################################
-0.0	            #1st part print interval boundary time
+10.0	            #1st part print interval boundary time
 10.0	            #2nd part
 100.	        #changing time for print interval
