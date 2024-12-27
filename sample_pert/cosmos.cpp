@@ -50,6 +50,8 @@ ofstream& filexy0);
 
 void check_continue_file(					//checking parameter consistency with the continue file
 ifstream& fcontinue, 								//initial parameter file
+bool& fld,									//for fluid evolution 
+bool& scl,									//for scalar evolution
 int& tab, 									//tab num for buf grids
 int& nxmin, 								//min grid num of x
 int& nxmax, 								//max grid num of x
@@ -66,6 +68,8 @@ int *lbs									//grid number for fmr region on z-axis
 
 void output_params(							//output all needed parameters for continue
 ofstream& fcontinue, 						//initial parameter file
+bool& fld,									//for fluid evolution 
+bool& scl,									//for scalar evolution
 int& tab, 									//tab num for buf grids
 int& nxmin, 								//min grid num of x
 int& nxmax, 								//max grid num of x
@@ -265,8 +269,8 @@ int main(int argc,char* argv[])
 	
 	//setting for bools start
 	fld=true;						// fluid evolution -> true/false
-	scl=true;						// scalar evolution -> true/false
-	cuev=true;						// curvature evaluation -> true/false
+	scl=false;						// scalar evolution -> true/false
+	cuev=false;						// curvature evaluation -> true/false
 	//setting for bools end
 	
 	//main class for bssn
@@ -304,6 +308,7 @@ int main(int argc,char* argv[])
 	fmv->set_acc(acc);
 	fmv->set_exg(exg);
 	fmv->set_fluidw(fluidw);
+	fmv->set_scalarm(0.);			//scalar field mass term=0.
 	fmv->set_Mkap(Mkap);
 	fmv->set_b(bminmod);
 	//initial parameter setting end
@@ -355,7 +360,7 @@ int main(int argc,char* argv[])
 		}
 	
 		//parameter consistency check
-		check_continue_file(fcontinue,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+		check_continue_file(fcontinue,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
 
 		//initial date loading 
 		fmv->initial_continue(fcontinue);
@@ -707,7 +712,7 @@ int main(int argc,char* argv[])
 			//output all data start
 			fileall.open(file_continue, ios::out );
 			
-			output_params(fileall,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+			output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
 			
 			for(int i=0;i<=ln;i++)
 			{	
@@ -738,7 +743,7 @@ int main(int argc,char* argv[])
 		//output all data start
 		fileall.open(file_continue, ios::out );
 
-		output_params(fileall,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+		output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
 		
 		for(int i=0;i<=ln;i++)
 		{	
@@ -1174,6 +1179,8 @@ double *alp_fmr	){
 
 void check_continue_file(					//checking parameter consistency with the continue file
 ifstream& fcontinue, 						//initial parameter file
+bool& fld,									//for fluid evolution 
+bool& scl,									//for scalar evolution
 int& tab, 									//tab num for buf grids
 int& nxmin, 								//min grid num of x
 int& nxmax, 								//max grid num of x
@@ -1191,6 +1198,26 @@ int *lbs									//grid number for fmr region on z-axis
 		//file preparateion end
 		int cpar;
 		//get the parameters of the continue file
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##fld=%d",&cpar);
+		if(cpar!=fld)
+		{
+			cout << "fld is different from the initial data file" << endl
+				<< "fld in data file=" << cpar << endl
+				<< "fld in par_ini.d=" << tab << endl;
+			exit(1);
+		}
+		getline(fcontinue, buf);
+		cout << buf << endl;
+		sscanf(buf.data(),"##scl=%d",&cpar);
+		if(cpar!=scl)
+		{
+			cout << "scl is different from the initial data file" << endl
+				<< "scl in data file=" << cpar << endl
+				<< "scl in par_ini.d=" << tab << endl;
+			exit(1);
+		}
 		getline(fcontinue, buf);
 		cout << buf << endl;
 		sscanf(buf.data(),"##tab=%d",&cpar);
@@ -1316,6 +1343,8 @@ int *lbs									//grid number for fmr region on z-axis
 
 void output_params(							//output all needed parameters for continue
 ofstream& fileall, 							//initial parameter file
+bool& fld,									//for fluid evolution 
+bool& scl,									//for scalar evolution
 int& tab, 									//tab num for buf grids
 int& nxmin, 								//min grid num of x
 int& nxmax, 								//max grid num of x
@@ -1331,7 +1360,10 @@ int *lbs									//grid number for fmr region on z-axis
 ){
 	fileall.setf(ios_base::scientific, ios_base::floatfield);
 	fileall.precision(10);
-	fileall << "##tab="<< tab << endl
+	fileall 
+	<< "##fld="<< fld << endl
+	<< "##scl="<< scl << endl
+	<< "##tab="<< tab << endl
 	<< "##nxmin="<< nxmin << endl
 	<< "##nxmax="<< nxmax << endl
 	<< "##nymin="<< nymin << endl

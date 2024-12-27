@@ -84,6 +84,11 @@ protected:
 	///////////////  fluid parameters ////////////////////////////////////////
 	
 	
+	///////////////  scalar field parameters /////////////////////////////////
+	double scalarm;												// scalar filed mass parameter
+	///////////////  scalar field parameters /////////////////////////////////
+	
+	
 	///////////////  parameters for initial data and settings ////////////////
 	double Hb;													// initial Hubble
 	double tini;												// initial time
@@ -988,8 +993,11 @@ public:
 	double get_Hb() const{
 		return Hb;
 	}
-		double get_fluidw() const{
+	double get_fluidw() const{
 		return fluidw;
+	}
+	double get_scalarm() const{
+		return scalarm;
 	}
 
 	int get_bflag(int l,int k,int j) const{
@@ -1340,6 +1348,10 @@ public:
 	}
 	void set_fluidw(double fw){
 		fluidw=fw;
+		return;
+	}
+	void set_scalarm(double sm){
+		scalarm=sm;
 		return;
 	}
 	void set_Mkap(double k){
@@ -2324,14 +2336,14 @@ public:
 	
 	double funcV(double p)
 	{
-		double w=0.;
+		double w=0.5*pow(scalarm*p,2);
 		
 		return(w);
 	}
 	
 	double funcdV(double p)
 	{
-		double w=0.;
+		double w=pow(scalarm,2)*p;
 		
 		return(w);
 	}

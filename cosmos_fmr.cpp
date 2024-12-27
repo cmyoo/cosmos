@@ -112,6 +112,7 @@ void Fmv1::set_fmr_initial()
 	dtp=dt0;
 	dtpp=dt0;
 	fluidw=llay->get_fluidw();
+	scalarm=llay->get_fluidw();
 	t=llay->get_t();
 	Hb=llay->get_Hb();
 	tini=llay->get_tini();
