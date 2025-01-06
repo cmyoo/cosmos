@@ -1178,7 +1178,6 @@ double *alp_fmr	){
 	}
 	return;
 }
-
 void check_continue_file(					//checking parameter consistency with the continue file
 ifstream& fcontinue, 						//initial parameter file
 bool& fld,									//for fluid evolution 
@@ -1207,7 +1206,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "fld is different from the initial data file" << endl
 				<< "fld in data file=" << cpar << endl
-				<< "fld in par_ini.d=" << tab << endl;
+				<< "fld in the setting=" << fld << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1217,7 +1216,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "scl is different from the initial data file" << endl
 				<< "scl in data file=" << cpar << endl
-				<< "scl in par_ini.d=" << tab << endl;
+				<< "scl in the setting=" << scl << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1227,7 +1226,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "tab is different from the initial data file" << endl
 				<< "tab in data file=" << cpar << endl
-				<< "tab in par_ini.d=" << tab << endl;
+				<< "tab in the setting=" << tab << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1237,7 +1236,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "nxmin is different from the initial data file" << endl
 				<< "nxmin in data file=" << cpar << endl
-				<< "nxmin in par_ini.d=" << tab << endl;
+				<< "nxmin in the setting=" << nxmin << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1247,7 +1246,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "nxmax is different from the initial data file" << endl
 				<< "nxmax in data file=" << cpar << endl
-				<< "nxmax in par_ini.d=" << tab << endl;
+				<< "nxmax in the setting=" << nxmax << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1257,7 +1256,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "nymin is different from the initial data file" << endl
 				<< "nymin in data file=" << cpar << endl
-				<< "nymin in par_ini.d=" << tab << endl;
+				<< "nymin in the setting=" << nymin << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1267,7 +1266,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "nymax is different from the initial data file" << endl
 				<< "nymax in data file=" << cpar << endl
-				<< "nymax in par_ini.d=" << tab << endl;
+				<< "nymax in the setting=" << nymax << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1277,7 +1276,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "nzmin is different from the initial data file" << endl
 				<< "nzmin in data file=" << cpar << endl
-				<< "nzmin in par_ini.d=" << tab << endl;
+				<< "nzmin in the setting=" << nzmin << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1287,7 +1286,7 @@ int *lbs									//grid number for fmr region on z-axis
 		{
 			cout << "nzmax is different from the initial data file" << endl
 				<< "nzmax in data file=" << cpar << endl
-				<< "nzmax in par_ini.d=" << tab << endl;
+				<< "nzmax in the setting=" << nzmax << endl;
 			exit(1);
 		}
 		getline(fcontinue, buf);
@@ -1310,7 +1309,7 @@ int *lbs									//grid number for fmr region on z-axis
 			{
 				cout << i+1 << "-th fmrxgnum is different from the initial data file" << endl 
 					<< "fmrxgnum in data file=" << cpar << endl
-					<< "fmrxgnum in par_ini.d=" << tab << endl;
+					<< "fmrxgnum in the setting=" << jbs[i] << endl;
 			exit(1);
 			}
 		}
@@ -1323,7 +1322,7 @@ int *lbs									//grid number for fmr region on z-axis
 			{
 				cout << i+1 << "-th fmrygnum is different from the initial data file" << endl 
 					<< "fmrygnum in data file=" << cpar << endl
-					<< "fmrygnum in par_ini.d=" << tab << endl;
+					<< "fmrygnum in the setting=" << kbs[i] << endl;
 			exit(1);
 			}
 		}
@@ -1336,12 +1335,13 @@ int *lbs									//grid number for fmr region on z-axis
 			{
 				cout << i+1 << "-th fmrzgnum is different from the initial data file" << endl 
 					<< "fmrzgnum in data file=" << cpar << endl
-					<< "fmrzgnum in par_ini.d=" << tab << endl;
+					<< "fmrzgnum in the setting=" << lbs[i] << endl;
 			exit(1);
 			}
 		}
 	return;
 }
+
 
 void output_params(							//output all needed parameters for continue
 ofstream& fileall, 							//initial parameter file
