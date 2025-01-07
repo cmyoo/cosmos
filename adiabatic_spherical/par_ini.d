@@ -2,7 +2,7 @@
 ##   parameters for COSMOS code            #######################################
 ##   ver1.00 by Chulmoon Yoo               #######################################
 ##################################################################################
-1	            # maximum step of the main loop 
+9999999         # maximum step of the main loop 
 400.	        # maximum time to evolve
 3	            # tab number of the bufer grids
 10.	            # amp
