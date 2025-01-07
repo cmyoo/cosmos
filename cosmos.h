@@ -2313,6 +2313,7 @@ public:
 	void set_flat();
 	void set_Gam();
 	void set_enemomini();
+	void initial_params(double cfli,double etaai,double etabi,double etabbi,double lambdai,double dt0i,double dtpi,double dtppi,double ti,double tinii,double Hbi,double KOepi,int exgi,double fluidwi,double scalarmi,double kap_MUSCLi,double b_minmodi);
 	
 	////////////////////////////////////////
 	//  OUTPUT func.

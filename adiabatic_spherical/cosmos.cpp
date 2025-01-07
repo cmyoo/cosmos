@@ -290,27 +290,12 @@ int main(int argc,char* argv[])
 	//initial parameter setting start
 	double dr=fmv->get_dx();
 	double dtini=cfl*dr;
-	fmv->set_cfl(cfl);
-	fmv->set_etaa(etaa);
-	fmv->set_etab(etab);
-	fmv->set_etabb(etabb);
-	fmv->set_lambda(0.);
-	fmv->set_tmax(tmax);
-	fmv->set_dt0(dtini);
-	fmv->set_dtp(dtini);
-	fmv->set_dtpp(dtini);
-	t=2./(3.*(1+fluidw)*Hb);
-	fmv->set_t(t);
-	fmv->set_tini(t);
-	fmv->set_amp(amp);
-	fmv->set_Hb(Hb);
-	fmv->set_KOep(KOep);
-	fmv->set_acc(acc);
-	fmv->set_exg(exg);
-	fmv->set_fluidw(fluidw);
-	fmv->set_scalarm(0.);			//scalar field mass term=0.
-	fmv->set_Mkap(Mkap);
-	fmv->set_b(bminmod);
+	double lambda=0.;
+	double scalarm=0.;
+	double tini=2./(3.*(1+fluidw)*Hb);
+	t=tini;
+
+	fmv->initial_params(cfl,etaa,etab,etabb,lambda,dtini,dtini,dtini,t,t,Hb,KOep,exg,fluidw,scalarm,Mkap,bminmod);
 	//initial parameter setting end
 	
 	//check print line number start
@@ -383,9 +368,12 @@ int main(int argc,char* argv[])
 			fmv0[i+1]=fmv1[i];
 			//class preparation end
 
-			//inital setting
-			fmv1[i]->set_fmr_initial();
+			//initial setting for the upper layer start
+			double deltat=0.5*fmv0[i]->get_dt0();
+			fmv1[i]->initial_params(cfl,etaa,etab,etabb,lambda,deltat,deltat,deltat,t,tini,Hb,KOep,exg,fluidw,scalarm,Mkap,bminmod);
+			fmv1[i]->set_fmr_initial();					
 			cout << "initial setting done" << endl;
+			//initial setting for the upper layer end
 			
 			//initial data loading
 			fmv1[i]->initial_continue(fcontinue);
@@ -685,8 +673,12 @@ int main(int argc,char* argv[])
 				fmv1[ln]=new Fmv1(tab,2*jbs[ln],-2*jbs[ln],2*kbs[ln],nymin,2*lbs[ln],nzmin,fmv0[ln]->get_x(jbs[ln]),fmv0[ln]->get_x(-jbs[ln]),fmv0[ln]->get_y(kbs[ln]),ymin,fmv0[ln]->get_z(lbs[ln]),zmin,amp,fld, scl, cuev, fmv0[ln]);
 				fmv0[ln+1]=fmv1[ln];
 
-				fmv1[ln]->set_fmr_initial();					//initial setting for the upper layer
+				//initial setting for the upper layer start
+				double deltat=0.5*fmv0[ln]->get_dt0();
+				fmv1[ln]->initial_params(cfl,etaa,etab,etabb,lambda,deltat,deltat,deltat,t,tini,Hb,KOep,exg,fluidw,scalarm,Mkap,bminmod);
+				fmv1[ln]->set_fmr_initial();					
 				cout << "initial setting done" << endl;
+				//initial setting for the upper layer end
 
 				if(ln>0)
 				{

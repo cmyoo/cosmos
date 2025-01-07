@@ -101,25 +101,7 @@ void Fmv1::evolve()
 
 //inital setting when this layer starts
 void Fmv1::set_fmr_initial()
-{
-	//initial parameter setting start
-	cfl=llay->get_cfl();
-	etaa=llay->get_etaa();
-	etab=llay->get_etab();
-	etabb=llay->get_etabb();
-	lambda=llay->get_lambda();
-	dt0=0.5*llay->get_dt0();
-	dtp=dt0;
-	dtpp=dt0;
-	fluidw=llay->get_fluidw();
-	scalarm=llay->get_fluidw();
-	t=llay->get_t();
-	Hb=llay->get_Hb();
-	tini=llay->get_tini();
-	KOep=llay->get_KOep();
-	exg=llay->get_exg();
-	kap_MUSCL=llay->get_Mkap();
-	b_minmod=llay->get_b();
+{	
 	mrf=false;
 
 	llli=llay->get_lli();
