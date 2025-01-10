@@ -275,7 +275,7 @@ int main(int argc,char* argv[])
 	
 	//main class for bssn
 	Fmv *fmv=new Fmv(tab,nxmax,nxmin,nymax,nymin,nzmax,nzmin,
-					xmax,xmin,ymax,ymin,zmax,zmin,amp,fld,scl,cuev,laymax);
+					xmax,xmin,ymax,ymin,zmax,zmin,amp,fld,scl,cuev);
 	Fmv1 **fmv1;
 	Fmv0 **fmv0;
 
