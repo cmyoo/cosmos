@@ -13,13 +13,12 @@
 using namespace std;
 
 
-void Fmv::initial(double mu)
+void Fmv::initial(double mu,double kk)
 {
 	//setting flatdet and Gamma
 	set_flat();
 	double L=1.;						// box size
 	double inr=0.8;						// Psi=1 for r>inr
-	double kk=10.;
 	
 	#pragma omp parallel for
 	for(int l=lli;l<=lui;l++)

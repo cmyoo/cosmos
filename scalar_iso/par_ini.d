@@ -2,7 +2,7 @@
 ##   parameters for COSMOS code            #######################################
 ##   ver1.00 by Chulmoon Yoo               #######################################
 ##################################################################################
-1   	        # maximum step of the main loop 
+99999999        # maximum step of the main loop 
 400.	        # maximum time to evolve
 3	            # tab number of the bufer grids
 10.	            # amp
@@ -33,7 +33,7 @@
 ##################################################################################
 ###  initial data parameter
 ##################################################################################
-1	            # 0:no continue 1:continue
+0	            # 0:no continue 1:continue
 ini_all.dat	    # continue file
 0.65	        # amplitude 
 10.	            # wave number 
@@ -56,6 +56,6 @@ ini_all.dat	    # continue file
 ##################################################################################
 ###  parameters for output
 ##################################################################################
-0.5	            #1st part print interval boundary time
-0.5	            #2nd part
+5.0             #1st part print interval boundary time
+5.0	            #2nd part
 100.	        #changing time for print interval

@@ -2246,6 +2246,7 @@ public:
 	void set_initial_scalar(double mu,double k,double xi2,double xi3);
 	void set_initial_fluid(double mu,double k,double xi2,double xi3);
 	void initial(double mu);
+	void initial(double mu,double k);
 	void set_ini_from_Psi();
 
 };
