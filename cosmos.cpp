@@ -403,7 +403,6 @@ int main(int argc,char* argv[])
 		//fmv->set_initial_scalar(mus,kks,xi2s,xi3s);
 		//#pragma omp barrier
 		fmv->initial_nonsph(mu,kk,xi2,xi3,xi2s,xi3s,w3);
-		//fmv->initial_nonsph(mu,kk,xi2,xi3);
 		// fmv->initial(mu);
 		#pragma omp barrier
 		printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
@@ -700,7 +699,6 @@ int main(int argc,char* argv[])
 			// file3d.close();
 
 			//output all data start
-			//fileall.open(file_continue, ios::out );
 			fileall.open("out_all.dat", ios::out );
 
 			output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
@@ -732,7 +730,6 @@ int main(int argc,char* argv[])
 		}
 	
 		//output all data start
-		//fileall.open(file_continue, ios::out );
 		fileall.open("out_all.dat", ios::out );
 	
 		output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);

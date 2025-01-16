@@ -34,16 +34,16 @@
 ###  initial data parameter
 ##################################################################################
 0	            # 0:no continue 1:continue
-out_all.dat	    # continue file
+ini_all.dat	    # continue file
 0.01	        # amplitude 
-10.	            # wave number (NON-use in pert.)
-10.	            # xi2 nonsphericity parameter 1 (NON-use in pert.)
-0.	            # xi3 nonsphericity parameter 2 (NON-use in pert.)
-0.	            # w3  alignment angle  (NON-use in pert.)
-0.	            # amplitude for the scalar field (NON-use in pert.)
-10.	            # wave number for the scalar field (NON-use in pert.)
-15.	            # xi2s (NON-use in pert.)
-0.	            # xi3s (NON-use in pert.)
+10.	            # wave number 
+10.	            # xi2 nonsphericity parameter 1 
+0.	            # xi3 nonsphericity parameter 2 
+0.	            # w3  alignment angle 
+0.	            # amplitude for the scalar field 
+10.	            # wave number for the scalar field 
+15.	            # xi2s 
+0.	            # xi3s 
 2.0	            # Hubble
 
 ##################################################################################

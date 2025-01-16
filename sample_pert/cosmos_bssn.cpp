@@ -2536,6 +2536,64 @@ void Fmv0::BSSN_adv()
 					set_dbv(l,k,j,i)= adv_x+adv_y+adv_z;
 				}
 				
+				if(scalarevo)
+				{
+					double adv_x,adv_y,adv_z;
+
+					for(int i=nsc;i<=nscp;i++)
+					{
+						if(bx_p<0){
+							adv_x=( -get_bv(l,k,j-3,i)
+									+ 6.*get_bv(l,k,j-2,i)
+									-18.*get_bv(l,k,j-1,i)
+									+10.*get_bv(l,k,j  ,i)
+									+ 3.*get_bv(l,k,j+1,i)
+									)*dxi12*bx_p;
+						}else{
+							adv_x=-( -get_bv(l,k,j+3,i)
+									+ 6.*get_bv(l,k,j+2,i)
+									-18.*get_bv(l,k,j+1,i)
+									+10.*get_bv(l,k,j  ,i)
+									+ 3.*get_bv(l,k,j-1,i)
+									)*dxi12*bx_p;
+						}
+
+						if(by_p<0){
+							adv_y=( -get_bv(l,k-3,j,i)
+									+ 6.*get_bv(l,k-2,j,i)
+									-18.*get_bv(l,k-1,j,i)
+									+10.*get_bv(l,k  ,j,i)
+									+ 3.*get_bv(l,k+1,j,i)
+									)*dyi12*by_p;
+						}else{
+							adv_y=-( -get_bv(l,k+3,j,i)
+									+ 6.*get_bv(l,k+2,j,i)
+									-18.*get_bv(l,k+1,j,i)
+									+10.*get_bv(l,k  ,j,i)
+									+ 3.*get_bv(l,k-1,j,i)
+									)*dyi12*by_p;
+						}
+
+						if(bz_p<0){
+							adv_z=( -get_bv(l-3,k,j,i)
+									+ 6.*get_bv(l-2,k,j,i)
+									-18.*get_bv(l-1,k,j,i)
+									+10.*get_bv(l  ,k,j,i)
+									+ 3.*get_bv(l+1,k,j,i)
+									)*dzi12*bz_p;
+						}else{
+							adv_z=-( -get_bv(l+3,k,j,i)
+									+ 6.*get_bv(l+2,k,j,i)
+									-18.*get_bv(l+1,k,j,i)
+									+10.*get_bv(l  ,k,j,i)
+									+ 3.*get_bv(l-1,k,j,i)
+									)*dzi12*bz_p;
+						}
+						//set_bv(l,k,j,i)= get_bv(l,k,j,i) +adv_x+adv_y+adv_z;
+						set_dbv(l,k,j,i)= adv_x+adv_y+adv_z;
+					}
+				}
+
 				set_dbv(l,k,j,7)+=bx_p*dfxx;
 				set_dbv(l,k,j,8)+=by_p*dfyy;
 				set_dbv(l,k,j,9)+=bz_p*dfzz;
