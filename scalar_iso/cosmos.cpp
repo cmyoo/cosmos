@@ -16,8 +16,7 @@
 // header      :: cosmos.h ahf2d.h                                                              //
 // definition  :: cosmos_bssn.cpp cosmos_initial.cpp cosmos_output.cpp                          //
 //                cosmos_boundary.cpp cosmos_ahf.cpp cosmos_ipol.cpp                            //
-//                cosmos_solveconst.cpp cosmos_maxslice.cpp cosmos_fluid.cpp                    //
-//                cosmos_mindis.cpp cosmos_fmr.cpp                                              //
+//                cosmos_fluid.cpp cosmos_fmr.cpp                                               //
 // how to make :: makefile                                                                      //
 //----------------------------------------------------------------------------------------------//
 //    Compile :: $ make                                                                         //
@@ -108,7 +107,6 @@ double& etaa, 								//etaa for gauge
 double& etab, 								//etab for gauge
 double& etabb, 								//etabb for gauge
 double& KOep, 								//factor for Kreiss-Oliger disspation term
-double& acc, 								//acceleration factor for elliptic equations
 int& exg,									//excision grid
 int& contn,									//1 for continue
 char *file_continue,						//continue file
@@ -202,7 +200,6 @@ int main(int argc,char* argv[])
 		etabb, 								//etabb for gauge	
 		AHFstart, 							//time to start AHF
 		KOep,								//factor for Kreiss-Oliger dissipation term
-		acc,								//parameter for solveconst
 		mu, 								//amplitude of the perturbation
 		kk, 								//scale of the perturbation
 		xi2, 								//nonsph parameter 1
@@ -245,7 +242,7 @@ int main(int argc,char* argv[])
 		xmin, xmax, ymin,
 		ymax, zmin, zmax,
 		cfl, cdt, etaa, etab, etabb,
-		KOep, acc, exg, contn, file_continue, 
+		KOep, exg, contn, file_continue, 
         mu,kk,xi2,xi3, w3, 
         mus,kks,xi2s,xi3s, 
         Hb, fluidw, Mkap, bminmod,
@@ -811,7 +808,6 @@ double& etaa,
 double& etab, 
 double& etabb,
 double& KOep, 
-double& acc,
 int& exg, 
 int& contn, 
 char *file_continue, 
@@ -940,10 +936,6 @@ double& changept
 	getline(fin, buf);
 	if((buf[0]!='#')&&(!buf.empty())){
 		sscanf(buf.c_str(),"%lf %s",&KOep,cp);
-	}
-	getline(fin, buf);
-	if((buf[0]!='#')&&(!buf.empty())){
-		sscanf(buf.c_str(),"%lf %s",&acc,cp);
 	}
 	getline(fin, buf);
 	if((buf[0]!='#')&&(!buf.empty())){

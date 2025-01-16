@@ -37,10 +37,10 @@ protected:
 	int tab;													// tab for refinement boundary
 	int jmax,jmin,kmax,kmin,lmax,lmin;							// maximum/minimum number of grid points
 	int jui,jli,kui,kli,lui,lli;								// range to evolve
-	int nx,ny,nz,nn,nc,nv,ncoef;								// number of grid points, variables and outputs 
+	int nx,ny,nz,nn,nc,nv;										// number of grid points, variables and outputs 
 	int nt;														// number of energy momentum tensor
-	int npr;													// number of  primitive variables of fluids
-	int nsc,nscp;					
+	int npr;													// number of primitive variables of fluids
+	int nsc,nscp;												// number for scalar field and its momentum	
 	int jhm,khm,lhm;											// grid point of max constraint violation
 	int jmm,kmm,lmm;											// grid point of max constraint violation
 	int jkm,kkm,lkm;											// grid point of max Kre. inv.
@@ -64,7 +64,6 @@ protected:
 	double tmax,cfl,etaa,etab,etabb;							// CFL condition and gauge parameters
 	double KOep;												// Kreiss-Oliger dissipation dissipation term
 	double amp;													// amplitude of inhomogeneous grid
-	double acc;													// acc for solveconst
 	double lambda;												// cosmological constant
 	double pi2,pi4,pi8,pi16;									// 4*pi,8*pi,16*pi
 	///////////////  general parameters and variables ////////////////////////
@@ -125,12 +124,9 @@ protected:
 	double ****primv;											// primitive variables of fluid
 	///////////////  fluid fluxes and primitive vars /////////////////////////
 	
-	///////////////  temporary storages for elliptic solvers /////////////////
-	double ***psi;												// for psi in Hamiltonian constrant
-	double ****wvec;											// for momentum constraint solver
-	double ***alpha;											// for maximal slice
-	double ****coef;											// coefficients for maxslice
-	///////////////  temporary storages for elliptic solvers /////////////////
+	///////////////  temporary storages //////////////////////////////////////
+	double ***psi;												// for psi in initial data setting
+	///////////////  temporary storages //////////////////////////////////////
 	
 	///////////////  geometrical variables for inhomogeneous coordinate //////
 //	double ***flat_det;											// flat metric determinant
@@ -249,7 +245,6 @@ public:
 		//  8:Gamma^x-D_gamma^x, 9:Gamma^y-D_gamma^y, 10:Gamma^z-D_gamma^z
 		
 		nv=5;										// for output variables
-		ncoef=12;									// for coefficients in elleptic solvers
 		///////////////  number of variables /////////////////////////////////////////////
 
 		///////////////  initial sign setting for boundary conditions  ///////////////////
@@ -415,41 +410,6 @@ public:
 				psi[l][k]= new double[nx];
 			}
 		}
-		
-		alpha = new double**[nz];
-		for(int l=0;l<nz;l++)
-		{
-			alpha[l] = new double*[ny];
-			for(int k=0;k<ny;k++)
-			{
-				alpha[l][k]= new double[nx];
-			}
-		}
-
-		wvec = new double***[3];
-		for(int l=0;l<3;l++){
-			wvec[l] = new double**[nz];
-			for(int k=0;k<nz;k++){
-				wvec[l][k] = new double*[ny];
-				for(int j=0;j<ny;j++){
-					wvec[l][k][j]= new double[nx];
-				}
-			}
-		}
-
-		coef = new double***[ncoef];
-		for(int l=0;l<ncoef;l++)
-		{
-			coef[l] = new double**[nz];
-			for(int k=0;k<nz;k++)
-			{
-				coef[l][k] = new double*[ny];
-				for(int j=0;j<ny;j++)
-				{
-					coef[l][k][j]= new double[nx];
-				}
-			}
-		}																				//
 		///////////////  temporary variables for elliptic solvers ////////////////////////
 
 		///////////////  fluid primitive and fluxes //////////////////////////////////////
@@ -643,21 +603,6 @@ public:
 		delete[] con;
 		con=NULL;
 		
-		for(int l=0;l<3;l++){
-			for(int k=0;k<nz;k++){
-				for(int j=0;j<ny;j++){
-					delete[] wvec[l][k][j];
-					wvec[l][k][j]=NULL;
-				}
-				delete[] wvec[l][k];
-				wvec[l][k]=NULL;
-			}
-			delete[] wvec[l];
-			wvec[l]=NULL;
-		}
-		delete[] wvec;
-		wvec=NULL;
-
 		for(int l=0;l<nv;l++){
 			for(int k=0;k<nz;k++){
 				for(int j=0;j<ny;j++){
@@ -673,22 +618,6 @@ public:
 		delete[] outv;
 		outv=NULL;
 		
-		//maxslice mod
-		for(int l=0;l<ncoef;l++){
-			for(int k=0;k<nz;k++){
-				for(int j=0;j<ny;j++){
-					delete[] coef[l][k][j];
-					coef[l][k][j]=NULL;
-				}
-				delete[] coef[l][k];
-				coef[l][k]=NULL;
-			}
-			delete[] coef[l];
-			coef[l]=NULL;
-		}
-		delete[] coef;
-		coef=NULL;
-
 		//maxslice mod
 		for(int k=0;k<nz;k++){
 			for(int j=0;j<ny;j++){
@@ -851,9 +780,6 @@ public:
 	}
 	int get_exg() const{
 		return exg;
-	}
-	int get_acc() const{
-		return acc;
 	}
 	int get_layn() const{
 		return layn;
@@ -1046,9 +972,6 @@ public:
 	double get_con(int l,int k,int j,int i) const{
 		return con[i][l-lmin][k-kmin][j-jmin];
 	}
-	double get_wvec(int l,int k,int j,int i) const{
-		return wvec[i][l-lmin][k-kmin][j-jmin];
-	}
 	double get_flat_df2x(int j)const{
 		return flat_df2x[j-jmin];
 	}
@@ -1079,14 +1002,8 @@ public:
 	double get_outv(int l,int k,int j,int i) const{
 		return outv[i][l-lmin][k-kmin][j-jmin];
 	}
-	double get_coef(int l,int k,int j,int i) const{
-		return coef[i][l-lmin][k-kmin][j-jmin];
-	}
 	double get_psi(int l,int k,int j) const{
 		return psi[l-lmin][k-kmin][j-jmin];
-	}
-	double get_alpha(int l,int k,int j) const{
-		return alpha[l-lmin][k-kmin][j-jmin];
 	}
 	double get_primv(int l,int k,int j,int i) const{
 		return primv[i][l-lmin][k-kmin][j-jmin];
@@ -1338,10 +1255,6 @@ public:
 		exg=eg;
 		return;
 	}
-	void set_acc(double ac){
-		acc=ac;
-		return;
-	}
 	void set_amp(double a){
 		amp=a;
 		return;
@@ -1420,9 +1333,6 @@ public:
 	double& set_con(int l,int k,int j,int i){
 		return con[i][l-lmin][k-kmin][j-jmin];
 	}
-	double& set_wvec(int l,int k,int j,int i){
-		return wvec[i][l-lmin][k-kmin][j-jmin];
-	}
 	double& set_flat_df2x(int j){
 		return flat_df2x[j-jmin];
 	}
@@ -1452,9 +1362,6 @@ public:
 	}
 	double& set_outv(int l,int k,int j,int i){
 		return outv[i][l-lmin][k-kmin][j-jmin];
-	}
-	double& set_coef(int l,int k,int j,int i){
-		return coef[i][l-lmin][k-kmin][j-jmin];
 	}
 	double& set_primv(int l,int k,int j,int i){
 		return primv[i][l-lmin][k-kmin][j-jmin];
@@ -1519,17 +1426,6 @@ public:
 
 		#pragma omp parallel for
 		for(int j=0;j<nx;j++){
-			for(int l=0;l<nz;l++){
-				for(int i=0;i<3;i++){
-					for(int k=0;k<ny;k++){
-						wvec[i][l][k][j] = 0.;
-					}
-				}
-			}
-		}
-
-		#pragma omp parallel for
-		for(int j=0;j<nx;j++){
 			flat_df2x[j] = 0.;
 		}
 		#pragma omp parallel for 
@@ -1581,28 +1477,8 @@ public:
 		#pragma omp parallel for 
 		for(int j=0;j<nx;j++){
 			for(int l=0;l<nz;l++){
-				for(int i=0;i<ncoef;i++){
-					for(int k=0;k<ny;k++){
-						coef[i][l][k][j] = 0.;
-					}
-				}
-			}
-		}
-
-		#pragma omp parallel for 
-		for(int j=0;j<nx;j++){
-			for(int l=0;l<nz;l++){
 				for(int k=0;k<ny;k++){
 					psi[l][k][j] = 0.;
-				}
-			}
-		}
-
-		#pragma omp parallel for 
-		for(int j=0;j<nx;j++){
-			for(int l=0;l<nz;l++){
-				for(int k=0;k<ny;k++){
-					alpha[l][k][j] = 0.;
 				}
 			}
 		}
@@ -1650,7 +1526,6 @@ public:
 				}
 			}
 		}
-		
 
 		return;
 	}
@@ -1670,20 +1545,6 @@ public:
 						dbv[i][l][k][j] = 0.;
 						//bv0[i][l][k][j] = 0.;
 						//bv1[i][l][k][j] = 0.;
-					}
-				}
-			}
-		}
-
-		#pragma omp parallel for 
-		for(int j=0;j<nx;j++){
-			for(int l=0;l<nz;l++){
-				for(int i=0;i<3;i++){
-					for(int k=0;k<ny;k++){
-						if(bflag[l][k][j]!=-1)
-						continue;
-						
-						wvec[i][l][k][j] = 0.;
 					}
 				}
 			}
@@ -1948,20 +1809,6 @@ public:
 			for(int l=0;l<nz;l++){
 				for(int k=0;k<ny;k++){
 					psi[l][k][j] = bv[13][l][k][j];
-				}
-			}
-		}
-
-		return;
-	}
-
-	void set_alpha()
-	{
-		#pragma omp parallel for 
-		for(int j=0;j<nx;j++){
-			for(int l=0;l<nz;l++){
-				for(int k=0;k<ny;k++){
-					alpha[l][k][j] = bv[0][l][k][j];
 				}
 			}
 		}
@@ -2365,26 +2212,6 @@ public:
 
 public:
 		
-	//////////////////////////////////////////////////////
-	//  MAXSLICE & CONSTRAINTS & MINIMAL DISTORTION func.
-	//////////////////////////////////////////////////////
-	
-	void set_source();
-	void solveconst(int mmstep,double cc,double acc);
-
-	void solveham(int n,double cc,double acc);
-	void solveham_sor_mono(int n,double cc,double acc);
-	void set_source_solveham();
-	void coefficients_solveham();
-	
-	void coefficients();
-	void maxslice(int n,double convcond,double acc);
-	void maxslice_sor(int n,double convcond,double acc);
-	
-	void set_source_mindis();
-	void solve_mindis(int msstep,double cc,double acc);
-	void coefficients_mindis();
-
 	////////////////////////////////////////
 	//  BOUNDARY func.
 	////////////////////////////////////////
