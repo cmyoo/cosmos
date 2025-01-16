@@ -494,7 +494,7 @@ int main(int argc,char* argv[])
 		mommax=fmv->get_mommax();
 		#pragma omp barrier
 		cout << " time=" << t 
-			<< " step=" << step+1 << endl
+			<< " step=" << step << endl
 			<< " alp=" << fmv->get_bv(fmv->get_lli(),fmv->get_kli(),0,0) 
 			<< " -ek=" << abs(fmv->get_bv(nxmax,nymax,nzmax,20)) 
 			<< endl 

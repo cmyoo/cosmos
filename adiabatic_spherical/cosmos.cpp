@@ -700,7 +700,6 @@ int main(int argc,char* argv[])
 			// file3d.close();
 
 			//output all data start
-			//fileall.open(file_continue, ios::out );
 			fileall.open("out_all.dat", ios::out );
 
 			output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
