@@ -2354,10 +2354,6 @@ public:
 
 class Fmv : public Fmv0{
 private:
-	// int laymax;
-	// bool *mrflag;
-	// int *lbs;
-	// double *alp_fmr;
 
 public:
 	Fmv(int tabs,int jupper,int jlower,int kupper,int klower,int lupper,int llower,

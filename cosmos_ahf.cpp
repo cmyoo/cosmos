@@ -52,6 +52,10 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 		expmax=-9999999999999999999.;
 		expmin=99999999999999999999.;
 		
+		bool level_mismatch=false;
+		bool too_small=false;
+
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			//sin(phi) and cos(phi)
@@ -161,17 +165,26 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 				(kc>(kmax-3)) || (kc<(kmin+3)) ||
 				(lc>(lmax-3)) || (lc<(lmin+3)) )
 				{
-					cout << horizonkind << " finder Error :: Level mismatch   "
-					<< jc << "," << kc << "," << lc << ", h=" << hc
-					<< endl;
-					error=true;
-					return;
+					#pragma omp critical (error_output)
+					{
+						//cout << horizonkind << " finder Error :: Level mismatch   "
+						// << jc << "," << kc << "," << lc << ", h=" << hc
+						// << endl;
+						level_mismatch=true;
+					}
+					
+					continue;
+					
 				}
 				if(fmv->ifuncf(hb[0][0])<fmv->get_dx())
 				{
-				    cout << "too small" << endl;
-				    error=true;
-				    return;
+				    #pragma omp critical (error_output)
+					{
+						//cout << "too small" << endl;
+				    	too_small=true;
+					}
+					
+					continue;
 				}																				//
 				///////// run off error //////////////////////////////////////////////////////////
 
@@ -527,6 +540,14 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 			}
 		}
 		
+		if(too_small)
+		cout << "too small" << endl;
+		if(level_mismatch)
+		cout << "level_mismatch" << endl;
+
+		if(too_small || level_mismatch)
+		return;
+
 		///// Boundary Condition for the quantities related to AH ////////////////////////////////////////
 		boundaryset(ds);																				//
 		
@@ -582,6 +603,7 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 
 		double errv=0.;
 		double sum=0.;
+		#pragma omp parallel for reduction(+:errv,sum)
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -593,9 +615,10 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 				errv+= (ha[k][j]-hb[k][j])*(ha[k][j]-hb[k][j])*dtmp;
 			}
 		}
+		#pragma omp barrier
 		double errtmp=sqrt(errv/sum);
 
-
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -603,6 +626,7 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 				hb[k][j] = fac*ha[k][j] +(1.-fac)*hb[k][j];
 			}
 		}
+		#pragma omp barrier
 		
 		boundaryset(hb);
 		
@@ -638,6 +662,7 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 	circp1=0.;
 	circp2=0.;
 	
+	#pragma omp parallel for reduction(+:area,circe,circp1,circp2)
 	for(int k=0;k<mp;k++)
 	{
 		for(int j=0;j<mt;j++)
@@ -752,7 +777,8 @@ void Ahf2d::find_ah(Fmv0 *fmv,int loopmax,double err_p,double err_eps,ofstream& 
 				circe += dce[k][index]*facj*fack;
 			}
 		}
-	}																								//
+	}
+	#pragma omp barrier																								//
 	////// Numerical integration for AH area, length of equator and meridian /////////////////////////
 	
 	////// output for AH area, length of equator and meridian ////////////////////////////////////////

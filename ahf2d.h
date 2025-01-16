@@ -369,6 +369,7 @@ public:
 	///////////////////////////////////////////////
 	void multiple(double **x,double **ax)
 	{
+		#pragma omp parallel for
 		for(int k=0;k<mp;k++)
 		{
 			for(int j=0;j<mt;j++)
@@ -376,7 +377,8 @@ public:
 				ax[k][j]=0.;
 			}
 		}
-		
+		#pragma omp barrier
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			int kp = k+1;
@@ -401,6 +403,7 @@ public:
 				//-(2.-var)*x[k][j];
 			}
 		}
+		#pragma omp barrier
 	
 		return;
 	}
@@ -417,6 +420,7 @@ public:
 		int it=0,itmax=100000;
 		
 		//construction of the source term
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -424,12 +428,14 @@ public:
 				vr[k][j] = src[k][j];
 			}
 		}
-		
+		#pragma omp barrier
+
 		//U^{-1}D^{-1}L^{-1}S
 		precondition(vr);
 		
 		///////////// calculate the norm of source for reference /////////////////////////
 		double norm_src=0.;																//
+		#pragma omp parallel for reduction(+:norm_src)
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -437,6 +443,7 @@ public:
 				norm_src += vr[k][j]*vr[k][j];
 			}
 		}
+		#pragma omp barrier
 		
 		if(norm_src==0.){
 			cout << "             ** Error :: No source term!!" << endl;
@@ -457,6 +464,7 @@ public:
 		precondition(vtmp);
 		
 		//construction of r0
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -464,8 +472,10 @@ public:
 				vr0[k][j] = vr[k][j]-vtmp[k][j];
 			}
 		}
+		#pragma omp barrier
 
 		//construction of r,p,e
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -475,6 +485,7 @@ public:
 				ve[k][j] = vr0[k][j];
 			}
 		}
+		#pragma omp barrier
 		
 		//iteration start for A x = b 
 		do
@@ -492,6 +503,7 @@ public:
 			
 			////////calculation of alpha//////////////////////////////
 			double mu1=0.;											//
+			#pragma omp parallel for reduction(+:mu1)
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -499,8 +511,10 @@ public:
 					mu1 += vr0[k][j]*vr[k][j];
 				}
 			}
+			#pragma omp barrier
 
 			double gamma=0.;
+			#pragma omp parallel for reduction(+:gamma)
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -508,12 +522,14 @@ public:
 					gamma += vr0[k][j]*vtmp[k][j];
 				}
 			}
+			#pragma omp barrier
 			double alpha = mu1/gamma;								//
 			////////calculation of alpha//////////////////////////////
 
 			
 			//h_{k+1}=e_k-alpha_k* A p_k
 			//e_k <- e_k + h_{k+1}
+			#pragma omp parallel for
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -522,6 +538,7 @@ public:
 					ve[k][j] = ve[k][j] + vh[k][j];
 				}
 			}
+			#pragma omp barrier
 			
 			///////////////// vtmp <- A e_k //////////////////////////
 			//boundary setting if R\neq0							//
@@ -537,6 +554,7 @@ public:
 			
 			//x_{k+1}=x_k + alpha_k e_k  !! e_k <- e_k + h_{k+1} before
 			//r_{k+1}=r_k - alpha_k vtmp !! vtmp <- A (e_k + h_{k+1})
+			#pragma omp parallel for
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -545,10 +563,12 @@ public:
 					vr[k][j]  = vr[k][j]  -alpha*vtmp[k][j];
 				}
 			}
+			#pragma omp barrier
 			
 			///////// calculation of beta ////////////////////////////
 			double mu2=mu1;											//
 			mu1=0.;
+			#pragma omp parallel for reduction(+:mu1)
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -556,11 +576,13 @@ public:
 					mu1 += vr0[k][j]*vr[k][j];
 				}
 			}
+			#pragma omp barrier
 			double beta = mu1/mu2;									//
 			///////// calculation of beta ////////////////////////////
 			
 			//e_{k+1}=r_{k+1}+beta_{k+1} h_{k+1}
 			//p_{k+1}=e_{k+1}+beta_{k+1} (h_{k+1} + beta_{k+1} p_k)
+			#pragma omp parallel for
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -569,9 +591,11 @@ public:
 					vp[k][j] = ve[k][j] +beta*(vh[k][j]+beta*vp[k][j]);
 				}
 			}
+			#pragma omp barrier
 			
 			//calculation of norm
 			double norm_r=0.;
+			#pragma omp parallel for reduction(+:norm_r)
 			for(int k=1;k<(mp-1);k++)
 			{
 				for(int j=1;j<(mt-1);j++)
@@ -579,6 +603,7 @@ public:
 					norm_r += vr[k][j]*vr[k][j];
 				}
 			}
+			#pragma omp barrier
 
 			/* cout << "                   Poisson error :: " << norm_src*errmax -norm_r */
 			/* 	   << " alpha=" << alpha << " beta=" << beta << endl; */
@@ -597,6 +622,7 @@ public:
 	//this is operated to vtpm and vtmp=0 in buffer region
 	void precondition(double **vs)
 	{
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -604,6 +630,7 @@ public:
 				vcon[k][j] = vs[k][j];
 			}
 		}
+		#pragma omp barrier
 	
 		//------------------------
 		//       s => C^{-1} s
@@ -640,6 +667,7 @@ public:
 			}
 		}
 		
+		#pragma omp parallel for
 		for(int k=1;k<(mp-1);k++)
 		{
 			for(int j=1;j<(mt-1);j++)
@@ -647,23 +675,30 @@ public:
 				vs[k][j] = vcon[k][j];
 			}
 		}
+		#pragma omp barrier
+
 		return;
 	}
 	
 	//reflection boundary cond.
 	void boundaryset(double **vs)
 	{
+		#pragma omp parallel for
 		for(int k=0;k<mp;k++)
 		{
 			vs[k][0] = vs[k][1];
 			vs[k][mt-1] = vs[k][mt-2];
 		}
+		#pragma omp barrier
+
+		#pragma omp parallel for
 		for(int j=0;j<mt;j++)
 		{
 			vs[0][j] = vs[1][j];
 			vs[mp-1][j] = vs[mp-2][j];
 		}
-		
+		#pragma omp barrier
+
 		return;
 	}
 
@@ -689,16 +724,21 @@ public:
 	//mp is supposed to be an even integer
 	void boundary_periodicphi_nosympoletheta(double **vs)
 	{
+		#pragma omp parallel for
 		for(int k=1;k<mp/2;k++)
 		{
 			vs[k][0] = vs[k+mp/2-1][1];
 			vs[k][mt-1] = vs[k+mp/2-1][mt-2];
 		}
+		#pragma omp barrier
+		#pragma omp parallel for
 		for(int k=mp/2;k<(mp-1);k++)
 		{
 			vs[k][0] = vs[k-mp/2+1][1];
 			vs[k][mt-1] = vs[k-mp/2+1][mt-2];
 		}
+		#pragma omp barrier
+		#pragma omp parallel for
 		for(int j=0;j<mt;j++)
 		{
 			vs[0][j] = vs[mp-2][j];
