@@ -14,21 +14,28 @@ our [wiki](https://github.com/GRChombo/GRChombo/wiki), with the home page giving
 
 ## Description
 Perfect fluid with linear equation of states & massless scalar field
+
 Non-Cartesian scale-up coordinates
+
 Fixed mesh refinement
+
 OpenMP parallelization 
 
 ## Required system environments
 Depending on the environment, one may have to edit the makefile appropriately. 
 
-### For a Linux PC, the default makefile would work with g++ compiler.
+### Linux
+the default makefile would work with g++ compiler.
 
-### For a Mac PC
+### Mac
 One may have to install an openMP package in addition to a C++ compiler. 
 The std compiler option would have to be altered to an appropriate one (e.g. "-std=c++14")
 
-## NOTE
-### When performing test calculations on a low-spec PC, such as a laptop PC, the calculation speed (especially for the apparent horizon finder) may drop significantly unless the number of threads for openMP is kept small. For such test calculations, a user may have to limit the number of cores to one or at most a few with "export OMP_NUM_THREADS=x" (x: number of threads).
+### Note
+When performing test calculations on a low-spec PC, such as a laptop PC, the calculation speed (especially for the apparent horizon finder) may drop significantly unless the number of threads for openMP is kept small. For such test calculations, a user may have to limit the number of cores to one or at most a few with "export OMP_NUM_THREADS=x" (x: number of threads).
+
+## Examples
+Three samples are attached in the directories: **sample_pert**, **adiabatic_spherical**, and **scalar_iso**. The detailed physical settings are given in the enclosed pdf files in the directories. 
 
 ## License
 COSMOS is licensed under the BSD 3-Clause License. Please see LICENSE for details.
