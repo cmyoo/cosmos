@@ -13,12 +13,14 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: cd
+    - name: run adiabatic_spherical
       run: |
         pwd
         cd source/adiabatic_spherical/
         pwd
         make
+        ls
+        cosmos
         ls
     # - name: make
     #   run: make
