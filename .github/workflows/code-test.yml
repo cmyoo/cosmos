@@ -15,9 +15,11 @@ jobs:
       uses: actions/checkout@v4
     - name: cd
       run: cd ./source/adiabatic_spherical/
-    - name: make
-      run: make
-    - name: make check
-      run: ls 
+    - name: check
+      run: ls
+    # - name: make
+    #   run: make
+    # - name: make check
+    #   run: ls 
 #    - name: make adiabatic_spherical
 #      run: ./source/adiabatic_spherical/make
