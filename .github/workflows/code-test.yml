@@ -13,9 +13,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: ls
-      run: ls -ltr
+    - name: cd
+      run: cd ./source/adiabatic_spherical/
+    - name: make
+      run: make
+   - name: make check
+     run: ls 
 #    - name: make adiabatic_spherical
 #      run: ./source/adiabatic_spherical/make
-#    - name: make check
-#      run: ls ../source/adiabatic_spherical
