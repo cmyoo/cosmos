@@ -20,7 +20,7 @@ jobs:
         pwd
         make
         ls
-        cosmos
+        ./cosmos
         ls
     # - name: make
     #   run: make
