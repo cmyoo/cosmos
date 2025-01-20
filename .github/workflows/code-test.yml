@@ -14,9 +14,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: cd
-      run: cd ./source/adiabatic_spherical/
-    - name: check
-      run: ls
+      run: |
+        pwd
+        cd source/adiabatic_spherical/
+        pwd
     # - name: make
     #   run: make
     # - name: make check
