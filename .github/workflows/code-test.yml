@@ -1,0 +1,19 @@
+name: C/C++ CI
+
+on:
+  push:
+#    branches: [ "chul" ]
+#  pull_request:
+#    branches: [ "chul" ]
+
+jobs:
+  build:
+    name: Run Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: make adiabatic_spherical
+      run: ../source/adiabatic_spherical/make
+    - name: make check
+      run: ls ../source/adiabatic_spherical
