@@ -18,6 +18,8 @@ jobs:
         pwd
         cd source/adiabatic_spherical/
         pwd
+        make
+        ls
     # - name: make
     #   run: make
     # - name: make check
