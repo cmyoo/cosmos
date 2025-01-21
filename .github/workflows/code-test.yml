@@ -5,7 +5,7 @@ on:
 
 jobs:
   adiabatic_spherical:
-    name: adiabatic_spherical
+    name: Run adiabatic_spherical
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -18,9 +18,8 @@ jobs:
         cd source/adiabatic_spherical/
         pwd
         make
-        ls
         ./cosmos
-        ls
+        ls out_*
 
   scalar_iso:
     name: Run scalar_iso
@@ -36,9 +35,8 @@ jobs:
         cd source/scalar_iso/
         pwd
         make
-        ls
         ./cosmos
-        ls
+        ls out_*
 
   sample_pert:
     name: Run sample_pert
@@ -54,6 +52,5 @@ jobs:
         cd source/sample_pert/
         pwd
         make
-        ls
         ./cosmos
-        ls
+        ls out_*
