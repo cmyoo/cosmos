@@ -3,7 +3,7 @@
 ##   ver1.00 by Chulmoon Yoo               #######################################
 ##################################################################################
 999999	        # maximum step of the main loop 
-0.25            # maximum time to evolve
+0.5            # maximum time to evolve
 3	            # tab number of the bufer grids
 0.	            # amp
 -40	            # minimum grid number of x =-nmax-1
