@@ -1,56 +1,50 @@
-# name: C/C++ CI
+name: C/C++ CI
 
-# on:
-#   push:
+on:
+  push:
 
-# jobs:
-#   adiabatic_spherical:
-#     name: Run adiabatic_spherical
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v4
-#       # with:
-#       #   lfs: true
-#     - name: run adiabatic_spherical
-#       run: |
-#         pwd
-#         cd source/adiabatic_spherical/
-#         pwd
-#         make
-#         ./cosmos
-#         ls out_*
+jobs:
+  adiabatic_spherical:
+    name: Run adiabatic_spherical
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: run adiabatic_spherical
+      run: |
+        pwd
+        cd source/adiabatic_spherical/
+        pwd
+        make
+        ./cosmos
+        ls out_*
 
-#   scalar_iso:
-#     name: Run scalar_iso
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v4
-#       # with:
-#       #   lfs: true
-#     - name: run scalar_iso
-#       run: |
-#         pwd
-#         cd source/scalar_iso/
-#         pwd
-#         make
-#         ./cosmos
-#         ls out_*
+  # scalar_iso:
+  #   name: Run scalar_iso
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
+  #   - name: run scalar_iso
+  #     run: |
+  #       pwd
+  #       cd source/scalar_iso/
+  #       pwd
+  #       make
+  #       ./cosmos
+  #       ls out_*
 
-#   sample_pert:
-#     name: Run sample_pert
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v4
-#       # with:
-#       #   lfs: true
-#     - name: run sample_pert
-#       run: |
-#         pwd
-#         cd source/sample_pert/
-#         pwd
-#         make
-#         ./cosmos
-#         ls out_*
+  # sample_pert:
+  #   name: Run sample_pert
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
+  #   - name: run sample_pert
+  #     run: |
+  #       pwd
+  #       cd source/sample_pert/
+  #       pwd
+  #       make
+  #       ./cosmos
+  #       ls out_*
