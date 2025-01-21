@@ -2,13 +2,10 @@ name: C/C++ CI
 
 on:
   push:
-#    branches: [ "chul" ]
-#  pull_request:
-#    branches: [ "chul" ]
 
 jobs:
-  build:
-    name: Run Build
+  adiabatic_spherical:
+    name: adiabatic_spherical
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -24,9 +21,39 @@ jobs:
         ls
         ./cosmos
         ls
-    # - name: make
-    #   run: make
-    # - name: make check
-    #   run: ls 
-#    - name: make adiabatic_spherical
-#      run: ./source/adiabatic_spherical/make
+
+  scalar_iso:
+    name: Run scalar_iso
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+    - name: run scalar_iso
+      run: |
+        pwd
+        cd source/scalar_iso/
+        pwd
+        make
+        ls
+        ./cosmos
+        ls
+
+  sample_pert:
+    name: Run sample_pert
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        lfs: true
+    - name: run sample_pert
+      run: |
+        pwd
+        cd source/sample_pert/
+        pwd
+        make
+        ls
+        ./cosmos
+        ls
