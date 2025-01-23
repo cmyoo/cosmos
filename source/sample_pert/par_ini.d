@@ -6,12 +6,12 @@
 0.5            # maximum time to evolve
 3	            # tab number of the bufer grids
 0.	            # amp
--40	            # minimum grid number of x =-nmax-1
-40	            # maximum grid number of x =imax/2-1
+-36	            # minimum grid number of x =-nmax-1
+36	            # maximum grid number of x =imax/2-1
 0	            # minimum grid number of y
-40	            # maximum grid number of y
+36	            # maximum grid number of y
 0	            # minimum grid number of z
-40	            # maximum grid number of z
+36	            # maximum grid number of z
 -1.	            # minimum coordinate of x
 1.	            # maximum coordinate of x
 0.	            # minimum coordinate of y

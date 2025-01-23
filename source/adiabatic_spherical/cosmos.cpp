@@ -516,16 +516,7 @@ int main(int argc,char* argv[])
 			<< " r=" << sqrt(pow(fmv->get_x(fmv->get_jmm()),2)+pow(fmv->get_y(fmv->get_kmm()),2)+pow(fmv->get_x(fmv->get_lmm()),2))
 			<< endl;
 		//checking constraint end /////////////////////////////////////
-		
-		//escape judge //////////////////////////////////////////
-		if(t>tmax)
-		{
-			step=mstep+1;
-			// printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
-			break;
-		}	
-		/////////////////////////////////////////////////////////
-		
+				
 		fmv->BSSN(2);
 		#pragma omp barrier
 		
@@ -660,6 +651,11 @@ int main(int argc,char* argv[])
 			//fmv->set_excflags_sphere();
 		}
 		//horizon finder end
+
+		//escape judge //////////////////////////////////////////
+		if(t>tmax)
+		 break;
+		/////////////////////////////////////////////////////////
 
 		//upper layer setting start
 		if(ln<laymax && ahf->get_error())						//if AH is already found not going to upper layer

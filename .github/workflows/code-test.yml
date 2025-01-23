@@ -19,32 +19,32 @@ jobs:
         ./cosmos
         ls out_*
 
-  # scalar_iso:
-  #   name: Run scalar_iso
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v4
-  #   - name: run scalar_iso
-  #     run: |
-  #       pwd
-  #       cd source/scalar_iso/
-  #       pwd
-  #       make
-  #       ./cosmos
-  #       ls out_*
+  scalar_iso:
+    name: Run scalar_iso
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: run scalar_iso
+      run: |
+        pwd
+        cd source/scalar_iso/
+        pwd
+        make
+        ./cosmos
+        ls out_*
 
-  # sample_pert:
-  #   name: Run sample_pert
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout code
-  #     uses: actions/checkout@v4
-  #   - name: run sample_pert
-  #     run: |
-  #       pwd
-  #       cd source/sample_pert/
-  #       pwd
-  #       make
-  #       ./cosmos
-  #       ls out_*
+  sample_pert:
+    name: Run sample_pert
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: run sample_pert
+      run: |
+        pwd
+        cd source/sample_pert/
+        pwd
+        make
+        ./cosmos
+        ls out_*

@@ -3,15 +3,15 @@
 ##   ver1.00 by Chulmoon Yoo               #######################################
 ##################################################################################
 3               # maximum step of the main loop 
-20. 	        # maximum time to evolve
+25. 	        # maximum time to evolve
 3	            # tab number of the bufer grids
 10.	            # amp
--40	            # minimum grid number of x =-nmax-1
-40	            # maximum grid number of x =imax/2-1
+-36	            # minimum grid number of x =-nmax-1
+36	            # maximum grid number of x =imax/2-1
 0	            # minimum grid number of y
-40	            # maximum grid number of y
+36	            # maximum grid number of y
 0	            # minimum grid number of z
-40	            # maximum grid number of z
+36	            # maximum grid number of z
 -1.	            # minimum coordinate of x
 1.	            # maximum coordinate of x
 0.	            # minimum coordinate of y
@@ -35,12 +35,12 @@
 ##################################################################################
 1	            # 0:no continue 1:continue
 ini_all.dat	    # continue file
-0.65	        # amplitude 
+0.0	        # amplitude 
 10.	            # wave number 
 10.	            # xi2 nonsphericity parameter 1
 0.	            # xi3 nonsphericity parameter 2
 0.	            # w3  alignment angle 
-0.	            # amplitude for the scalar field
+0.65            # amplitude for the scalar field
 10.	            # wave number for the scalar field
 15.	            # xi2s
 0.	            # xi3s
