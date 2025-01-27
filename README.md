@@ -3,6 +3,11 @@
 [![status](https://joss.theoj.org/papers/af52e7f1b7637bfa68818fde7c1a34de/status.svg)](https://joss.theoj.org/papers/af52e7f1b7637bfa68818fde7c1a34de)
 [![DOI](https://zenodo.org/badge/118786602.svg)](https://zenodo.org/badge/latestdoi/118786602) -->
 
+
+## Downloads
+#### GitHub (All Releases)
+[![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=flat)]()  
+
 An open-source code for numerical relativity specialized for PBH formation
 It is originally translated from SACRA code [Tetsuro Yamamoto, Masaru Shibata, Keisuke Taniguchi(arXiv:0806.4007)] into C++.
 
