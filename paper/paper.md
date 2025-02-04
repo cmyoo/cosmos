@@ -1,5 +1,5 @@
 ---
-title: 'COSMOS: A c++ package for numerical relativity specialized for PBH formation'
+title: 'COSMOS: A C++ package for numerical relativity specialized for PBH formation'
 tags:
   - C++
   - cosmology
@@ -75,7 +75,7 @@ a non-linearly large amplitude.
 In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity 
 solving Einstein equations numerically. 
 `COSMOS` [@Yoo:2013yea; @Okawa:2014nda] and `COSMOS-S` [@Yoo:2021fxs] provide simple tools for simulation of PBH formation. 
-`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimension and spherical symmetry, respectively.  
+`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimension and spherical symmetry, respectively. 
 It is originally translated from SACRA code [@Yamamoto:2008js] into C++. 
 <!-- The forces on stars, galaxies, and dark matter under external gravitational
 fields lead to the dynamical evolution of structures in the universe. The orbits
@@ -169,7 +169,7 @@ are also solved.
 Readers are asked to refer to standard text books of numerical relativity (e.g., [@gourgoulhon20123+1; @shibata2016numerical]) for how to rewrite these equations into the form suitable for the numerical integration. 
 
 As for the initial data, we adopt the long-wavelength growing-mode solutions with respect to the expansion parameter $\epsilon=k(aH_b)\ll1$, 
-where $1/k$ gives the characteristic comoving scale of the inhomogeneity, and $a$ ahd $H_b$ are the scale factor and Hubble expansion rate in the reference background universe.  
+where $1/k$ gives the characteristic comoving scale of the inhomogeneity, and $a$ ahd $H_b$ are the scale factor and Hubble expansion rate in the reference background universe. 
 The initial data can be characterized by a function of the spatial coordinates $\vec x$ as the curvature perturbation $\zeta(\vec x)$ for 
 adiabatic fluctuations [@Harada:2015yda; @Yoo:2024lhp; @Yoo:2020lmg] and iso-curvature perturbation $\Upsilon(\vec x)$ for 
 massless scalar iso-curvature [@Yoo:2021fxs]. 
@@ -187,26 +187,25 @@ format. -->
 Several examples are included in the package. 
 These are just for demonstration and exercise for users, and we do not care about the precision of the examples. 
 The resolution is kept to a minimum. 
-
-The following examples are included: 
+In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation. 
 
 ## COSMOS (3+1 dimensional simulation)
 
-- Evolution of a single mode perturbation
+### Evolution of a single mode perturbation
 
-The evolution of sinusoidal small fluctuation, which can be compared with the corresponding linear perturbation (see Fig.\autoref{fig:kap})
+The evolution of sinusoidal small fluctuation, which can be compared with the corresponding linear perturbation (see \autoref{fig:kap})
 
-![The time evolution of the trace of the extrinsic curvature tr$K$ is compared with that of the linear perturbation equation. $H$ in the vertical axis label is the Hubble expansion rate in the background universe model. $L$ is the size of the box for the numerical simulation.\label{fig:kap}](kap.pdf)
+![The time evolution of the trace of the extrinsic curvature tr$K$ is compared with that of the linear perturbation equation. $H$ in the vertical axis label is the Hubble expansion rate in the background universe model.\label{fig:kap}](kap.pdf){scale=0.8}
 
 
 ### Adiabatic spherically symmetric initial fluctuation
 
 The scalar field is absent. The setting is similar to that in Ref.[@Yoo:2020lmg]. 
-We also attach the data obtained by solving the Einstein equations until an apparent horizon is found (see Figs.\autoref{fig:alp} and \autoref{fig:AH}). 
+We also attach the data obtained by solving the Einstein equations until an apparent horizon is found (see \autoref{fig:alp} and \autoref{fig:AH}). 
 
 ![The lapse function on the $x$-axis at the time when an apparent horizon is found.\label{fig:alp}](alp_2d.pdf)
 
-![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf)
+![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf){scale=1.6}
 
 ### Spherically symmetric iso-curvature
 
@@ -231,9 +230,9 @@ But resolution is finer in this spherically symmetric 1+1 code.
 
 PBH formation from adiabatic fluctuation with an extremely large initial amplitude. 
 The setting is similar to that in Ref.[@Uehara:2024yyp]. 
-One can find the non-trivial trapping horizon configuration as Fig.\autoref{fig:horizon}.
+One can find the non-trivial trapping horizon configuration as \autoref{fig:horizon}.
 
-![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf)
+![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf){scale=0.8}
 
 <!-- 
 # Figures
