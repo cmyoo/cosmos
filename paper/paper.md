@@ -190,46 +190,50 @@ The resolution is kept to a minimum.
 
 The following examples are included: 
 
-### COSMOS (3+1 dimensional simulation)
+## COSMOS (3+1 dimensional simulation)
 
 - Evolution of a single mode perturbation
 
 The evolution of sinusoidal small fluctuation, which can be compared with the corresponding linear perturbation (see Fig.\autoref{fig:kap})
-![The time evolution of the trace of the extrinsic curvature tr$K$ is compared with that of the linear perturbation equation. $H$ in the vertical axis label is the Hubble expansion rate in the background universe model. $L$ is the size of the box for the numerical simulation. \label{fig:kap}](kap.pdf)
+
+![The time evolution of the trace of the extrinsic curvature tr$K$ is compared with that of the linear perturbation equation. $H$ in the vertical axis label is the Hubble expansion rate in the background universe model. $L$ is the size of the box for the numerical simulation.\label{fig:kap}](kap.pdf)
 
 
-- Adiabatic spherically symmetric initial fluctuation
+### Adiabatic spherically symmetric initial fluctuation
 
 The scalar field is absent. The setting is similar to that in Ref.[@Yoo:2020lmg]. 
 We also attach the data obtained by solving the Einstein equations until an apparent horizon is found (see Figs.\autoref{fig:alp} and \autoref{fig:AH}). 
-![The lapse function on the $x$-axis at the time when an apparent horizon is found. \label{fig:alp}](alp_2d.pdf)
-![The shape of the apparent horizon when it is found. \label{fig:AH}](AH_tex.pdf)
 
-- Spherically symmetric iso-curvature
+![The lapse function on the $x$-axis at the time when an apparent horizon is found.\label{fig:alp}](alp_2d.pdf)
+
+![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf)
+
+### Spherically symmetric iso-curvature
 
 The setting is similar to that in Ref.[@Yoo:2021fxs]. 
 We also attach the data obtained by solving the Einstein equations until an apparent horizon is found. 
 
 
 
-### COSMOS-S (spherically symmetric simulation)
+## COSMOS-S (spherically symmetric simulation)
 
-- Adiabatic spherically symmetric initial fluctuation
-
-The physical parameter setting is the same as the corresponding example for 3+1 dimensional simulation. 
-But resolution is finer in this spherically symmetric 1+1 code. 
-
-- Spherically symmetric iso-curvature
+### Adiabatic spherically symmetric initial fluctuation
 
 The physical parameter setting is the same as the corresponding example for 3+1 dimensional simulation. 
 But resolution is finer in this spherically symmetric 1+1 code. 
 
-- Type II-B PBH formation
+### Spherically symmetric iso-curvature
+
+The physical parameter setting is the same as the corresponding example for 3+1 dimensional simulation. 
+But resolution is finer in this spherically symmetric 1+1 code. 
+
+### Type II-B PBH formation
 
 PBH formation from adiabatic fluctuation with an extremely large initial amplitude. 
 The setting is similar to that in Ref.[@Uehara:2024yyp]. 
 One can find the non-trivial trapping horizon configuration as Fig.\autoref{fig:horizon}.
-![Trapping horizon trajectories. \label{fig:horizon}](horizon.pdf)
+
+![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf)
 
 <!-- 
 # Figures
