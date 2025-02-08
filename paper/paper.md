@@ -36,7 +36,7 @@ authors:
     # corresponding: true # (This is how to denote the corresponding author)
     affiliation: 6
   - name: Daiki Saito
-  　orcid: 0000-0003-1624-9268
+    orcid: 0000-0003-1624-9268
     # corresponding: true # (This is how to denote the corresponding author)
     affiliation: 1
   - name: Masaaki Shimada
