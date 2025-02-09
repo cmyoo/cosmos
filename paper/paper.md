@@ -76,23 +76,15 @@ bibliography: paper.bib
 
 # Summary
 
-Primordial black holes (PBHs) are those generated in the early universe without experience of the form of a star.
+Primordial black holes (PBHs) are black holes generated in the early universe without experience of the form of a star.
 It has been pointed out that PBHs may be candidates for black holes and compact objects of various masses in the universe
-or a major component of dark matter, and PBHs are attracting much attention. 
-In the standard formation process, PBHs are formed from super-horizon primordial fluctuation with a non-linearly large initial amplitude.
-In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations numerically.
+or a major component of dark matter. 
+In particular, PBHs have been attracting much attention in the recent development of gravitational wave observation. 
+In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
+In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations.
 `COSMOS` [@Yoo:2013yea; @Okawa:2014nda] and `COSMOS-S` [@Yoo:2021fxs] provide simple tools for the simulation of PBH formation.
-`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimension and spherical symmetry (1+1 dimension), respectively.
-It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and developed specialized for PBH formation.  
-<!-- The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration). -->
+`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimensions and spherical symmetry (1+1 dimensions), respectively.
+It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation.  
 
 # Statement of need
 
@@ -101,31 +93,9 @@ In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@
 To achieve a practically acceptable computational speed, an OpenMP package is used for the parallelization. 
 No other packages are required, and the functionality is minimal. 
 Therefore it would be easy to use for beginners of numerical relativity. 
-Perfect fluid with linear equation of states and massless scalar field are implemented as matter fields. 
+A perfect fluid with a linear equation of states and a massless scalar field are implemented as matter fields. 
 Once users understand the source code to some extent, the system can be easily extended to various scientifically interesting settings.
 
-
-
-<!--
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
-
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike. -->
 
 # Physical system settings
 
@@ -155,7 +125,7 @@ $$
 T^{\rm FL}_{\mu\nu}=(\rho+P)u_\mu u_\nu+Pg_{\mu\nu},
 $$
 <!-- \end{equation} -->
-where $\nabla$, $\phi$, $\rho$, $u_\mu$ and $P$ are the covariant derivative for $g_{\mu\nu}$, scalar field, fluid energy density and pressure, respectively. 
+where $\nabla$, $\phi$, $\rho$, $u_\mu$ and $P$ are the covariant derivative associated with $g_{\mu\nu}$, scalar field, fluid energy density and pressure, respectively. 
 The pressure and the energy density are assumed to satisfy the linear equation of state $P=w\rho$ with $w$ being a constant. 
 The equations of motion for the scalar field
 <!-- \begin{equation} -->
@@ -173,22 +143,22 @@ are also solved.
 Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) for how to rewrite these equations into the form suitable for numerical integration.
 
 As for the initial data, we adopt the long-wavelength growing-mode solutions
-up through the next-leading order of the expansion parameter $\epsilon=k(aH)\ll1$,
+up through the next-leading order of the expansion parameter $\epsilon=k/(aH)\ll1$,
 where $1/k$ gives the characteristic comoving scale of the inhomogeneity, and $a$ and $H$ are the scale factor and Hubble expansion rate in the reference background universe.
 The initial data can be characterized by a function of the spatial coordinates $\vec x$ as the curvature perturbation $\zeta(\vec x)$ for adiabatic fluctuations [@Harada:2015yda; @Yoo:2024lhp; @Yoo:2020lmg] and iso-curvature perturbation $\Upsilon(\vec x)$ for
 massless scalar iso-curvature [@Yoo:2021fxs]. 
-Since the space is filled with the fluid, the initial fluid distribution can be generated by imposing the constraint equations included in the Einstein equations. 
-Then the constraint equations are initially satisfied within the machine's precision. 
+Since the space is filled with the fluid, the initial fluid distribution can be generated to meet the constraint equations included in the Einstein equations. 
+Then, the constraint equations are initially satisfied within the machine's precision. 
+Therefore, the constraint equations are not solved by integrating elliptic differential equations. 
+This is very different from the standard method to obtain the initial data for spacetimes 
+with asymptotically flat vacuum regions. 
 Therefore we do not solve the constraint equations differently from the case of asymptotically flat systems with the existence of a vacuum region. 
-Elliptic solvers for constraint equations are not included in this package for the above reasons.
+This is why elliptic solvers for constraint equations are not included in this package.
 
 # Examples
-<!--
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format. -->
+
 Several examples are included in the package.
-These are just for demonstration and exercise for users, and we do not care about the precision of the examples. The resolution is kept to a minimum. In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation.
+These are just for demonstrations and exercises for users, and we do not care about the precision of the examples. The resolution is kept to a minimum. In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation.
 
 ### COSMOS (3+1 dimensional simulation)
 
@@ -205,7 +175,7 @@ The evolution of sinusoidal small fluctuation is given as an example, which can 
 The scalar field is absent in this example. The setting is similar to that in @Yoo:2020lmg.
 We also attach the data obtained by solving the Einstein equations until an apparent horizon is found (see \autoref{fig:alp} and \autoref{fig:AH}).
 
-![The lapse function (``$tt$-component" of the metric) on the $x$-axis at the time when an apparent horizon is found.\label{fig:alp}](alp_2d.pdf){height="8cm"}
+![The lapse function (``$tt$-component" of the metric) on the $xy$-plane at the time when an apparent horizon is found.\label{fig:alp}](alp_2d.pdf){height="8cm"}
 
 ![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf){height="6cm"}
 
@@ -222,15 +192,15 @@ We also attach the data obtained by solving the Einstein equations until an appa
 
 - Adiabatic spherically symmetric initial fluctuation
 
-The physical parameter setting is the same as the corresponding example for 3+1 dimensional simulation. But resolution is finer in this example of the spherically symmetric 1+1 code.
+The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. But resolution is finer in this example of the spherically symmetric 1+1 code.
 
 - Spherically symmetric iso-curvature
 
-The physical parameter setting is the same as the corresponding example for 3+1 dimensional simulation. But resolution is finer in this example of the spherically symmetric 1+1 code.
+The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. But resolution is finer in this example of the spherically symmetric 1+1 code.
 
 - Type II-B PBH formation
 
-PBH formation from adiabatic fluctuation with an extremely large initial amplitude is given as an example. The setting is similar to that in @Uehara:2024yyp. One can find the non-trivial trapping horizon configuration as \autoref{fig:horizon}.
+PBH formation from adiabatic fluctuation with extremely large initial amplitude is given as an example. The setting is similar to that in @Uehara:2024yyp. One can find the non-trivial trapping horizon configuration as \autoref{fig:horizon}.
 
 ![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf){height="6cm"}
 
@@ -247,11 +217,9 @@ Figure sizes can be customized by adding an optional second parameter:
 # Acknowledgements
 
 A.E. acknowledges support from the JSPS Postdoctoral Fellowships for Research in Japan (Graduate School of Sciences, Nagoya University).
-D.S. is supported in part by JSPS KAKENHI Grant No. 24KJ1223. K.U. would like to
-take this opportunity to thank the “THERS Make New Standards Program for the Next
-Generation Researchers” supported by JST SPRING, Grant Number JPMJSP2125. C.Y. is
-supported in part by JSPS KAKENHI Grant Nos. 20H05850, 20H05853 and 24K07027.
-
+K.U. would like to take this opportunity to thank the “THERS Make New Standards Program for the Next
+Generation Researchers” supported by JST SPRING, Grant Number JPMJSP2125. 
+This work is supported in part by JSPS KAKENHI Grant Nos. 20H05850 (C.Y.), 20H05853 (T.H., C.Y.), 24K07027 (T.H., C.Y.) and 24KJ1223 (D.S.).
 
 
 # References
