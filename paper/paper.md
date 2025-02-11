@@ -59,9 +59,9 @@ affiliations:
    index: 2
  - name: Department of Physics, Rikkyo University, Japan
    index: 3
- - name: Niels Bohr International Academy, Niels Bohr Institute, Denmark
+ - name: Center of Gravity, Niels Bohr Institute, Denmark
    index: 4
- - name: Yukawa Institute of Theoretical Physics, Kyoto University, Japan
+ - name: Yukawa Institute for Theoretical Physics, Kyoto University, Japan
    index: 5
  - name: Faculty of Software and Information Technology, Aomori University, Japan
    index: 6
@@ -82,19 +82,26 @@ or a major component of dark matter.
 In particular, PBHs have been attracting much attention in the recent development of gravitational wave observation. 
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
 In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations.
-`COSMOS` [@Yoo:2013yea; @Okawa:2014nda] and `COSMOS-S` [@Yoo:2021fxs] provide simple tools for the simulation of PBH formation.
-`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimensions and spherical symmetry (1+1 dimensions), respectively.
-It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation.  
+`COSMOS` [@Yoo:2013yea; @Okawa:2014nda] and `COSMOS-S` [@Yoo:2021fxs] provide simple tools for the simulation of PBH formation. 
+`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimensions and spherical symmetry (1+1 dimensions), respectively. 
+It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
+In this paper, we do not describe all scientific results obtained by using `COSMOS` or `COSMOS-S`. 
+The readers who are interested in the past achievments may refer to Refs. [@Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec][^1]. 
+
+[^1]: In most of Refs. [@Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec], 
+additional functions and packages have been implemented to meet the requirements for individual settings. 
+Therefore the results may not be obtained by simply running the public code. 
 
 # Statement of need
 
 In the simulation of PBH formation, since there is a hierarchy between the size of the collapsing region and cosmological expansion scale, an efficient resolution refinement procedure is needed. 
-In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure are implemented [@Yoo:2024lhp]. 
+In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure are implemented [@Yoo:2024lhp] in `COSMOS`. 
 To achieve a practically acceptable computational speed, an OpenMP package is used for the parallelization. 
 No other packages are required, and the functionality is minimal. 
 Therefore it would be easy to use for beginners of numerical relativity. 
 A perfect fluid with a linear equation of states and a massless scalar field are implemented as matter fields. 
 Once users understand the source code to some extent, the system can be easily extended to various scientifically interesting settings.
+The 1+1 dimensional simulation code `COSMOS-S` is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab]. 
 
 
 # Physical system settings
@@ -140,7 +147,7 @@ $$
 $$
 <!-- \end{equation} -->
 are also solved.
-Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) for how to rewrite these equations into the form suitable for numerical integration.
+Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) to learn how to rewrite these equations into a form suitable for numerical integration.
 
 As for the initial data, we adopt the long-wavelength growing-mode solutions
 up through the next-leading order of the expansion parameter $\epsilon=k/(aH)\ll1$,
@@ -158,7 +165,9 @@ This is why elliptic solvers for constraint equations are not included in this p
 # Examples
 
 Several examples are included in the package.
-These are just for demonstrations and exercises for users, and we do not care about the precision of the examples. The resolution is kept to a minimum. In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation.
+These examples are intended primarily for demonstration and instructional purposes, and thus, the precision is not a primary concern. The resolution has been intentionally kept to a minimum.
+In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation. 
+
 
 ### COSMOS (3+1 dimensional simulation)
 
@@ -192,11 +201,13 @@ We also attach the data obtained by solving the Einstein equations until an appa
 
 - Adiabatic spherically symmetric initial fluctuation
 
-The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. But resolution is finer in this example of the spherically symmetric 1+1 code.
+The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. However, 
+the resolution is finer in this example of the spherically symmetric 1+1 code.
 
 - Spherically symmetric iso-curvature
 
-The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. But resolution is finer in this example of the spherically symmetric 1+1 code.
+The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. However, 
+the resolution is finer in this example of the spherically symmetric 1+1 code.
 
 - Type II-B PBH formation
 
@@ -204,22 +215,15 @@ PBH formation from adiabatic fluctuation with extremely large initial amplitude 
 
 ![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf){height="6cm"}
 
-<!--
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% } -->
 
 # Acknowledgements
 
 A.E. acknowledges support from the JSPS Postdoctoral Fellowships for Research in Japan (Graduate School of Sciences, Nagoya University).
 K.U. would like to take this opportunity to thank the “THERS Make New Standards Program for the Next
 Generation Researchers” supported by JST SPRING, Grant Number JPMJSP2125. 
-This work is supported in part by JSPS KAKENHI Grant Nos. 20H05850 (C.Y.), 20H05853 (T.H., C.Y.), 24K07027 (T.H., C.Y.) and 24KJ1223 (D.S.).
+T.I. acknowledges support from VILLUM Foundation (grant no. VIL37766) and the DNRF Chair program (grant no. DNRF162) by the Danish National
+Research Foundation. 
+This work is supported in part by JSPS KAKENHI Grant Nos. 20H05850 (C.Y.), 20H05853 (T.H., C.Y.), 21K20367 (Y.K.), 23KK0048 (Y.K.), 24K07027 (T.H., C.Y.) and 24KJ1223 (D.S.).
 
 
 # References
