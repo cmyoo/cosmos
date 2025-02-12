@@ -10,31 +10,31 @@ authors:
   - name: Chul-Moon Yoo
     orcid: 0000-0002-9928-4757
     # equal-contrib: true
-    affiliation: 1 # (Multiple affiliations must be quoted)
+    affiliation: [ 1, 2 ] # (Multiple affiliations must be quoted)
   - name: Albert Escrivà
     orcid: 0000-0001-5483-8034
     # equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
-    affiliation: 2
+    affiliation: 3
   - name: Tomohiro Harada
     orcid: 0000-0002-9085-9905
     # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
+    affiliation: 4
   - name: Hayami Iizuka
     orcid: 0009-0001-6604-7763
     # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
+    affiliation: 4
   - name: Taishi Ikeda
     orcid: 000-0002-9076-1027
     # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 4
+    affiliation: 5
   - name: Yasutaka Koga
     orcid: 0000-0002-9579-5787
     # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 5
+    affiliation: 6
   - name: Hirotada Okawa
     orcid: 0000-0001-7372-5131
     # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 6
+    affiliation: 7
   - name: Daiki Saito
     orcid: 0000-0003-1624-9268
     # corresponding: true # (This is how to denote the corresponding author)
@@ -54,17 +54,19 @@ authors:
 affiliations:
  - name: Graduate School of Science, Nagoya University, Japan
    index: 1
+ - name: Kobayashi Maskawa Institute, Nagoya University, Japan
+   index: 2
 #    ror: 00hx57361
  - name: National Astronomical Observatory of Japan (NAOJ), Japan
-   index: 2
- - name: Department of Physics, Rikkyo University, Japan
    index: 3
- - name: Center of Gravity, Niels Bohr Institute, Denmark
+ - name: Department of Physics, Rikkyo University, Japan
    index: 4
- - name: Yukawa Institute for Theoretical Physics, Kyoto University, Japan
+ - name: Center of Gravity, Niels Bohr Institute, Denmark
    index: 5
- - name: Faculty of Software and Information Technology, Aomori University, Japan
+ - name: Yukawa Institute for Theoretical Physics, Kyoto University, Japan
    index: 6
+ - name: Faculty of Software and Information Technology, Aomori University, Japan
+   index: 7
 date: 5 February 2025
 bibliography: paper.bib
 
@@ -86,22 +88,22 @@ In order to follow the whole non-linear gravitational dynamics, one has to rely 
 `COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimensions and spherical symmetry (1+1 dimensions), respectively. 
 It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
 In this paper, we do not describe all scientific results obtained by using `COSMOS` or `COSMOS-S`. 
-The readers who are interested in the past achievments may refer to Refs. [@Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec][^1]. 
+The readers who are interested in the past achievments may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec [^1]. 
 
-[^1]: In most of Refs. [@Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec], 
+[^1]: In most of the references: @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec, 
 additional functions and packages have been implemented to meet the requirements for individual settings. 
 Therefore the results may not be obtained by simply running the public code. 
 
 # Statement of need
 
 In the simulation of PBH formation, since there is a hierarchy between the size of the collapsing region and cosmological expansion scale, an efficient resolution refinement procedure is needed. 
-In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure are implemented [@Yoo:2024lhp] in `COSMOS`. 
+In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in `COSMOS`. 
+The 1+1 dimensional simulation code `COSMOS-S` [@Yoo:2021fxs] is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab]. 
 To achieve a practically acceptable computational speed, an OpenMP package is used for the parallelization. 
 No other packages are required, and the functionality is minimal. 
 Therefore it would be easy to use for beginners of numerical relativity. 
 A perfect fluid with a linear equation of states and a massless scalar field are implemented as matter fields. 
 Once users understand the source code to some extent, the system can be easily extended to various scientifically interesting settings.
-The 1+1 dimensional simulation code `COSMOS-S` is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab]. 
 
 
 # Physical system settings
@@ -158,8 +160,7 @@ Since the space is filled with the fluid, the initial fluid distribution can be 
 Then, the constraint equations are initially satisfied within the machine's precision. 
 Therefore, the constraint equations are not solved by integrating elliptic differential equations. 
 This is very different from the standard method to obtain the initial data for spacetimes 
-with asymptotically flat vacuum regions. 
-Therefore we do not solve the constraint equations differently from the case of asymptotically flat systems with the existence of a vacuum region. 
+with asymptotically flat vacuum regions.  
 This is why elliptic solvers for constraint equations are not included in this package.
 
 # Examples
