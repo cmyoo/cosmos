@@ -149,7 +149,8 @@ $$
 $$
 <!-- \end{equation} -->
 are also solved.
-Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) to learn how to rewrite these equations into a form suitable for numerical integration.
+Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) to learn how to rewrite these equations into a form suitable for numerical integration. 
+To solve the fluid equations of motion, we basically follow the scheme discussed in @Kurganov:2000ovy; @Shibata:2005jv. 
 
 As for the initial data, we adopt the long-wavelength growing-mode solutions
 up through the next-leading order of the expansion parameter $\epsilon=k/(aH)\ll1$,
@@ -160,7 +161,7 @@ Since the space is filled with the fluid, the initial fluid distribution can be 
 Then, the constraint equations are initially satisfied within the machine's precision. 
 Therefore, the constraint equations are not solved by integrating elliptic differential equations. 
 This is very different from the standard method to obtain the initial data for spacetimes 
-with asymptotically flat vacuum regions.  
+with asymptotically flat vacuum regions. 
 This is why elliptic solvers for constraint equations are not included in this package.
 
 # Examples
