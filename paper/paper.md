@@ -134,7 +134,7 @@ $$
 T^{\rm FL}_{\mu\nu}=(\rho+P)u_\mu u_\nu+Pg_{\mu\nu},
 $$
 <!-- \end{equation} -->
-where $\nabla$, $\phi$, $\rho$, $u_\mu$ and $P$ are the covariant derivative associated with $g_{\mu\nu}$, scalar field, fluid energy density and pressure, respectively. 
+where $\nabla$, $\phi$, $\rho$, $u_\mu$ and $P$ are the covariant derivative associated with $g_{\mu\nu}$, scalar field, fluid energy density, four-velocity and pressure, respectively. 
 The pressure and the energy density are assumed to satisfy the linear equation of state $P=w\rho$ with $w$ being a constant. 
 The equations of motion for the scalar field
 <!-- \begin{equation} -->
