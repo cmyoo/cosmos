@@ -24,7 +24,7 @@ authors:
     # corresponding: true # (This is how to denote the corresponding author)
     affiliation: 4
   - name: Taishi Ikeda
-    orcid: 000-0002-9076-1027
+    orcid: 0000-0002-9076-1027
     # corresponding: true # (This is how to denote the corresponding author)
     affiliation: 5
   - name: Yasutaka Koga
