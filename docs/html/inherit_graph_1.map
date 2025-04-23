@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_fmv0.html" title="Base class for Finite Mesh Variables version 0." alt="" coords="5,31,60,57"/>
+<area shape="rect" id="Node000001" href="$class_fmv.html" title="Derived class from Fmv0, implementing specific boundary conditions and initial data routines for the ..." alt="" coords="111,5,159,32"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="74,31,110,22,111,27,75,36"/>
+<area shape="rect" id="Node000002" href="$class_fmv1.html" title="Derived class from Fmv0, implementing Fixed Mesh Refinement (FMR)." alt="" coords="108,56,162,83"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="75,52,108,60,106,65,74,57"/>
+</map>

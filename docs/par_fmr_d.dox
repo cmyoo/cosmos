@@ -1,0 +1,40 @@
+/**
+@page par_fmr_d_doc Parameter File: par_fmr.d
+
+@brief Fixed Mesh Refinement Parameters
+
+This file controls the setup and triggering of fixed mesh refinement (FMR) levels.
+
+The parameters must be listed in this specific order, as the code reads them sequentially using `fscanf`. Lines starting with `#` are ignored as comments.
+
+-#  @code laymax @endcode
+    @brief Maximum number of refinement *levels* allowed (excluding the base level 0). If `laymax` is 0, FMR is disabled.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `laymax` in `main`.
+
+-#  @code jbs[0] @endcode ... @code jbs[laymax] @endcode
+    @brief Grid index boundary in x *on the coarser grid* defining the region to be covered by the next finer grid. `jbs[n]` defines the x-extent for refinement level `n+1` on level `n`.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d` in a loop from `n=0` to `laymax`. The refined region typically spans from `-jbs[n]` to `+jbs[n]` on the coarser grid. Corresponds to `jbs` array in `main`.
+
+-#  @code kbs[0] @endcode ... @code kbs[laymax] @endcode
+    @brief Grid index boundary in y *on the coarser grid* defining the region to be covered by the next finer grid. `kbs[n]` defines the y-extent for refinement level `n+1` on level `n`.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d` in a loop from `n=0` to `laymax`. Corresponds to `kbs` array in `main`.
+
+-#  @code lbs[0] @endcode ... @code lbs[laymax] @endcode
+    @brief Grid index boundary in z *on the coarser grid* defining the region to be covered by the next finer grid. `lbs[n]` defines the z-extent for refinement level `n+1` on level `n`.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d` in a loop from `n=0` to `laymax`. Corresponds to `lbs` array in `main`.
+
+-#  @code alp_fmr[0] @endcode ... @code alp_fmr[laymax] @endcode
+    @brief Threshold value for the lapse (`alpha`) at the center of the grid (index 0,0,0). If `alpha` on level `n` drops below `alp_fmr[n]`, refinement level `n+1` is created (up to `laymax`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf` in a loop from `n=0` to `laymax`. This acts as the trigger condition for adding new refinement levels. Corresponds to `alp_fmr` array in `main`.
+
+*/
