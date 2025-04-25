@@ -1,0 +1,256 @@
+/**
+@page par_ini_d_doc Parameter File: par_ini.d
+
+@brief Main Simulation Parameters
+
+This file controls the core simulation setup, grid dimensions, evolution parameters, initial data settings, and output intervals.
+
+The parameters must be listed in this specific order, as the code reads them sequentially using `fscanf`. Lines starting with `#` are ignored as comments.
+
+-#  @code mstep @endcode
+    @brief Maximum number of time steps for the simulation. The simulation will stop if this step count is reached, even if `tmax` is not.
+    @par Data Type:
+        Long Integer (`long int`)
+    @note Read using `%ld`. Corresponds roughly to `mstep` in `main`.
+
+-#  @code tmax @endcode
+    @brief Maximum physical time to evolve the simulation. The simulation will stop if the current time `t` exceeds `tmax`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::tmax`.
+
+-#  @code tab @endcode
+    @brief Number of buffer/ghost zones on each side of the physical domain boundary.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Defines the thickness of the boundary region used for finite differencing stencils. Corresponds to `Fmv0::tab`.
+
+-#  @code amp @endcode
+    @brief Amplitude parameter for the inhomogeneous grid mapping function `funcf`. Controls the degree of grid stretching/compression. `amp=0` corresponds to a uniform Cartesian grid.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv0::funcf`, `Fmv0::df`, `Fmv0::ddf`, `Fmv0::dddf`. Corresponds to `Fmv0::amp`.
+
+-#  @code nxmin @endcode
+    @brief Minimum grid *index* in the x-direction for the *physical* domain (excluding buffers).
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Often 0 for quadrant symmetry. Corresponds to `jlower` in the `Fmv0` constructor.
+
+-#  @code nxmax @endcode
+    @brief Maximum grid *index* in the x-direction for the *physical* domain (excluding buffers).
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `jupper` in the `Fmv0` constructor. The number of physical points in x is `nxmax - nxmin + 1`.
+
+-#  @code nymin @endcode
+    @brief Minimum grid *index* in the y-direction for the *physical* domain.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `klower` in the `Fmv0` constructor.
+
+-#  @code nymax @endcode
+    @brief Maximum grid *index* in the y-direction for the *physical* domain.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `kupper` in the `Fmv0` constructor.
+
+-#  @code nzmin @endcode
+    @brief Minimum grid *index* in the z-direction for the *physical* domain.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `llower` in the `Fmv0` constructor.
+
+-#  @code nzmax @endcode
+    @brief Maximum grid *index* in the z-direction for the *physical* domain.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `lupper` in the `Fmv0` constructor.
+
+-#  @code xmin @endcode
+    @brief Minimum coordinate value in the x-direction corresponding to `nxmin`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `xlower` in the `Fmv0` constructor.
+
+-#  @code xmax @endcode
+    @brief Maximum coordinate value in the x-direction corresponding to `nxmax`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `xupper` in the `Fmv0` constructor.
+
+-#  @code ymin @endcode
+    @brief Minimum coordinate value in the y-direction corresponding to `nymin`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `ylower` in the `Fmv0` constructor.
+
+-#  @code ymax @endcode
+    @brief Maximum coordinate value in the y-direction corresponding to `nymax`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `yupper` in the `Fmv0` constructor.
+
+-#  @code zmin @endcode
+    @brief Minimum coordinate value in the z-direction corresponding to `nzmin`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `zlower` in the `Fmv0` constructor.
+
+-#  @code zmax @endcode
+    @brief Maximum coordinate value in the z-direction corresponding to `nzmax`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `zupper` in the `Fmv0` constructor.
+
+-#  @code cfl @endcode
+    @brief Courant-Friedrichs-Lewy (CFL) factor. Used to determine the time step `dt` based on the grid spacing (`dt = cfl * dx`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Typical values are less than 0.5 for stability. Corresponds to `Fmv0::cfl`.
+
+-#  @code cdt @endcode
+    @brief Factor for cosmological time scale adjustment of `dt`. `dt` is set to `min(cfl*dx, cdt*cfl/|trK|)`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Allows `dt` to adapt to the Hubble expansion rate. Corresponds to `cdt` in `main`.
+
+-#  @code etaa @endcode
+    @brief Gauge parameter `eta` for the 1+log lapse evolution condition. Controls the damping/driving of the lapse.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::etaa`.
+
+-#  @code etab @endcode
+    @brief Gauge parameter `eta` for the Gamma-driver shift evolution condition. Controls the damping of the shift auxiliary variable `B^i`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::etab`.
+
+-#  @code etabb @endcode
+    @brief Gauge parameter `eta_b` (or similar) for the Gamma-driver shift evolution condition. Multiplies `B^i` in the evolution equation for `beta^i`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::etabb`.
+
+-#  @code KOep @endcode
+    @brief Coefficient `epsilon` for Kreiss-Oliger numerical dissipation. Controls the strength of artificial dissipation added to suppress high-frequency noise.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::KOep`.
+
+-#  @code exg @endcode
+    @brief Grid size (radius in grid points) for the square excision region around the origin. Used if excision is enabled.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `Fmv0::exg`.
+
+-#  @code contn @endcode
+    @brief Flag to indicate whether to continue from a previous simulation. 0 = start new simulation, 1 = continue from file.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `contn` in `main`.
+
+-#  @code file_continue @endcode
+    @brief Name of the file to read data from if `contn` is set to 1.
+    @par Data Type:
+        String (`char[]`)
+    @note Read using `%s`. Ensure the filename doesn't contain spaces. Corresponds to `file_continue` in `main`.
+
+-#  @code mu @endcode
+    @brief Amplitude parameter for the initial *geometric* perturbation (e.g., related to conformal factor `Psi`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::initial_nonsph`.
+
+-#  @code kk @endcode
+    @brief Scale or wave number parameter for the initial *geometric* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::initial_nonsph`.
+
+-#  @code xi2 @endcode
+    @brief Non-spherical deformation parameter (likely quadrupole-like) for the initial *geometric* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::initial_nonsph`.
+
+-#  @code xi3 @endcode
+    @brief Non-spherical deformation parameter for the initial *geometric* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::initial_nonsph`.
+
+-#  @code w3 @endcode
+    @brief Additional non-spherical parameter, possibly related to time dependence or frequency, for the initial *geometric* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::initial_nonsph`.
+
+-#  @code mus @endcode
+    @brief Amplitude parameter for the initial *scalar field* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::set_initial_scalar`.
+
+-#  @code kks @endcode
+    @brief Scale or wave number parameter for the initial *scalar field* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::set_initial_scalar`.
+
+-#  @code xi2s @endcode
+    @brief Non-spherical deformation parameter for the initial *scalar field* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::set_initial_scalar`.
+
+-#  @code xi3s @endcode
+    @brief Non-spherical deformation parameter for the initial *scalar field* perturbation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Used in `Fmv::set_initial_scalar`.
+
+-#  @code Hb @endcode
+    @brief Initial Hubble parameter value. Used for setting up cosmological initial data.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::Hb`.
+
+-#  @code fluidw @endcode
+    @brief Equation of state parameter `w` for the fluid (assuming `P = w * rho` or similar).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::fluidw`. E.g., 0 for dust, 1/3 for radiation.
+
+-#  @code Mkap @endcode
+    @brief Parameter `kappa` for MUSCL (Monotonic Upstream-centered Scheme for Conservation Laws) reconstruction used in fluid evolution. Controls the order/type of interpolation.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::kap_MUSCL`.
+
+-#  @code bminmod @endcode
+    @brief Parameter `b` for the minmod slope limiter function used in fluid evolution reconstruction. Controls the limiter's behavior.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `Fmv0::b_minmod`.
+
+-#  @code ptintval1 @endcode
+    @brief Time interval for printing output during the first phase of the simulation (before `changept`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `ptintval1` in `main`.
+
+-#  @code ptintval2 @endcode
+    @brief Time interval for printing output during the second phase of the simulation (after `changept`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `ptintval2` in `main`.
+
+-#  @code changept @endcode
+    @brief Time at which the printing interval switches from `ptintval1` to `ptintval2`.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `changept` in `main`.
+
+*/
