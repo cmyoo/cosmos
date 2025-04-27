@@ -1,0 +1,76 @@
+/**
+@page par_ahf_d_doc Parameter File: par_ahf.d
+
+@brief Apparent Horizon Finder Parameters
+
+This file controls the behavior of the apparent horizon finder (AHF).
+
+The parameters must be listed in this specific order, as the code reads them sequentially using `fscanf`. Lines starting with `#` are ignored as comments.
+
+-#  @code AHFstart @endcode
+    @brief Physical time at which to start searching for apparent horizons.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `AHFstart` in `main`.
+
+-#  @code ahcint @endcode
+    @brief Interval (in number of main simulation time steps) between calls to the AHF.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. The AHF is called when `step % ahcint == 0`. Corresponds to `ahcint` in `main`.
+
+-#  @code ahpint @endcode
+    @brief Interval (in number of AHF *calls*) between printing detailed horizon shape/data to `out_AHfig.dat`.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Output occurs when `(step / ahcint) % ahpint == 0`. Corresponds to `ahpint` in `main`.
+
+-#  @code ntheta @endcode
+    @brief Number of grid points in the theta (polar angle) direction for the AHF's internal spherical grid. Total points used is `ntheta + 2`.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `ntheta` in `main` and `Ahf2d` constructor.
+
+-#  @code nphi @endcode
+    @brief Number of grid points in the phi (azimuthal angle) direction for the AHF's internal spherical grid. Total points used is `nphi + 2`.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `nphi` in `main` and `Ahf2d` constructor.
+
+-#  @code ahloop @endcode
+    @brief Maximum number of iterations allowed for the AHF solver (Poisson and AH equation) to converge in a single call.
+    @par Data Type:
+        Integer (`int`)
+    @note Read using `%d`. Corresponds to `ahloop` in `main`.
+
+-#  @code etaah @endcode
+    @brief Acceleration parameter `eta` for the AHF elliptic solver (IMLUCGS method, see PRD 55, 2002 (1997)). Also used to distinguish AH (`eta=1`) from CH (`eta=3`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `var` in `ahf_read` and `Ahf2d::var`.
+
+-#  @code facn @endcode
+    @brief Mixing factor for updating the horizon radius guess during iterations (`h_new = fac*h_solved + (1-fac)*h_old`).
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `facn` in `ahf_read` and `Ahf2d::fac`.
+
+-#  @code err_p @endcode
+    @brief Relative error tolerance for the Poisson solver part of the AHF.
+    @par Data Type:
+        Double (`double`, exponential notation)
+    @note Read using `%le`. Corresponds to `err_p` in `ahf_read`.
+
+-#  @code err_e @endcode
+    @brief Relative error tolerance for the main apparent horizon equation solver.
+    @par Data Type:
+        Double (`double`, exponential notation)
+    @note Read using `%le`. Corresponds to `err_e` in `ahf_read`.
+
+-#  @code ahc @endcode
+    @brief Initial guess for the apparent horizon radius (coordinate radius). Used when the AHF starts or resets.
+    @par Data Type:
+        Double (`double`)
+    @note Read using `%lf`. Corresponds to `ahc` in `ahf_read` and `Ahf2d::hini`.
+
+*/
