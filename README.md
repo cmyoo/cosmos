@@ -19,6 +19,11 @@ Please visit https://sites.google.com/view/cosmoscode/ for a list of publication
 Detailed installation instructions and usage examples are available in
 our [wiki](https://github.com/GRChombo/GRChombo/wiki), with the home page giving guidance on where to start. -->
 
+## Documents
+API documents are available in [https://cmyoo.github.io/cosmos/](https://cmyoo.github.io/cosmos/). 
+
+Wiki pages are available in [https://github.com/cmyoo/cosmos/wiki](https://github.com/cmyoo/cosmos/wiki). 
+
 ## Description
 Perfect fluid with linear equation of states & massless scalar field
 

@@ -709,8 +709,8 @@ void Fmv0::initial_continue(ifstream& fcontinue)
 	getline(fcontinue, buf);
 	cout << buf << endl;
 	
-	sscanf(buf.data(),"##time=%lf",
-	       &t_continue);
+	// sscanf(buf.data(),"##time=%lf",
+	//        &t_continue);
 
 	sscanf(buf.data(),"##time=%lf dtp=%lf dtpp=%lf",
 	       &t_continue,&dtp,&dtpp);

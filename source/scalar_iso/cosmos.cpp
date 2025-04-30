@@ -40,6 +40,8 @@
 
 using namespace std;
 
+void check_xkl(Fmv *fmv);
+
 void printpack(Fmv0 **fmv0,int ln,int pk,int pl,
 ofstream& filex,
 ofstream& filey,
@@ -741,6 +743,9 @@ int main(int argc,char* argv[])
 	}
 	//final print end
 		
+	//comparing out_xkl.dat with exp_xkl.dat 
+	check_xkl(fmv);
+
 	//finalize start
 	delete ahf;
 
@@ -1360,4 +1365,161 @@ int *lbs									//grid number for fmr region on z-axis
 	for(int i=0;i<ln;i++)
 	fileall << "##fmrzgnum="<< lbs[i] << endl;
 
+}
+
+//function to check difference of out_xkl.dat from exp_xkl.dat
+void check_xkl(Fmv *fmv)
+{
+	ifstream expfile("exp_xkl.dat");				//open exp file
+	if(expfile.fail()){
+		cout << "exp_xkl.dat is not found." << endl;
+		abort();
+	}
+
+	ifstream outfile("out_xkl.dat");				//open out file
+	if(outfile.fail()){
+		cout << "out_xkl.dat is not found." << endl;
+		abort();
+	}
+
+	string bufexp,bufout;
+
+	cout << "header texts in exp_xkl.dat" << endl;
+	getline(expfile, bufexp);
+	cout << bufexp << endl;
+	getline(expfile, bufexp);
+	cout << bufexp << endl;
+	
+	cout << "header texts in out_xkl.dat" << endl;
+	getline(outfile, bufout);
+	cout << bufout << endl;
+	getline(outfile, bufout);
+	cout << bufout << endl;
+
+	double vdiff[31];
+	for(int n=0;n<31;n++)
+	vdiff[n]=0.;
+
+	for(int j=fmv->get_jmin();j<=fmv->get_jmax();j++)
+	{
+		double vexp[31];
+		double vout[31];
+
+		getline(outfile, bufout);
+		getline(expfile, bufexp);
+		
+		if(fmv->get_fluidevo() && fmv->get_scalarevo())
+		{
+			// sscanf(bufout.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			// &alpout,&bxout,&byout,&bzout,&bbxout,&bbyout,&bbzout,&gxxout,&gyyout,&gzzout,
+			// &gxyout,&gxzout,&gyzout,&waout,&akxxout,&akyyout,&akzzout,&akxyout,&akxzout,&akyzout,
+			// &ekout,&zgxout,&zgyout,&zgzout,&Eneout,&pxout,&pyout,&pzout,&Dout,&phiiout,&Piout);
+
+			sscanf(bufexp.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			&vexp[0],&vexp[1],&vexp[2],&vexp[3],&vexp[4],&vexp[5],&vexp[6],&vexp[7],&vexp[8],&vexp[9],
+			&vexp[10],&vexp[11],&vexp[12],&vexp[13],&vexp[14],&vexp[15],&vexp[16],&vexp[17],&vexp[18],&vexp[19],
+			&vexp[20],&vexp[21],&vexp[22],&vexp[23],&vexp[24],&vexp[25],&vexp[26],&vexp[27],&vexp[28],&vexp[29],&vexp[30]);
+
+			sscanf(bufout.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			&vout[0],&vout[1],&vout[2],&vout[3],&vout[4],&vout[5],&vout[6],&vout[7],&vout[8],&vout[9],
+			&vout[10],&vout[11],&vout[12],&vout[13],&vout[14],&vout[15],&vout[16],&vout[17],&vout[18],&vout[19],
+			&vout[20],&vout[21],&vout[22],&vout[23],&vout[24],&vout[25],&vout[26],&vout[27],&vout[28],&vout[29],&vout[30]);
+			
+			for(int n=0;n<31;n++)
+			{
+				vdiff[n]+=abs(vexp[n]-vout[n]);
+			}
+		}
+		else if(fmv->get_fluidevo())
+		{
+			sscanf(bufexp.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			&vexp[0],&vexp[1],&vexp[2],&vexp[3],&vexp[4],&vexp[5],&vexp[6],&vexp[7],&vexp[8],&vexp[9],
+			&vexp[10],&vexp[11],&vexp[12],&vexp[13],&vexp[14],&vexp[15],&vexp[16],&vexp[17],&vexp[18],&vexp[19],
+			&vexp[20],&vexp[21],&vexp[22],&vexp[23],&vexp[24],&vexp[25],&vexp[26],&vexp[27],&vexp[28]);
+
+			sscanf(bufout.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			&vout[0],&vout[1],&vout[2],&vout[3],&vout[4],&vout[5],&vout[6],&vout[7],&vout[8],&vout[9],
+			&vout[10],&vout[11],&vout[12],&vout[13],&vout[14],&vout[15],&vout[16],&vout[17],&vout[18],&vout[19],
+			&vout[20],&vout[21],&vout[22],&vout[23],&vout[24],&vout[25],&vout[26],&vout[27],&vout[28]);
+			
+			for(int n=0;n<29;n++)
+			{
+				vdiff[n]+=abs(vexp[n]-vout[n]);
+			}
+		}
+		else
+		{
+			sscanf(bufexp.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			&vexp[0],&vexp[1],&vexp[2],&vexp[3],&vexp[4],&vexp[5],&vexp[6],&vexp[7],&vexp[8],&vexp[9],
+			&vexp[10],&vexp[11],&vexp[12],&vexp[13],&vexp[14],&vexp[15],&vexp[16],&vexp[17],&vexp[18],&vexp[19],
+			&vexp[20],&vexp[21],&vexp[22],&vexp[23]);
+
+			sscanf(bufout.data(),"%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf%lf",
+			&vout[0],&vout[1],&vout[2],&vout[3],&vout[4],&vout[5],&vout[6],&vout[7],&vout[8],&vout[9],
+			&vout[10],&vout[11],&vout[12],&vout[13],&vout[14],&vout[15],&vout[16],&vout[17],&vout[18],&vout[19],
+			&vout[20],&vout[21],&vout[22],&vout[23]);
+			
+			for(int n=0;n<24;n++)
+			{
+				vdiff[n]+=abs(vexp[n]-vout[n]);
+			}
+		}	
+	}
+	
+	int gridnum=fmv->get_jmax()-fmv->get_jmin()+1;
+
+	ofstream fdiff("out_diff.dat");
+	fdiff.precision(16);
+	fdiff.setf(ios_base::scientific, ios_base::floatfield);
+
+	fdiff << "## difference between out_xkl.dat and exp_xkl.dat" << endl;
+			
+	fdiff <<"diff alpha=" << vdiff[0]/gridnum << endl
+		<<"diff bx=" << vdiff[1]/gridnum << endl
+		<<"diff by=" << vdiff[2]/gridnum << endl
+		<<"diff bz=" << vdiff[3]/gridnum << endl
+		<<"diff bbx=" << vdiff[4]/gridnum << endl
+		<<"diff bby=" << vdiff[5]/gridnum << endl
+		<<"diff bbz=" << vdiff[6]/gridnum << endl
+		<<"diff gxx=" << vdiff[7]/gridnum << endl
+		<<"diff gyy=" << vdiff[8]/gridnum << endl
+		<<"diff gzz=" << vdiff[9]/gridnum << endl
+		<<"diff gxy=" << vdiff[10]/gridnum << endl
+		<<"diff gxz=" << vdiff[11]/gridnum << endl
+		<<"diff gyz=" << vdiff[12]/gridnum << endl
+		<<"diff wa=" << vdiff[13]/gridnum << endl
+		<<"diff akxx=" << vdiff[14]/gridnum << endl
+		<<"diff akyy=" << vdiff[15]/gridnum << endl
+		<<"diff akzz=" << vdiff[16]/gridnum << endl
+		<<"diff akxy=" << vdiff[17]/gridnum << endl
+		<<"diff akxz=" << vdiff[18]/gridnum << endl
+		<<"diff akyz=" << vdiff[19]/gridnum << endl
+		<<"diff ek=" << vdiff[20]/gridnum << endl
+		<<"diff zgx=" << vdiff[21]/gridnum << endl
+		<<"diff zgy=" << vdiff[22]/gridnum << endl
+		<<"diff zgz=" << vdiff[23]/gridnum << endl;
+			
+		if(fmv->get_fluidevo())
+		{
+			fdiff <<"diff Ene=" << vdiff[24]/gridnum << endl
+			<<"diff px=" << vdiff[25]/gridnum << endl
+			<<"diff py=" << vdiff[26]/gridnum << endl
+			<<"diff pz=" << vdiff[27]/gridnum << endl
+			<<"diff D=" << vdiff[28]/gridnum << endl;
+
+			if(fmv->get_scalarevo())
+			{
+				fdiff <<"diff phii=" << vdiff[29]/gridnum << endl
+				<<"diff Pi=" << vdiff[30]/gridnum << endl;
+			}
+		}
+		else if(fmv->get_scalarevo())
+		{
+			fdiff <<"diff phii=" << vdiff[24]/gridnum << endl
+			<<"diff Pi=" << vdiff[25]/gridnum << endl;
+		}
+
+		fdiff << "## diff file end" << endl;
+
+	return;
 }
