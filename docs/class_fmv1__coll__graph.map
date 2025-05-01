@@ -1,7 +1,6 @@
 <map id="Fmv1" name="Fmv1">
-<area shape="rect" id="Node000001" title="Derived class from Fmv0, implementing Fixed Mesh Refinement (FMR)." alt="" coords="7,651,184,1019"/>
-<area shape="rect" id="Node000002" href="$class_fmv0.html" title="Base class for Finite Mesh Variables version 0." alt="" coords="5,5,185,587"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,602,89,651,84,651,84,602"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="107,602,107,651,101,651,102,602"/>
-<area shape="poly" id="edge3_Node000001_Node000002" title=" " alt="" coords="126,587,125,627,124,634,119,634,119,627,121,586"/>
+<area shape="rect" id="Node000001" title="Derived class from Fmv0, implementing Fixed Mesh Refinement (FMR)." alt="" coords="7,736,184,1019"/>
+<area shape="rect" id="Node000002" href="$class_fmv0.html" title="Base class for Finite Mesh Variables version 0." alt="" coords="5,5,185,672"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,687,95,712,96,736,90,736,90,712,90,687"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="98,672,98,719,93,719,93,672"/>
 </map>

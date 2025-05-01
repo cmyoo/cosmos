@@ -1,0 +1,19 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title="Main function for the COSMOS simulation code." alt="" coords="5,183,55,209"/>
+<area shape="rect" id="Node000002" href="$cosmos__d_8cpp.html#a372542cc94148e0fa873200daaceaa6e" title="Reads Apparent Horizon Finder (AHF) parameters from par_ahf.d." alt="" coords="135,5,207,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="32,181,53,116,73,77,101,42,119,30,122,34,104,46,77,79,57,118,37,183"/>
+<area shape="rect" id="Node000003" href="$cosmos__d_8cpp.html#a2e983e9a80d0d458a54647775b556278" title="Checks if parameters in the restart file match the current simulation setup." alt="" coords="103,56,239,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="35,181,60,138,79,114,101,93,107,88,110,92,104,97,83,117,65,141,40,184"/>
+<area shape="rect" id="Node000004" href="$class_ahf2d.html#a25a6ad994349e7c3a0f1b6d8c8e3931e" title="Main function to find the apparent horizon." alt="" coords="118,107,224,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="47,180,101,143,113,137,115,142,104,148,50,184"/>
+<area shape="rect" id="Node000005" href="$cosmos__d_8cpp.html#a45b1eecc3a25ffbc64e3666f6b6e0d57" title="Reads Fixed Mesh Refinement (FMR) parameters from par_fmr.d." alt="" coords="132,157,210,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="54,189,116,178,117,183,55,194"/>
+<area shape="rect" id="Node000006" href="$class_fmv.html#a6465e510a50b2e09fe52c59e9e336b28" title="Sets the initial data for the geometric (BSSN) variables with non&#45;spherical perturbations." alt="" coords="104,208,238,235"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="55,198,89,204,88,209,54,203"/>
+<area shape="rect" id="Node000007" href="$cosmos__d_8cpp.html#a22a8364bf67f1752d82afb5a5bee7683" title="Reads simulation parameters from the main initialization file (par_ini.d)." alt="" coords="129,259,213,285"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="50,208,104,244,116,250,114,255,101,249,47,212"/>
+<area shape="rect" id="Node000008" href="$cosmos__d_8cpp.html#a62d7edea0dd4c86b24de88f3daf396da" title="Writes essential simulation parameters to the header of the restart file." alt="" coords="117,309,225,336"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="40,208,65,251,83,275,104,295,110,300,107,304,101,299,79,278,60,254,35,211"/>
+<area shape="rect" id="Node000009" href="$cosmos__d_8cpp.html#af2e605489a657ae790c8647e638e8238" title="Helper function to call print routines for all active grid layers." alt="" coords="134,360,208,387"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="37,209,57,274,77,313,104,346,120,357,117,361,101,350,73,315,53,276,32,211"/>
+</map>

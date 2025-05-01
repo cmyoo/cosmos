@@ -1,5 +1,5 @@
 <map id="Ahf2d" name="Ahf2d">
-<area shape="rect" id="Node000001" title="Implements a 2D Apparent Horizon Finder." alt="" coords="21,651,169,1211"/>
-<area shape="rect" id="Node000002" href="$class_fmv0.html" title="Base class for Finite Mesh Variables version 0." alt="" coords="5,5,185,587"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,587,98,634,93,634,93,587"/>
+<area shape="rect" id="Node000001" title="Implements a 2D Apparent Horizon Finder." alt="" coords="21,736,169,1296"/>
+<area shape="rect" id="Node000002" href="$class_fmv0.html" title="Base class for Finite Mesh Variables version 0." alt="" coords="5,5,185,672"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,672,98,719,93,719,93,672"/>
 </map>
