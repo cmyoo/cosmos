@@ -35,8 +35,8 @@
 #include <cmath>
 #include <cfloat>
 #include <cstring>
-#include "./cosmos.h"			//header for Einstein solver
-#include "./ahf2d.h"			//header for apparent horizon finder
+#include "cosmos.h"			//header for Einstein solver
+#include "ahf2d.h"			//header for apparent horizon finder
 
 using namespace std;
 
