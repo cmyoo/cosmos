@@ -1,6 +1,6 @@
 # Makefile
 
-LANG=cpp
+LANG=C
 # program file name
 PROG = cosmos
 
@@ -34,7 +34,7 @@ DEP = .dep.inc
 # source file
 SRC = $(PROG).cpp cosmos_bssn.cpp cosmos_initial.cpp cosmos_output.cpp cosmos_boundary.cpp cosmos_ipol.cpp cosmos_fluid.cpp
 #SRC = $(PROG).cpp cosmos_bssn.cpp cosmos_initial.cpp cosmos_output.cpp cosmos_boundary.cpp cosmos_ahf.cpp cosmos_ipol.cpp cosmos_fluid.cpp cosmos_fmr.cpp 
-OBJS = $(SRC:%.$(LANG)=%.o)
+OBJS = $(SRC:%.cpp=%.o)
 
 .PHONY: all
 all: depend $(PROG)
@@ -43,7 +43,7 @@ all: depend $(PROG)
 $(PROG): $(OBJS)
 	$(CXX) $(CFLAGS) -o $(PROG) $(OBJS)
 
-.$(LANG).o:
+.cpp.o:
 	$(CXX) $(CFLAGS) -o $@ -c  $<
 
 # clean rule
@@ -58,7 +58,7 @@ depend: $(SRC)
 	@- $(RM) $(DEP);
 	@ for LIS in $^; \
 	do ($(CXX) $(CFLAGS) -MM $$LIS \
-	| sed "s/\ [_a-zA-Z0-9][_a-zA-Z0-9]*\.$(LANG)//g" >> $(DEP);); \
+	| sed "s/\ [_a-zA-Z0-9][_a-zA-Z0-9]*\.cpp//g" >> $(DEP);); \
 	done
 
 # header file dependence

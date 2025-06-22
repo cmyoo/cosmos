@@ -3,7 +3,12 @@
 if [ $# -gt 0 ]; then
 DIR=$1
 else
-echo "Please input the name of your project."
+echo "Please input the name of your project as the argument."
+echo "You can currently choose the following project as a demo."
+echo "  flat_simplest"
+echo "  adiabatic_spherical"
+echo "  sample_pert"
+echo "  scalr_iso"
 exit
 fi
 
