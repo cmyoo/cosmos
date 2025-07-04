@@ -1,0 +1,8 @@
+se xypl at 0
+se xla "x"
+se yla "y"
+se zla "z"
+
+se vie 70,50
+
+sp [][][0:1.] "out_3d.dat" u 28:29:30 w l lc 1 not

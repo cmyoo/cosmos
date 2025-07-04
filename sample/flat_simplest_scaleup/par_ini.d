@@ -5,7 +5,7 @@
 5	        # maximum step of the main loop 
 1.	        # maximum time to evolve
 3	            # tab number of the bufer grids
-0.	            # amp
+2.	            # amp
 -6	            # minimum grid number of x =-nmax-1
 6	            # maximum grid number of x =imax/2-1
 0	            # minimum grid number of y

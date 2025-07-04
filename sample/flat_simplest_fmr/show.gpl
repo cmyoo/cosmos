@@ -1,0 +1,13 @@
+se xypl at 0
+se xla "x"
+se yla "y"
+se zla "z"
+
+se vie 70,50
+sp [][][0:1.] "out_3d0.dat" i 0 u 1:2:3 w l lw 1 lc 2 t "Layer 0",\
+ "out_3d0.dat" i 1 u 1:2:3 w l lw 1 lc 2 not,\
+ "out_3d0.dat" i 2 u 1:2:3 w l lw 1 lc 2 not,\
+ "out_3d0.dat" i 3 u 1:2:3 w l lw 1 lc 2 not,\
+ "out_3d1.dat" i 0 u 1:2:3 w l lw 1 lc 7 t "Layer 1",\
+ "out_3d1.dat" i 1 u 1:2:3 w l lw 1 lc 7 not,\
+ "out_3d1.dat" i 2 u 1:2:3 w l lw 1 lc 7 not

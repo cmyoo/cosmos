@@ -36,9 +36,9 @@
 #include <cfloat>
 #include <cstring>
 #include "cosmos.h"			//header for Einstein solver
-// #include "ahf2d.h"			//header for apparent horizon finder
 
 using namespace std;
+
 
 void initial_read(							//reading inital para
 ifstream& fin, 								//initial parameter file
@@ -85,6 +85,30 @@ double& ptintval2,							//2nd
 double& changept							//printing interval change time
 );
 
+void initial_fmr(							//reading initial parameter for fmr
+ifstream& fin,								//initial parameter file for fmr
+int& laymax,								//max fmr layer number
+int *jbs,									//grid number for fmr region on x-axis
+int *kbs,									//grid number for fmr region on y-axis
+int *lbs,									//grid number for fmr region on z-axis
+double *alp_fmr								//values of the lapse for starting fmr
+);
+
+void ahf_read(								//reading initial para for AHF
+ifstream& fin, 								//AHF para file
+double& AHFstart,							// time to start AHF
+int& ahcint, 								//interval step to call AHF
+int& ahpint, 								//interval step to print AH
+int& ntheta, 								//grid num of theta
+int& nphi, 									//grid num of phi
+int& ahloop, 								//max step of AHF
+double& var, 								//parameter \eta_apparent
+double& facn, 								//factor of mix with the next
+double& err_p, 								//error for Poisson solver
+double& err_e, 								//error for AH equation
+double& ahc 								//initial guess of radius
+);
+
 
 int main(int argc,char* argv[])
 {
@@ -93,7 +117,10 @@ int main(int argc,char* argv[])
 		cuev;								//for curvature evaluation
 		
 	long int mstep; 						//max step num for time evo
-
+	// int ahloop, 							//max step of AHF
+		// ahcint, 							//interval step to call AHF
+		// ahpint, 					
+	  //interval step to print AH
 	int	tab, 								//tab num for buf grids
 		nxmin, 								//min grid num of x
 		nxmax, 								//max grid num of x
@@ -101,6 +128,8 @@ int main(int argc,char* argv[])
 		nymax, 								//max grid num of y
 		nzmin, 								//min grid num of z
 	        nzmax; 								//max grid num of z
+		// ntheta, 							//grid num of theta
+		// nphi, 								//grid num of phi
 		// pk,									//printing grid number for y axis
 		// pl;									//printing grid number for z axis
 	
@@ -117,11 +146,17 @@ int main(int argc,char* argv[])
 		zmax, 								//max coord val of z
 		t, 									//time
 		tmax, 								//max time to evolve
+		// var, 								//parameter \eta_apparent
+		// facn, 								//factor of mix with the next
+		// err_p, 								//error for Poisson solver
+		// err_e, 								//error for AH equation
+		// ahc, 								//initial guess of radius
 		cfl, 								//CFL para
 		cdt, 								//factor for cosmological time scale(dt=cfl*cdt*1/H)
 		etaa, 								//etaa for gauge
 		etab, 								//etab for gauge
 		etabb, 								//etabb for gauge	
+		// AHFstart, 							//time to start AHF
 		KOep,								//factor for Kreiss-Oliger dissipation term
 		mu, 								//amplitude of the perturbation
 		kk, 								//scale of the perturbation
@@ -149,6 +184,10 @@ int main(int argc,char* argv[])
 	double changept;						//printing interval change time
 	double nexttimeprint;                   //next time of printing
 	
+	int laymax;								//maximum number of higher layers
+	int jbs[3],kbs[3],lbs[3];			//minimum grid numbers for lower layers
+	double alp_fmr[10];						//values of lapse at the center for adding a layer
+	
 	cout.setf(ios_base::scientific, ios_base::floatfield);
 	cout.precision(10);
 	
@@ -169,6 +208,20 @@ int main(int argc,char* argv[])
 	fin.close();
 	//reading initial parameter file end
 	
+	//reading fmr parameter file start
+	fin.open("par_fmr.d");				//open par file
+	initial_fmr(fin,
+		laymax,jbs,kbs,lbs,alp_fmr);
+	fin.close();
+	//reading fmr parameter file end
+	
+	// //reading ahf setting start 
+	// fin.open("par_ahf.d");
+	// ahf_read(fin, AHFstart, ahcint, ahpint, 
+	// ntheta,nphi, ahloop, var, facn, err_p,err_e, ahc);
+	// fin.close();
+	// //reading ahf setting end 
+	
 	//setting for bools start
 	fld=false;						// fluid evolution -> true/false
 	scl=false;						// scalar evolution -> true/false
@@ -178,13 +231,23 @@ int main(int argc,char* argv[])
 	//main class for bssn
 	Fmv *fmv=new Fmv(tab,nxmax,nxmin,nymax,nymin,nzmax,nzmin,
 					xmax,xmin,ymax,ymin,zmax,zmin,amp,fld,scl,cuev);
+	Fmv1 **fmv1;
+	Fmv0 **fmv0;
+
+	fmv0 = new Fmv0 *[laymax+1];
+	fmv1 = new Fmv1 *[laymax];
+	
+	fmv0[0]=fmv;
+
+	// //apparent horizon finder class
+	// Ahf2d *ahf=new Ahf2d(ntheta, nphi, var, facn, ahc);
 	
 	//initial parameter setting start
 	double dr=fmv->get_dx();
 	double dtini=cfl*dr;
 	double lambda=0.;
 	double scalarm=0.;
-	double tini=0.;
+	double tini=0.;//2./(3.*(1+fluidw)*Hb);
 	t=tini;
 
 	//initial parameter setting 
@@ -221,17 +284,96 @@ int main(int argc,char* argv[])
 	
 	ofstream fileconst("out_const.dat");				//constraint evolution
 
-	ofstream file3d("out_3d.dat",std::ios::out);									//for 3d figure
-	
+	ofstream file3d0("out_3d0.dat");									//for 3d figure
+	ofstream file3d1("out_3d1.dat");									//for 3d figure
 	ofstream fileall;									//for all variables to continue
 	//output files end
 	
-	//initial data setting start
-	fmv->initial(mu);
-        #pragma omp barrier
-	//initial data setting end
+	// //reading continue or setting initial date start
+	// if(contn)
+	// {
+	// 	//file preparateion start
+	// 	ifstream fcontinue(file_continue);
+	// 	if(fcontinue.fail()){
+	// 		cout << "Initial data file to continue is not found." << endl;
+	// 		exit(1);
+	// 	}
+	
+	// 	//parameter consistency check
+	// 	check_continue_file(fcontinue,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
 
+	// 	//initial date loading 
+	// 	fmv->initial_continue(fcontinue);
+	// 	cout << "continue" << endl;
+
+	// 	//boundary setting
+	// 	#pragma omp barrier
+	// 	fmv->boundary_reflection();
+
+	// 	//line spaces
+	// 	string buf;
+	// 	getline(fcontinue, buf);
+	// 	getline(fcontinue, buf);
+
+	// 	//initial data loading for higher layers start
+	// 	for(int i=0;i<ln;i++)
+	// 	{
+	// 		//class preparation start
+	// 		fmv1[i]=new Fmv1(tab,2*jbs[i],-2*jbs[i],2*kbs[i],nymin,2*lbs[i],nzmin,fmv0[i]->get_x(jbs[i]),fmv0[i]->get_x(-jbs[i]),fmv0[i]->get_y(kbs[i]),ymin,fmv0[i]->get_z(lbs[i]),zmin,amp,fld, scl, cuev, fmv0[i]);
+	// 		fmv0[i+1]=fmv1[i];
+	// 		//class preparation end
+
+	// 		//initial setting for the upper layer start
+	// 		double deltat=0.5*fmv0[i]->get_dt0();
+	// 		fmv1[i]->initial_params(cfl,etaa,etab,etabb,lambda,deltat,deltat,deltat,t,tini,Hb,KOep,exg,fluidw,scalarm,Mkap,bminmod);
+	// 		fmv1[i]->set_fmr_initial();					
+	// 		cout << "initial setting done" << endl;
+	// 		//initial setting for the upper layer end
+			
+	// 		//initial data loading
+	// 		fmv1[i]->initial_continue(fcontinue);
+
+	// 		//boundary setting 
+	// 		fmv1[i]->boundary_quarter();
+
+	// 		//line spaces
+	// 		getline(fcontinue, buf);
+	// 		getline(fcontinue, buf);
+
+	// 		if(i>0)
+	// 		{
+	// 			fmv1[i-1]->set_mrf(true);						//mesh refinement flag
+	// 			fmv1[i-1]->set_ulay(fmv1[i]);					//upper layer designation
+	// 		}
+	// 	}
+	// 	//initial data loading for higher layers end
+		
+	// 	fcontinue.close();
+	// 	t=fmv->get_t();
+	// 	fmv->setv0();
+	// 	//printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
+	// }
+	// else
+	// {
+		// cout << "no continue" << endl;
+		
+		//initial data setting start
+		//fmv->set_initial_scalar(mus,kks,xi2s,xi3s);
+		//#pragma omp barrier
+		// fmv->initial_nonsph(mu,kk,xi2,xi3,xi2s,xi3s,w3);
+		fmv->initial(mu);
+		#pragma omp barrier
+		// printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
+		//initial data setting end
+
+		//printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);
+	// }
+	//reading continue or setting initial date end
+	
 	//initial output start
+	//file3d.open("out_3d.dat",std::ios::out);
+	//fmv->print_3d(file3d);
+	//file3d.close();
 	cout << "ln=" << ln << endl;
 	cout << "##Hini=" << abs(fmv->get_bv(nxmax,nymax,nzmax,20)/3) << endl;
 	//initial output end
@@ -246,22 +388,45 @@ int main(int argc,char* argv[])
 	
 	//time step settings start
 	double dtl=cfl*dr;
-	double dtt=cfl*dr;
+	double dtt=cfl*dr;//cdt*cfl/abs(fmv->get_bv(nxmax,nymax,nzmax,20));
 
-	fmv->set_dtpp(fmv->get_dt0());			//one before previous time step
-	fmv->set_dtp(fmv->get_dt0());			//previous time step
-	fmv->set_dt0(min(dtl,dtt));
+	// //setting time interval if not continued
+	// if(!contn)
+	// {
+		fmv->set_dtpp(fmv->get_dt0());			//one before previous time step
+		fmv->set_dtp(fmv->get_dt0());			//previous time step
+		fmv->set_dt0(min(dtl,dtt));
+	// }
 	// //time step settings end
 
 	//other settings for main loop start
 	nexttimeprint=t+ptintval1;
+	// bool AHFflag=false;							//true for actuation
+	// bool prehorizon=false;						//previous apparent horizon search?
 	//other settings for main loop end
 	
+	// //seach for AH if continued
+	// if(contn)
+	// {
+	// 	cout << "aparent horizon finder" << endl;
+	// 	ahf->find_ah( fmv0[ln], ahloop, err_p, err_e, fileah,1 );
+	// }
+
+	// //if AH is found
+	// if(!prehorizon && !ahf->get_error())
+	// {
+	// 	cout << "horizon found" << endl;
+	// 	fmv0[ln]->set_excflags_square();		//setting excision flags
+	// 	//fmv->set_excflags_sphere();
+	// 	cout << "excflags set" << endl;
+	// 	prehorizon=true;
+	// 	ahf->set_hflag(fmv0[ln]);				//setting horizon flags
+	// }
 
 	//main loop start
 	cout << "enter the main loop" << endl;
 	
-	// bool changedt=false;
+	bool changedt=false;
 	for(int step=1;step<mstep+1;step++)
 	{ 
 		fmv->set01();							//xxx1=xxx0
@@ -331,28 +496,64 @@ int main(int argc,char* argv[])
 		fmv->set_dtpp(fmv->get_dtp());			//one before previous time step
 		fmv->set_dtp(fmv->get_dt0());			//previous time step
 
+		//evolution of higher layers start /////////////////////////////////////////////
+		if(ln!=0)
+		{
+			fmv1[0]->evolve();
+			#pragma omp barrier
+			fmv->boundary_quarter();
+		}
 		#pragma omp barrier
+		//evolution of higher layers end /////////////////////////////////////////////
 
+		//constraint check for higher layers start //////////////////////////////////////
+		if(ln!=0)
+		{
+			//int lni=ln;
+			for(int lni=1;lni<=ln;lni++)
+			{
+				hammax=max(hammax,fmv0[lni]->get_hammax());
+				mommax=max(mommax,fmv0[lni]->get_mommax());
 
+				cout << " layer number=" << lni << endl
+				<< " ham=" << fmv0[lni]->get_ham() 
+				<< " hammax=" << fmv0[lni]->get_hammax() 
+				<< "  (j,k,l)=(" 
+				<< fmv0[lni]->get_jhm() << ","  
+				<< fmv0[lni]->get_khm() << "," 
+				<< fmv0[lni]->get_lhm() << ")" 
+				<< " r=" << sqrt(pow(fmv0[lni]->get_x(fmv0[lni]->get_jhm()),2)+pow(fmv0[lni]->get_y(fmv0[lni]->get_khm()),2)+pow(fmv0[lni]->get_x(fmv0[lni]->get_lhm()),2))
+				<< " mom=" << fmv0[lni]->get_mom() 
+				<< " mommax=" << fmv0[lni]->get_mommax() 
+				<< "  (j,k,l)=(" 
+				<< fmv0[lni]->get_jmm() << ","  
+				<< fmv0[lni]->get_kmm() << "," 
+				<< fmv0[lni]->get_lmm() << ")" 
+				<< " r=" << sqrt(pow(fmv0[lni]->get_x(fmv0[lni]->get_jmm()),2)+pow(fmv0[lni]->get_y(fmv0[lni]->get_kmm()),2)+pow(fmv0[lni]->get_x(fmv0[lni]->get_lmm()),2))
+				<< endl << endl;
+			}
+		}
+				
 		fileconst << setw(20) << t					//1
 		<< " "  << setw(20) << hammax				//2
 		<< " "  << setw(20) << mommax				//3
 		<< endl;
+		//constraint check for higher layers end //////////////////////////////////////
 
 		//time forward start ////////////////////////////////////////
 		t=fmv->get_t()+fmv->get_dt0();
 		fmv->set_t(t);
-		dtt=cfl*dr;
+		dtt=cfl*dr;//cdt*cfl/abs(fmv->get_bv(nxmax,nymax,nzmax,20));
 		fmv->set_dt0(min(dtl,dtt));
 
-		// if(changedt==false)
-		// {
-		// 	if(dtl<dtt)
-		// 	{
-		// 		cout << "dtl<dtt" << " t="<< t <<  endl;
-		// 		changedt=true;
-		// 	}
-		// }
+		if(changedt==false)
+		{
+			if(dtl<dtt)
+			{
+				cout << "dtl<dtt" << " t="<< t <<  endl;
+				changedt=true;
+			}
+		}
 		//time forward end /////////////////////////////////////////////
 
 		//output judge start //////////////////////////////////////
@@ -361,6 +562,7 @@ int main(int argc,char* argv[])
 		if(t>nexttimeprint-1.0e-10)
 		{
 			cout << "t=" << t << " nexttimeprint=" << nexttimeprint << endl;
+			// printflag=true;
 			
 			if(t+ptintval1>changept)
 			nexttimeprint+=ptintval2;
@@ -369,51 +571,169 @@ int main(int argc,char* argv[])
 		}
 		//output judge end //////////////////////////////////////////
 		
+		// //AHF judge 
+		// if(!AHFflag && (t>AHFstart || ln==laymax))
+		// {
+		// 	AHFflag=true;
+		// }
+
+		// //horizon finder start
+		// int quot=step/ahcint;
+		// int rem=step%ahcint;
+
+		// if(rem == 0 && AHFflag)
+		// {
+		// 	cout << "aparent horizon finder" << endl;
+		// 	ahf->find_ah( fmv0[ln], ahloop, err_p, err_e, fileah,1 );
+			
+		// 	//print for AH 
+		// 	if(quot%ahpint == 0)
+		// 	{
+		// 		if(!ahf->get_error())
+		// 		{
+		// 			ahf->print_ah(fmv0[ln],fileahf,t);			//for AH figure
+		// 		}
+		// 	}
+		// }
+
+		// //if found
+		// if(!prehorizon && !ahf->get_error())
+		// {
+		// 	cout << "horizon found" << endl;
+		// 	printflag=true;
+		// 	fmv0[ln]->set_excflags_square();					//excision flag setting 
+		// 	cout << "excflags set" << endl;
+		// 	prehorizon=true;
+		// 	ahf->set_hflag(fmv0[ln]);							//setting horizon flag
+		// 	//fmv->set_excflags_sphere();
+		// }
+		// //horizon finder end
+
 		//escape judge //////////////////////////////////////////
 		if(t>tmax)
 		 break;
 		/////////////////////////////////////////////////////////
 
+		//upper layer setting start
+		if(ln<laymax ) //&& ahf->get_error())						//if AH is already found not going to upper layer
+		{	
+		// 	if(fmv->get_bv(0,0,0,0)<alp_fmr[ln])				//condition for the next upper layer
+		// 	{
+				//upper layer class setting
+				fmv1[ln]=new Fmv1(tab,2*jbs[ln],-2*jbs[ln],2*kbs[ln],nymin,2*lbs[ln],nzmin,fmv0[ln]->get_x(jbs[ln]),fmv0[ln]->get_x(-jbs[ln]),fmv0[ln]->get_y(kbs[ln]),ymin,fmv0[ln]->get_z(lbs[ln]),zmin,amp,fld, scl, cuev, fmv0[ln]);
+				fmv0[ln+1]=fmv1[ln];
+
+				//initial setting for the upper layer start
+				double deltat=0.5*fmv0[ln]->get_dt0();
+				fmv1[ln]->initial_params(cfl,etaa,etab,etabb,lambda,deltat,deltat,deltat,t,tini,Hb,KOep,exg,fluidw,scalarm,Mkap,bminmod);
+
+				fmv1[ln]->set_fmr_initial();					
+				cout << "initial setting done" << endl;
+				//initial setting for the upper layer end
+
+				if(ln>0)
+				{
+					fmv1[ln-1]->set_mrf(true);					//mesh refinement flag
+					fmv1[ln-1]->set_ulay(fmv1[ln]);				//upper layer designation
+				}
+				ln++;
+				cout << "fmr layer #" << ln << " start" << endl;
+		// 		// printflag=true;
+		// 	}
+		}
+		//upper layer setting end
 
 		// //printing start
 		// if(printflag)
 		// {
 		// 	cout << "printing" << endl;
-		// 	fmv->print_3d(file3d);
-		// 	// fmv->print_y(filey,pk,pl);
-		// 	// fmv->print_z(filez,pk,pl);
-		// 	// fmv->print_xz(filex0z, pk);
-		// 	// fmv->print_xy(filexy0, pl);
+		// 	// printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);		//output sections
+	
+		// 	// file3d.open("out_3d.dat",std::ios::app);
+		// 	// fmv->print_3d(file3d);
+		// 	// file3d.close();
+
+		// 	//output all data start
+		// 	fileall.open("out_all.dat", ios::out );
+
+		// 	output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+
+		// 	for(int i=0;i<=ln;i++)
+		// 	{	
+		// 		fmv0[i]->print_all(fileall);
+		// 	}
+		// 	fileall.close();
+		// 	//output all data end
 		// }
-		// // //printing end
+		// //printing end
 	}
 	//main loop end
 	
+	cout << "test ok 0" << endl;
 	//final print start
 	if(mstep!=0)
 	{
-	  fmv->print_3d(file3d);
-	  // fmv->print_x(filex,pk,pl);
-	  // fmv->print_y(filey,pk,pl);
-	  // fmv->print_z(filez,pk,pl);
-	  // fmv->print_xz(filex0z, pk);
-	  // fmv->print_xy(filexy0, pl);
+	        // file3d.open("out_3d.dat",std::ios::app);
+		fmv0[0]->print_3d(file3d0);
+		file3d0.close();
+	cout << "test ok 1" << endl;
+		fmv0[1]->print_3d(file3d1);
+		file3d1.close();
+	cout << "test ok 2" << endl;
+		// fmv0[2]->print_3d(file3d2);
+		// file3d2.close();
+		// printpack(fmv0,ln,pk,pl,filex,filey,filez,filex0z,filexy0);		//output sections
+
+		// if(AHFflag)
+		// {
+		// 	ahf->find_ah( fmv0[ln], ahloop, err_p, err_e, fileah,1 );
+			
+		// 	if(!ahf->get_error())
+		// 	{
+		// 		ahf->print_ah(fmv0[ln],fileahf,t);
+		// 	}
+		// }
+	
+		// //output all data start
+		// fileall.open("out_all.dat", ios::out );
+	
+		// output_params(fileall,fld,scl,tab,nxmin,nxmax,nymin,nymax,nzmin,nzmax,laymax,ln,jbs,kbs,lbs);
+			
+		// for(int i=0;i<=ln;i++)
+		// {	
+		// 	fmv0[i]->print_all(fileall);
+		// }
+		// fileall.close();
+		// //output all data end
 	}
 	//final print end
 		
 	//finalize start
-	file3d.close();
-	// filex.close();
-	// filey.close();
-	// filez.close();
-	// filex0z.close();
-	// filexy0.close();
+	// delete ahf;
 
+	cout << "test ok1" << endl;
+
+	// delete fmv1[0];	
+	// cout << "test ok2" << endl;
+	// delete fmv0[1];	
+	// cout << "test ok3" << endl;
+	// delete fmv0[0];	
+
+	// for(int i=0;i<=ln;i++)
+	// {	
+	// 	delete fmv0[i];	
+	// 	cout << "fmv0-"<< i << "delete" << endl;
+	// }
+
+	delete[] fmv0;
+	cout << "fmv0 delete" << endl;
+
+	delete[] fmv1;
+	cout << "fmv1 delete" << endl;
 	//finalize end
 
 	return 0;
 }
-
 
 //initial parameter reading function
 void initial_read(ifstream& fin, 
@@ -661,6 +981,70 @@ double& changept
 	getline(fin, buf);
 	if((buf[0]!='#')&&(!buf.empty())){
 		sscanf(buf.c_str(),"%lf %s",&changept,cp);
+	}
+	return;
+}
+
+//mesh refinement parameter reading function
+void initial_fmr(							//reading initial parameter for fmr
+ifstream& fin,								//initial parameter file for fmr
+int& laymax,								//max fmr layer number
+int *jbs,									//grid number for fmr region on x-axis
+int *kbs,									//grid number for fmr region on y-axis
+int *lbs,									//grid number for fmr region on z-axis
+double *alp_fmr	){
+	string buf;
+	char cp[100];
+	//cp = NULL;
+
+	if(fin.fail()){
+		cout << "Parameter File does not exist." << endl;
+		abort();
+	}
+
+	getline(fin, buf);
+	getline(fin, buf);
+	getline(fin, buf);
+	getline(fin, buf);
+	getline(fin, buf);
+	getline(fin, buf);
+
+	if((buf[0]!='#')&&(!buf.empty())){
+		sscanf(buf.c_str(),"%d %s",&laymax,cp);
+	}
+	getline(fin, buf);
+	
+	for(int n=0;n<=laymax;n++)
+	{
+		getline(fin, buf);
+		if((buf[0]!='#')&&(!buf.empty())){
+			sscanf(buf.c_str(),"%d %s",&jbs[n],cp);
+		}
+	}
+	getline(fin, buf);
+	for(int n=0;n<=laymax;n++)
+	{
+		getline(fin, buf);
+		if((buf[0]!='#')&&(!buf.empty())){
+			sscanf(buf.c_str(),"%d %s",&kbs[n],cp);
+		}
+	}
+	getline(fin, buf);
+	for(int n=0;n<=laymax;n++)
+	{
+		getline(fin, buf);
+		if((buf[0]!='#')&&(!buf.empty())){
+			sscanf(buf.c_str(),"%d %s",&lbs[n],cp);
+		}
+	}
+	getline(fin, buf);
+	
+	for(int n=0;n<=laymax;n++)
+	{
+		getline(fin, buf);
+		if((buf[0]!='#')&&(!buf.empty())){
+			sscanf(buf.c_str(),"%lf %s",&alp_fmr[n],cp);
+		}
 	}
 	return;
 }

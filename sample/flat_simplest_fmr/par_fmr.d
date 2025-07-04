@@ -1,0 +1,18 @@
+############################################################
+##  parameters for FMR in COSMOS code    ###################
+##  ver1.00  by Chulmoon Yoo on          ###################
+############################################################
+##  maximum number of fmr layers 
+1
+##x-grid number for fmr region
+4
+0
+##y-grid number for fmr region
+4
+0
+##z-grid number for fmr region
+1
+0
+##values of the lapse for starting fmr
+0.15
+0.
