@@ -1,0 +1,17 @@
+set style line 1 linetype 1 linewidth 3.00 
+set style line 2 linetype 1 dt (5,5) linewidth 3.00 
+set style line 3 linetype 2 linewidth 3.00 
+set style line 4 linetype 2 dt (5,5) linewidth 3.00 
+Amp=-0.01
+t0=0.25
+kt0=0.178126451216426
+t3=0.50058431
+kt3=0.340595670531306
+g(x)=2.+cos(pi*x)
+set xrange [-1:1]
+set xlabel "x/L"
+set ylabel "kappa" 
+plot "out_xkl.dat" ind 0 usi 1:(-($22)/1.5*(t0)-1.) ti "initial: t=0.25000000L" with l ls 1,\
+(kt0*Amp*g(x)) ti "" with l ls 2,\
+"out_xkl.dat" ind 1 usi 1:(-($22)/1.5*(t3)-1.) ti "t=0.50058431L" with l ls 3,\
+(kt3*Amp*g(x)) ti "" with l ls 4
