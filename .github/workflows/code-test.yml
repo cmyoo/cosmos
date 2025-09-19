@@ -29,8 +29,8 @@ jobs:
     - name: run scalar_iso
       run: |
         pwd
-        cd source/scalar_iso/
-        pwd
+        ./makecosmos.sh scalar_iso
+        cd ./scalar_iso/
         make
         ./cosmos
         ls out_*
@@ -44,8 +44,8 @@ jobs:
     - name: run sample_pert
       run: |
         pwd
-        cd source/sample_pert/
-        pwd
+        ./makecosmos.sh sample_pert
+        cd ./sample_pert/
         make
         ./cosmos
         ls out_*
