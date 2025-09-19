@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: master
+    branches: chul
 
 jobs:
   adiabatic_spherical:
@@ -14,8 +14,8 @@ jobs:
     - name: run adiabatic_spherical
       run: |
         pwd
-        cd source/adiabatic_spherical/
-        pwd
+        ./makecosmos.sh adiabatic_spherical
+        cd ./adiabatic_spherical/
         make
         ./cosmos
         ls out_*
