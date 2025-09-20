@@ -568,6 +568,7 @@ int main(int argc,char* argv[])
 				<< fmv0[lni]->get_khm() << "," 
 				<< fmv0[lni]->get_lhm() << ")" 
 				<< " r=" << sqrt(pow(fmv0[lni]->get_x(fmv0[lni]->get_jhm()),2)+pow(fmv0[lni]->get_y(fmv0[lni]->get_khm()),2)+pow(fmv0[lni]->get_x(fmv0[lni]->get_lhm()),2))
+				<< endl 
 				<< " mom=" << fmv0[lni]->get_mom() 
 				<< " mommax=" << fmv0[lni]->get_mommax() 
 				<< "  (j,k,l)=(" 
