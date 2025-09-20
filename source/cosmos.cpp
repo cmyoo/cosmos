@@ -573,7 +573,7 @@ int main(int argc,char* argv[])
 				<< fmv0[lni]->get_kmm() << "," 
 				<< fmv0[lni]->get_lmm() << ")" 
 				<< " r=" << sqrt(pow(fmv0[lni]->get_x(fmv0[lni]->get_jmm()),2)+pow(fmv0[lni]->get_y(fmv0[lni]->get_kmm()),2)+pow(fmv0[lni]->get_x(fmv0[lni]->get_lmm()),2))
-				<< endl << endl;
+				<< endl;
 			}
 		}
 				
