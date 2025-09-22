@@ -1,0 +1,20 @@
+set style line 1 linetype 1 linewidth 1.00 
+set xrange [-0.05:0.05]
+set yrange [0:*]
+set zrange [0:*]
+set grid
+set xlabel "x/L" 
+set xlabel offset 0,-1
+set ylabel offset -3,0
+set zlabel offset 0.5,0
+set ylabel "y/L" 
+set zlabel "z/L" 
+set view 65,30,1,1
+set view equal xyz
+set ticslevel 0
+set xtics -0.06,0.02 offset -1,-0.5
+set ytics 0.02,0.02 offset 1,0
+set ztics 0,0.02 offset 2,0
+#set size 0.5,0.5
+set hidden3d nooffset
+splot "out_AHfig.dat" usi 1:2:3 ind 0 ti "" w l ls 1

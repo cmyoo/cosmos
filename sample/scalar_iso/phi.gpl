@@ -1,0 +1,14 @@
+set style line 1 linetype 3 linewidth 1.00 pointtype 4 
+set style line 2 linetype 2 linewidth 1.00 pointtype 7 pointsize 0.7 
+set style line 3 linetype 1 linewidth 1.00 pointtype 7 pointsize 0.3
+set grid
+set key right
+set key bottom
+set yrange [*:*]
+set xrange [-1.:1.]
+set ylabel "phi"
+set xlabel "x/L"
+plot \
+"out_xkl.dat" ind 0 usi 1:48 ti "lowest layer" with lp ls 1,\
+"out_xkl.dat" ind 1 usi 1:48 ti "1st FMR layer" with lp ls 2,\
+"out_xkl.dat" ind 2 usi 1:48 ti "2nd FMR layer" with lp ls 3
