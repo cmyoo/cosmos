@@ -38,7 +38,7 @@ authors:
   - name: Daiki Saito
     orcid: 0000-0003-1624-9268
     # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 1
+    affiliation: 7
   - name: Masaaki Shimada
     orcid: 0009-0001-2144-575X
     # corresponding: true # (This is how to denote the corresponding author)
@@ -65,8 +65,10 @@ affiliations:
    index: 4
  - name: Center of Gravity, Niels Bohr Institute, Denmark
    index: 5
- - name: Yukawa Institute for Theoretical Physics, Kyoto University, Japan
+ - name: Department of Information and Computer Science, Osaka Institute of Technology, Japan
    index: 6
+ - name: Department of Physics, Kyoto University, Japan
+   index: 7
 date: 5 February 2025
 bibliography: paper.bib
 
@@ -85,7 +87,7 @@ In particular, PBHs have been attracting much attention in the recent developmen
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
 In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations.
 `COSMOS` [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and `COSMOS-S` [@Yoo:2021fxs] provide  -->
- simple tools for the simulation of PBH formation (see [`COSMOS-S`](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of `COSMOS`). 
+ simple tools for the simulation of PBH formation (see [`COSMOS-S`: https://github.com/cmyoo/cosmos-s](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of `COSMOS`). 
 `COSMOS` is a <!-- and `COSMOS-S` are  -->
 C++ packages for solving Einstein equations in 3+1 dimensions. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
 It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
