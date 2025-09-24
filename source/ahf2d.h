@@ -613,9 +613,9 @@ public:
 		while(it<itmax);
 		
 		//final boundary setting
+		//boundary_half(vf);
 		//boundaryset(vf);
-        //boundary_half(vf);
-		boundary_periodicphi_nosympoletheta(vf);
+        boundary_periodicphi_nosympoletheta(vf);
 		return;
 	}
 	

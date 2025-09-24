@@ -2146,7 +2146,6 @@ public:
 	void boundary_quarter_excflags();
 	void boundary_quarter_hflags();
 	void boundary_psi_initial_quarter();
-	void boundary_beta_quarter();
 	void boundary_quarter_fluid();
 	void boundary_quarter_scalar();
 	
@@ -2222,14 +2221,11 @@ public:
 	void boundary_periodic();
 	void boundary_reflection();
 	void boundary_d_reflection();
-	void boundary_d_gs_reflection();
 	void boundary_reflection_even(int i);
 	void boundary_prim_reflection();
 	
 	void boundary_reflection_hflags();
-	void boundary_w();
 	void boundary_psi_initial();
-	void boundary_beta();
 	void boundary_reflection_fluid();
 	void boundary_reflection_scalar();
 
