@@ -87,14 +87,15 @@ In particular, PBHs have been attracting much attention in the recent developmen
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
 In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations.
 `COSMOS` [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and `COSMOS-S` [@Yoo:2021fxs] provide  -->
- simple tools for the simulation of PBH formation (see [`COSMOS-S`: https://github.com/cmyoo/cosmos-s](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of `COSMOS`). 
+ simple tools for the simulation of PBH formation (see `COSMOS-S` [^1] for a spherically symmetric version of `COSMOS`). 
 `COSMOS` is a <!-- and `COSMOS-S` are  -->
 C++ packages for solving Einstein equations in 3+1 dimensions. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
 It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
 In this paper, we do not describe all scientific results obtained by using `COSMOS`. <!-- or `COSMOS-S`.  -->
-The readers who are interested in the past achievments may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; [^1]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
+The readers who are interested in the past achievments may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; [^2]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
 
-[^1]: In most of the references: @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo, additional functions and packages have been implemented to meet the requirements for individual settings. 
+[^1]: https://github.com/cmyoo/cosmos-s .
+[^2]: In most of the references: @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo, additional functions and packages have been implemented to meet the requirements for individual settings. 
 Therefore the results may not be obtained by simply running the public code. 
 
 # Statement of need
