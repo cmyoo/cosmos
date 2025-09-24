@@ -948,15 +948,6 @@ public:
 	double get_z(int l)const{
 		return z[l-lmin];
 	}
-	double get_ext_x(int j)const{
-		return(xl +dx*(double(j-jl[0])));
-	}
-	double get_ext_y(int k)const{
-		return(yl +dy*(double(k-kl[0])));
-	}
-	double get_ext_z(int l)const{
-		return(zl +dz*(double(l-ll[0])));
-	}	
 	double get_bv(int l,int k,int j,int i) const{
 		return bv[i][l-lmin][k-kmin][j-jmin];
 	}

@@ -11,10 +11,14 @@ authors:
     orcid: 0000-0002-9928-4757
     # equal-contrib: true
     affiliation: "1, 2" # (Multiple affiliations must be quoted)
+  - name: Hirotada Okawa
+    orcid: 0000-0001-7372-5131
+    # corresponding: true # (This is how to denote the corresponding author)
+    affiliation: 3
   - name: Albert Escrivà
     orcid: 0000-0001-5483-8034
     # equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
-    affiliation: 3
+    affiliation: 1
   - name: Tomohiro Harada
     orcid: 0000-0002-9085-9905
     # corresponding: true # (This is how to denote the corresponding author)
@@ -31,10 +35,6 @@ authors:
     orcid: 0000-0002-9579-5787
     # corresponding: true # (This is how to denote the corresponding author)
     affiliation: 6
-  - name: Hirotada Okawa
-    orcid: 0000-0001-7372-5131
-    # corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 7
   - name: Daiki Saito
     orcid: 0000-0003-1624-9268
     # corresponding: true # (This is how to denote the corresponding author)
@@ -56,17 +56,17 @@ affiliations:
    index: 1
  - name: Kobayashi Maskawa Institute, Nagoya University, Japan
    index: 2
-#    ror: 00hx57361
- - name: National Astronomical Observatory of Japan (NAOJ), Japan
+ - name: Faculty of Software and Information Technology, Aomori University, Japan
    index: 3
+#    ror: 00hx57361
+# - name: National Astronomical Observatory of Japan (NAOJ), Japan
+#   index: 3
  - name: Department of Physics, Rikkyo University, Japan
    index: 4
  - name: Center of Gravity, Niels Bohr Institute, Denmark
    index: 5
  - name: Yukawa Institute for Theoretical Physics, Kyoto University, Japan
    index: 6
- - name: Faculty of Software and Information Technology, Aomori University, Japan
-   index: 7
 date: 5 February 2025
 bibliography: paper.bib
 
@@ -84,21 +84,20 @@ or a major component of dark matter.
 In particular, PBHs have been attracting much attention in the recent development of gravitational wave observation. 
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
 In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations.
-`COSMOS` [@Yoo:2013yea; @Okawa:2014nda] and `COSMOS-S` [@Yoo:2021fxs] provide simple tools for the simulation of PBH formation. 
-`COSMOS` and `COSMOS-S` are C++ packages for solving Einstein equations in 3+1 dimensions and spherical symmetry (1+1 dimensions), respectively. 
+`COSMOS` [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and `COSMOS-S` [@Yoo:2021fxs] provide  -->
+ simple tools for the simulation of PBH formation (see [`COSMOS-S`](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of `COSMOS`). 
+`COSMOS` is a <!-- and `COSMOS-S` are  -->
+C++ packages for solving Einstein equations in 3+1 dimensions. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
 It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
-In this paper, we do not describe all scientific results obtained by using `COSMOS` or `COSMOS-S`. 
-The readers who are interested in the past achievments may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec [^1]. 
-
-[^1]: In most of the references: @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2021fxs; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; @Shimada:2024eec, 
-additional functions and packages have been implemented to meet the requirements for individual settings. 
+In this paper, we do not describe all scientific results obtained by using `COSMOS`. <!-- or `COSMOS-S`.  -->
+The readers who are interested in the past achievments may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; [^1]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
+[^1]: In most of the references: @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo, additional functions and packages have been implemented to meet the requirements for individual settings. 
 Therefore the results may not be obtained by simply running the public code. 
 
 # Statement of need
 
 In the simulation of PBH formation, since there is a hierarchy between the size of the collapsing region and cosmological expansion scale, an efficient resolution refinement procedure is needed. 
-In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in `COSMOS`. 
-The 1+1 dimensional simulation code `COSMOS-S` [@Yoo:2021fxs] is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab]. 
+In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in `COSMOS`. <!-- The 1+1 dimensional simulation code `COSMOS-S` [@Yoo:2021fxs] is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab].  -->
 To achieve a practically acceptable computational speed, an OpenMP package is used for the parallelization. 
 No other packages are required, and the functionality is minimal. 
 Therefore it would be easy to use for beginners of numerical relativity. 
@@ -108,12 +107,12 @@ Once users understand the source code to some extent, the system can be easily e
 
 # Physical system settings
 
-Einstein equations
+Einstein equations 
 <!-- \begin{equation} -->
 $$
 G_{\mu\nu}=R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}=\frac{8\pi G}{c^4}T_{\mu\nu}
-$$
-<!-- \end{equation} -->
+$$ 
+<!-- \end{equation} --> 
 are solved, where $G_{\mu\nu}$, $g_{\mu\nu}$, $R_{\mu\nu}$, $R$, $G$, $c$ and $T_{\mu\nu}$
 are the Einstein tensor, metric tensor, Ricci tensor, Ricci scalar, Newtonian gravitational constant, speed of light and energy momentum tensor, respectively.
 The energy momentum tensor is divided into the fluid and scalar field contributions as follows:
@@ -166,14 +165,14 @@ This is why elliptic solvers for constraint equations are not included in this p
 
 # Examples
 
-Several examples are included in the package.
+Three examples are included in the package.
 These examples are intended primarily for demonstration and instructional purposes, and thus, the precision is not a primary concern. The resolution has been intentionally kept to a minimum.
 In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation. 
 
 
-### COSMOS (3+1 dimensional simulation)
+<!-- ### COSMOS (3+1 dimensional simulation) -->
 
-- Evolution of a single-mode perturbation
+### Evolution of a single-mode perturbation
 
 The evolution of sinusoidal small fluctuation is given as an example, which can be compared with the corresponding linear perturbation (see \autoref{fig:kap}).
 
@@ -181,7 +180,7 @@ The evolution of sinusoidal small fluctuation is given as an example, which can 
 
 
 
-- Adiabatic spherically symmetric initial fluctuation
+### Adiabatic spherically symmetric initial fluctuation
 
 The scalar field is absent in this example. The setting is similar to that in @Yoo:2020lmg.
 We also attach the data obtained by solving the Einstein equations until an apparent horizon is found (see \autoref{fig:alp} and \autoref{fig:AH}).
@@ -190,7 +189,7 @@ We also attach the data obtained by solving the Einstein equations until an appa
 
 ![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf){height="6cm"}
 
-- Spherically symmetric iso-curvature
+### Spherically symmetric iso-curvature
 
 The setting is similar to that in @Yoo:2021fxs.
 We also attach the data obtained by solving the Einstein equations until an apparent horizon is found.
@@ -198,7 +197,7 @@ We also attach the data obtained by solving the Einstein equations until an appa
 
 
 
-
+<!--
 ### COSMOS-S (spherically symmetric simulation)
 
 - Adiabatic spherically symmetric initial fluctuation
@@ -217,6 +216,7 @@ PBH formation from adiabatic fluctuation with extremely large initial amplitude 
 
 ![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf){height="6cm"}
 
+-->
 
 # Acknowledgements
 
@@ -225,7 +225,7 @@ K.U. would like to take this opportunity to thank the “THERS Make New Standard
 Generation Researchers” supported by JST SPRING, Grant Number JPMJSP2125. 
 T.I. acknowledges support from VILLUM Foundation (grant no. VIL37766) and the DNRF Chair program (grant no. DNRF162) by the Danish National
 Research Foundation. 
-This work is supported in part by JSPS KAKENHI Grant Nos. 20H05850 (C.Y.), 20H05853 (T.H., C.Y.), 21K20367 (Y.K.), 23KK0048 (Y.K.), 24K07027 (T.H., C.Y.) and 24KJ1223 (D.S.).
+This work is supported in part by JSPS KAKENHI Grant Nos. 20H05850 (C.Y.), 20H05853 (T.H., C.Y.), 21K20367 (Y.K.), 23KK0048 (Y.K.), 24K07027 (T.H., C.Y.), 24KJ1223 (D.S.), and 25K07281 (C.Y.).
 
 
 # References
