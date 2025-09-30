@@ -2215,7 +2215,6 @@ public:
 	void boundary_reflection_even(int i);
 	void boundary_prim_reflection();
 	
-	void boundary_reflection_hflags();
 	void boundary_psi_initial();
 	void boundary_reflection_fluid();
 	void boundary_reflection_scalar();
@@ -2235,8 +2234,6 @@ public:
 	void initial_nonsph(double mu,double k,double xi2,double xi3);
 	void set_initial_scalar(double mu,double k,double xi2,double xi3);
 	void set_initial_fluid(double mu,double k,double xi2,double xi3);
-	void initial(double mu);
-	void initial(double mu,double k);
 	void set_ini_from_Psi();
 
 };
