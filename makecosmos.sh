@@ -17,8 +17,8 @@ echo ${MODEL}
 done
 echo "############################"
 echo "----------------------------"
-echo "If you a new user, please try flat_simplest."
-echo "project name ? > "
+echo "If you are a new user, please try flat_simplest."
+echo "project name? > "
 read PNAME
 
 fi
