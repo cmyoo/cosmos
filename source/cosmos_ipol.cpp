@@ -259,7 +259,6 @@ double facx,double qh,int order,int number)
 	int shift=0;									// shift for larger grid(?)
 	////////// variables definition //////////////////////////////////////////////////
 	
-
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	if(fac1<mindis)
 	{
@@ -294,7 +293,6 @@ double facx,double qh,int order,int number)
 	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
-	
 	////////// memory allocation /////////////////////////////////////////////////////
 	double *rr,***kkk,**kyc, *kzyc;													//
 	
@@ -304,7 +302,6 @@ double facx,double qh,int order,int number)
 	kzyc= new double[order];							// interpolated for y and z
 	////////// memory allocation /////////////////////////////////////////////////////
 	
-
 	////////// preparation of values of variables to be used /////////////////////////////////
 	//in the interpolation																	//
 	for(int j=0;j<order;j++)
@@ -335,7 +332,6 @@ double facx,double qh,int order,int number)
 	}																						//
 	////////// preparation of values of variables to be used /////////////////////////////////
 	
-
 	////////// y-coordinate interpolation ////////////////////////////////////////////
 	// y-grids																		//
 	for(int k=0;k<order;k++){
@@ -450,7 +446,6 @@ double facy,double qh,int order,int number)
 	int shift=0;																	//
 	////////// variables definition //////////////////////////////////////////////////
 	
-
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	if(fac1<mindis)
 	{
@@ -485,7 +480,6 @@ double facy,double qh,int order,int number)
 	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
-
 	////////// memory allocation /////////////////////////////////////////////////////
 	double *rr,***kkk,**kxc, *kzxc;													//
 	
@@ -522,7 +516,6 @@ double facy,double qh,int order,int number)
 	}																						//
 	////////// preparation of values of variables to be used /////////////////////////////////
 
-
 	////////// x-coordinate interpolation ////////////////////////////////////////////
 	// x-grids																		//
 	for(int j=0;j<order;j++){
@@ -549,7 +542,6 @@ double facy,double qh,int order,int number)
 	}																				//
 	////////// z-coordinate interpolation ////////////////////////////////////////////
 
-	
 	////////// y-derivative calculation with interpolation ///////////////////////////////////////////////////////////
 	if(order==4)																									//
 	{
