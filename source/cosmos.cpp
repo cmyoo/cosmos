@@ -152,7 +152,6 @@ double& err_e, 								//error for AH equation
 double& ahc 								//initial guess of radius
 );
 
-
 int main(int argc,char* argv[])
 {
 	bool fld,								//for fluid evolution 
