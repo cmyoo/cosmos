@@ -261,42 +261,37 @@ double facx,double qh,int order,int number)
 	
 
 	////////// shift of grid points and corresponding necessary redefs ///////////////
-	if(fac1<mindis)																	//
+	if(fac1<mindis)
 	{
 		if(eoro==0)
 		{
 			bufdiff++;
-			fac1+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
-			fac2+=1.;
-			midsta++;
-			fin++;
-			shift++;
+			midend--;
 		}
+		fac1+=1.;
+		shift++;
+		fin++;
 	}
 	if(fac2<mindis)
 	{
 		if(eoro==0)
 		{
-			fac2+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
 			bufdiff++;
-			fac1+=1.;
-			midsta++;
+			midsta+=2;
+			midend++;
+		}
 			fin++;
 			shift++;
-		}
-	}																				//
+			fac2+=1.;
+	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
 	
@@ -371,16 +366,11 @@ double facx,double qh,int order,int number)
 	if(order==4)																									//
 	{
 		//4th order finite dif
-		double A=(fac1*(fac2 + pow(fac2,2)))
-				/((1 + fac1)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double B=-(((1 + fac1)*(fac2 + pow(fac2,2)))
-				/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double C=(fac1*(1 + fac1)*(1 + fac2))
-				/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double D=-((fac1*(1 + fac1)*fac2)
-				/((1 + fac2)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double E=(-fac1 - pow(fac1,2) + fac2 - 2*pow(fac1,2)*fac2 + pow(fac2,2) 
-				+ 2*fac1*pow(fac2,2))/(fac1*(1 + fac1)*fac2*(1 + fac2));
+		double A=(fac1*fac2*(1 + fac2))/((1 + fac1)*(1 + fac1 + fac2)*(2 + fac1 + fac2));
+		double B=-(((1 + fac1)*fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
+		double C=(fac1*(1 + fac1)*(1 + fac2))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+		double D=-((fac1*(1 + fac1)*fac2)/((1 + fac2)*(1 + fac1 + fac2)*(2 + fac1 + fac2)));
+		double E=-(((fac1 - fac2)*(1 + fac1 + fac2 + 2*fac1*fac2))/(fac1*(1 + fac1)*fac2*(1 + fac2)));
 
 		ans = (A*kzyc[0] +B*kzyc[1] +C*kzyc[2] +D*kzyc[3] +E*qh)*dxi;
 	}
@@ -390,15 +380,14 @@ double facx,double qh,int order,int number)
 		{
 			double A=(fac1*fac2)/((1 + fac1)*(1 + fac1 + fac2));
 			double B=-(((1 + fac1)*fac2)/(fac1*(fac1 + fac2)));
-			double C=(fac1*(1 + fac1))/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-			double D=-((fac1 + pow(fac1,2) - fac2 - 2*fac1*fac2)/(fac1*fac2 + pow(fac1,2)*fac2));
+			double C=(fac1*(1 + fac1))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+			double D=1/fac1 + 1/(1 + fac1) - 1/fac2;
 			
 			ans=(A*kzyc[0] +B*kzyc[1] +C*kzyc[2] +D*qh)*dxi;
 		}
 		else
 		{
-			
-			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
+			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
 			double B=(fac1*(1 + fac2))/(fac2*(fac1 + fac2));
 			double C=-((fac1*fac2)/((1 + fac2)*(1 + fac1 + fac2)));
 			double D=(-fac1 + fac2 - 2*fac1*fac2 + pow(fac2,2))/(fac1*fac2*(1 + fac2));
@@ -463,42 +452,37 @@ double facy,double qh,int order,int number)
 	
 
 	////////// shift of grid points and corresponding necessary redefs ///////////////
-	if(fac1<mindis)																	//
+	if(fac1<mindis)
 	{
 		if(eoro==0)
 		{
 			bufdiff++;
-			fac1+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
-			fac2+=1.;
-			midsta++;
-			fin++;
-			shift++;
+			midend--;
 		}
+		fac1+=1.;
+		shift++;
+		fin++;
 	}
 	if(fac2<mindis)
 	{
 		if(eoro==0)
 		{
-			fac2+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
 			bufdiff++;
-			fac1+=1.;
-			midsta++;
+			midsta+=2;
+			midend++;
+		}
 			fin++;
 			shift++;
-		}
-	}																				//
+			fac2+=1.;
+	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
 
@@ -570,16 +554,11 @@ double facy,double qh,int order,int number)
 	if(order==4)																									//
 	{
 		//4th order finite dif
-		double A=(fac1*(fac2 + pow(fac2,2)))
-				/((1 + fac1)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double B=-(((1 + fac1)*(fac2 + pow(fac2,2)))
-				/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double C=(fac1*(1 + fac1)*(1 + fac2))
-				/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double D=-((fac1*(1 + fac1)*fac2)
-				/((1 + fac2)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double E=(-fac1 - pow(fac1,2) + fac2 - 2*pow(fac1,2)*fac2 + pow(fac2,2) 
-				+ 2*fac1*pow(fac2,2))/(fac1*(1 + fac1)*fac2*(1 + fac2));
+		double A=(fac1*fac2*(1 + fac2))/((1 + fac1)*(1 + fac1 + fac2)*(2 + fac1 + fac2));
+		double B=-(((1 + fac1)*fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
+		double C=(fac1*(1 + fac1)*(1 + fac2))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+		double D=-((fac1*(1 + fac1)*fac2)/((1 + fac2)*(1 + fac1 + fac2)*(2 + fac1 + fac2)));
+		double E=-(((fac1 - fac2)*(1 + fac1 + fac2 + 2*fac1*fac2))/(fac1*(1 + fac1)*fac2*(1 + fac2)));
 
 		ans = (A*kzxc[0] +B*kzxc[1] +C*kzxc[2] +D*kzxc[3] +E*qh)*dyi;
 	}
@@ -589,15 +568,14 @@ double facy,double qh,int order,int number)
 		{
 			double A=(fac1*fac2)/((1 + fac1)*(1 + fac1 + fac2));
 			double B=-(((1 + fac1)*fac2)/(fac1*(fac1 + fac2)));
-			double C=(fac1*(1 + fac1))/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-			double D=-((fac1 + pow(fac1,2) - fac2 - 2*fac1*fac2)/(fac1*fac2 + pow(fac1,2)*fac2));
+			double C=(fac1*(1 + fac1))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+			double D=1/fac1 + 1/(1 + fac1) - 1/fac2;
 			
 			ans=(A*kzxc[0] +B*kzxc[1] +C*kzxc[2] +D*qh)*dyi;
 		}
 		else
 		{
-			
-			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
+			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
 			double B=(fac1*(1 + fac2))/(fac2*(fac1 + fac2));
 			double C=-((fac1*fac2)/((1 + fac2)*(1 + fac1 + fac2)));
 			double D=(-fac1 + fac2 - 2*fac1*fac2 + pow(fac2,2))/(fac1*fac2*(1 + fac2));
@@ -661,42 +639,37 @@ double facz,double qh,int order,int number)
 	////////// variables definition //////////////////////////////////////////////////
 
 	////////// shift of grid points and corresponding necessary redefs ///////////////
-	if(fac1<mindis)																	//
+	if(fac1<mindis)
 	{
 		if(eoro==0)
 		{
 			bufdiff++;
-			fac1+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
-			fac2+=1.;
-			midsta++;
-			fin++;
-			shift++;
+			midend--;
 		}
+		fac1+=1.;
+		shift++;
+		fin++;
 	}
 	if(fac2<mindis)
 	{
 		if(eoro==0)
 		{
-			fac2+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
 			bufdiff++;
-			fac1+=1.;
-			midsta++;
+			midsta+=2;
+			midend++;
+		}
 			fin++;
 			shift++;
-		}
-	}																				//
+			fac2+=1.;
+	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
 
@@ -767,16 +740,11 @@ double facz,double qh,int order,int number)
 	if(order==4)																									//
 	{
 		//4th order finite dif
-		double A=(fac1*(fac2 + pow(fac2,2)))
-				/((1 + fac1)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double B=-(((1 + fac1)*(fac2 + pow(fac2,2)))
-				/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double C=(fac1*(1 + fac1)*(1 + fac2))
-				/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double D=-((fac1*(1 + fac1)*fac2)
-				/((1 + fac2)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double E=(-fac1 - pow(fac1,2) + fac2 - 2*pow(fac1,2)*fac2 + pow(fac2,2) 
-				+ 2*fac1*pow(fac2,2))/(fac1*(1 + fac1)*fac2*(1 + fac2));
+		double A=(fac1*fac2*(1 + fac2))/((1 + fac1)*(1 + fac1 + fac2)*(2 + fac1 + fac2));
+		double B=-(((1 + fac1)*fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
+		double C=(fac1*(1 + fac1)*(1 + fac2))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+		double D=-((fac1*(1 + fac1)*fac2)/((1 + fac2)*(1 + fac1 + fac2)*(2 + fac1 + fac2)));
+		double E=-(((fac1 - fac2)*(1 + fac1 + fac2 + 2*fac1*fac2))/(fac1*(1 + fac1)*fac2*(1 + fac2)));
 
 		ans = (A*kyxc[0] +B*kyxc[1] +C*kyxc[2] +D*kyxc[3] +E*qh)*dzi;
 	}
@@ -786,15 +754,14 @@ double facz,double qh,int order,int number)
 		{
 			double A=(fac1*fac2)/((1 + fac1)*(1 + fac1 + fac2));
 			double B=-(((1 + fac1)*fac2)/(fac1*(fac1 + fac2)));
-			double C=(fac1*(1 + fac1))/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-			double D=-((fac1 + pow(fac1,2) - fac2 - 2*fac1*fac2)/(fac1*fac2 + pow(fac1,2)*fac2));
+			double C=(fac1*(1 + fac1))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+			double D=1/fac1 + 1/(1 + fac1) - 1/fac2;
 			
 			ans=(A*kyxc[0] +B*kyxc[1] +C*kyxc[2] +D*qh)*dzi;
 		}
 		else
 		{
-			
-			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
+			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
 			double B=(fac1*(1 + fac2))/(fac2*(fac1 + fac2));
 			double C=-((fac1*fac2)/((1 + fac2)*(1 + fac1 + fac2)));
 			double D=(-fac1 + fac2 - 2*fac1*fac2 + pow(fac2,2))/(fac1*fac2*(1 + fac2));
@@ -960,42 +927,37 @@ double facx,double qh,int order,int number)
 	////////// variables definition //////////////////////////////////////////////////
 
 	////////// shift of grid points and corresponding necessary redefs ///////////////
-	if(fac1<mindis)																	//
+	if(fac1<mindis)
 	{
 		if(eoro==0)
 		{
 			bufdiff++;
-			fac1+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
-			fac2+=1.;
-			midsta++;
-			fin++;
-			shift++;
+			midend--;
 		}
+		fac1+=1.;
+		shift++;
+		fin++;
 	}
 	if(fac2<mindis)
 	{
 		if(eoro==0)
 		{
-			fac2+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
 			bufdiff++;
-			fac1+=1.;
-			midsta++;
+			midsta+=2;
+			midend++;
+		}
 			fin++;
 			shift++;
-		}
-	}																				//
+			fac2+=1.;
+	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
 	////////// memory allocation /////////////////////////////////////////////////////
@@ -1069,16 +1031,11 @@ double facx,double qh,int order,int number)
 	if(order==4)																									//
 	{
 		//4th order finite dif
-		double A=(fac1*(fac2 + pow(fac2,2)))
-				/((1 + fac1)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double B=-(((1 + fac1)*(fac2 + pow(fac2,2)))
-				/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double C=(fac1*(1 + fac1)*(1 + fac2))
-				/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double D=-((fac1*(1 + fac1)*fac2)
-				/((1 + fac2)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double E=(-fac1 - pow(fac1,2) + fac2 - 2*pow(fac1,2)*fac2 + pow(fac2,2) 
-				+ 2*fac1*pow(fac2,2))/(fac1*(1 + fac1)*fac2*(1 + fac2));
+		double A=(fac1*fac2*(1 + fac2))/((1 + fac1)*(1 + fac1 + fac2)*(2 + fac1 + fac2));
+		double B=-(((1 + fac1)*fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
+		double C=(fac1*(1 + fac1)*(1 + fac2))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+		double D=-((fac1*(1 + fac1)*fac2)/((1 + fac2)*(1 + fac1 + fac2)*(2 + fac1 + fac2)));
+		double E=-(((fac1 - fac2)*(1 + fac1 + fac2 + 2*fac1*fac2))/(fac1*(1 + fac1)*fac2*(1 + fac2)));
 
 		ans = (A*kzyc[0] +B*kzyc[1] +C*kzyc[2] +D*kzyc[3] +E*qh)*dxi;
 	}
@@ -1088,15 +1045,14 @@ double facx,double qh,int order,int number)
 		{
 			double A=(fac1*fac2)/((1 + fac1)*(1 + fac1 + fac2));
 			double B=-(((1 + fac1)*fac2)/(fac1*(fac1 + fac2)));
-			double C=(fac1*(1 + fac1))/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-			double D=-((fac1 + pow(fac1,2) - fac2 - 2*fac1*fac2)/(fac1*fac2 + pow(fac1,2)*fac2));
+			double C=(fac1*(1 + fac1))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+			double D=1/fac1 + 1/(1 + fac1) - 1/fac2;
 			
 			ans=(A*kzyc[0] +B*kzyc[1] +C*kzyc[2] +D*qh)*dxi;
 		}
 		else
 		{
-			
-			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
+			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
 			double B=(fac1*(1 + fac2))/(fac2*(fac1 + fac2));
 			double C=-((fac1*fac2)/((1 + fac2)*(1 + fac1 + fac2)));
 			double D=(-fac1 + fac2 - 2*fac1*fac2 + pow(fac2,2))/(fac1*fac2*(1 + fac2));
@@ -1161,42 +1117,37 @@ double facy,double qh,int order,int number)
 	
 
 	////////// shift of grid points and corresponding necessary redefs ///////////////
-	if(fac1<mindis)																	//
+	if(fac1<mindis)
 	{
 		if(eoro==0)
 		{
 			bufdiff++;
-			fac1+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
-			fac2+=1.;
-			midsta++;
-			fin++;
-			shift++;
+			midend--;
 		}
+		fac1+=1.;
+		shift++;
+		fin++;
 	}
 	if(fac2<mindis)
 	{
 		if(eoro==0)
 		{
-			fac2+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
 			bufdiff++;
-			fac1+=1.;
-			midsta++;
+			midsta+=2;
+			midend++;
+		}
 			fin++;
 			shift++;
-		}
-	}																				//
+			fac2+=1.;
+	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
 	////////// memory allocation /////////////////////////////////////////////////////
@@ -1266,16 +1217,11 @@ double facy,double qh,int order,int number)
 	if(order==4)																									//
 	{
 		//4th order finite dif
-		double A=(fac1*(fac2 + pow(fac2,2)))
-				/((1 + fac1)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double B=-(((1 + fac1)*(fac2 + pow(fac2,2)))
-				/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double C=(fac1*(1 + fac1)*(1 + fac2))
-				/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double D=-((fac1*(1 + fac1)*fac2)
-				/((1 + fac2)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double E=(-fac1 - pow(fac1,2) + fac2 - 2*pow(fac1,2)*fac2 + pow(fac2,2) 
-				+ 2*fac1*pow(fac2,2))/(fac1*(1 + fac1)*fac2*(1 + fac2));
+		double A=(fac1*fac2*(1 + fac2))/((1 + fac1)*(1 + fac1 + fac2)*(2 + fac1 + fac2));
+		double B=-(((1 + fac1)*fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
+		double C=(fac1*(1 + fac1)*(1 + fac2))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+		double D=-((fac1*(1 + fac1)*fac2)/((1 + fac2)*(1 + fac1 + fac2)*(2 + fac1 + fac2)));
+		double E=-(((fac1 - fac2)*(1 + fac1 + fac2 + 2*fac1*fac2))/(fac1*(1 + fac1)*fac2*(1 + fac2)));
 
 		ans = (A*kzxc[0] +B*kzxc[1] +C*kzxc[2] +D*kzxc[3] +E*qh)*dyi;
 	}
@@ -1285,15 +1231,14 @@ double facy,double qh,int order,int number)
 		{
 			double A=(fac1*fac2)/((1 + fac1)*(1 + fac1 + fac2));
 			double B=-(((1 + fac1)*fac2)/(fac1*(fac1 + fac2)));
-			double C=(fac1*(1 + fac1))/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-			double D=-((fac1 + pow(fac1,2) - fac2 - 2*fac1*fac2)/(fac1*fac2 + pow(fac1,2)*fac2));
+			double C=(fac1*(1 + fac1))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+			double D=1/fac1 + 1/(1 + fac1) - 1/fac2;
 			
 			ans=(A*kzxc[0] +B*kzxc[1] +C*kzxc[2] +D*qh)*dyi;
 		}
 		else
 		{
-			
-			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
+			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
 			double B=(fac1*(1 + fac2))/(fac2*(fac1 + fac2));
 			double C=-((fac1*fac2)/((1 + fac2)*(1 + fac1 + fac2)));
 			double D=(-fac1 + fac2 - 2*fac1*fac2 + pow(fac2,2))/(fac1*fac2*(1 + fac2));
@@ -1357,42 +1302,37 @@ double facz,double qh,int order,int number)
 	////////// variables definition //////////////////////////////////////////////////
 
 	////////// shift of grid points and corresponding necessary redefs ///////////////
-	if(fac1<mindis)																	//
+	if(fac1<mindis)
 	{
 		if(eoro==0)
 		{
 			bufdiff++;
-			fac1+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
-			fac2+=1.;
-			midsta++;
-			fin++;
-			shift++;
+			midend--;
 		}
+		fac1+=1.;
+		shift++;
+		fin++;
 	}
 	if(fac2<mindis)
 	{
 		if(eoro==0)
 		{
-			fac2+=1.;
 			midsta++;
-			fin++;
-			shift++;
 		}
 		else
 		{
 			bufdiff++;
-			fac1+=1.;
-			midsta++;
+			midsta+=2;
+			midend++;
+		}
 			fin++;
 			shift++;
-		}
-	}																				//
+			fac2+=1.;
+	}
 	////////// shift of grid points and corresponding necessary redefs ///////////////
 	
 	////////// memory allocation /////////////////////////////////////////////////////
@@ -1461,16 +1401,11 @@ double facz,double qh,int order,int number)
 	if(order==4)																									//
 	{
 		//4th order finite dif
-		double A=(fac1*(fac2 + pow(fac2,2)))
-				/((1 + fac1)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double B=-(((1 + fac1)*(fac2 + pow(fac2,2)))
-				/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double C=(fac1*(1 + fac1)*(1 + fac2))
-				/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-		double D=-((fac1*(1 + fac1)*fac2)
-				/((1 + fac2)*(2 + 3*fac1 + pow(fac1,2) + 3*fac2 + 2*fac1*fac2 + pow(fac2,2))));
-		double E=(-fac1 - pow(fac1,2) + fac2 - 2*pow(fac1,2)*fac2 + pow(fac2,2) 
-				+ 2*fac1*pow(fac2,2))/(fac1*(1 + fac1)*fac2*(1 + fac2));
+		double A=(fac1*fac2*(1 + fac2))/((1 + fac1)*(1 + fac1 + fac2)*(2 + fac1 + fac2));
+		double B=-(((1 + fac1)*fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
+		double C=(fac1*(1 + fac1)*(1 + fac2))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+		double D=-((fac1*(1 + fac1)*fac2)/((1 + fac2)*(1 + fac1 + fac2)*(2 + fac1 + fac2)));
+		double E=-(((fac1 - fac2)*(1 + fac1 + fac2 + 2*fac1*fac2))/(fac1*(1 + fac1)*fac2*(1 + fac2)));
 
 		ans = (A*kyxc[0] +B*kyxc[1] +C*kyxc[2] +D*kyxc[3] +E*qh)*dzi;
 	}
@@ -1480,15 +1415,14 @@ double facz,double qh,int order,int number)
 		{
 			double A=(fac1*fac2)/((1 + fac1)*(1 + fac1 + fac2));
 			double B=-(((1 + fac1)*fac2)/(fac1*(fac1 + fac2)));
-			double C=(fac1*(1 + fac1))/(fac2*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2)));
-			double D=-((fac1 + pow(fac1,2) - fac2 - 2*fac1*fac2)/(fac1*fac2 + pow(fac1,2)*fac2));
+			double C=(fac1*(1 + fac1))/(fac2*(fac1 + fac2)*(1 + fac1 + fac2));
+			double D=1/fac1 + 1/(1 + fac1) - 1/fac2;
 			
 			ans=(A*kyxc[0] +B*kyxc[1] +C*kyxc[2] +D*qh)*dzi;
 		}
 		else
 		{
-			
-			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + pow(fac1,2) + fac2 + 2*fac1*fac2 + pow(fac2,2))));
+			double A=-((fac2*(1 + fac2))/(fac1*(fac1 + fac2)*(1 + fac1 + fac2)));
 			double B=(fac1*(1 + fac2))/(fac2*(fac1 + fac2));
 			double C=-((fac1*fac2)/((1 + fac2)*(1 + fac1 + fac2)));
 			double D=(-fac1 + fac2 - 2*fac1*fac2 + pow(fac2,2))/(fac1*fac2*(1 + fac2));
