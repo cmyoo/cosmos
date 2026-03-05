@@ -54,7 +54,7 @@ authors:
 affiliations:
  - name: Graduate School of Science, Nagoya University, Japan
    index: 1
- - name: Kobayashi Maskawa Institute, Nagoya University, Japan
+ - name: Kobayashi-Maskawa Institute for the Origin of Particles and the Universe, Nagoya University, Japan
    index: 2
  - name: Faculty of Software and Information Technology, Aomori University, Japan
    index: 3
