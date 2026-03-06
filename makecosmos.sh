@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 if [ $# -gt 0 ]; then
 PNAME=$1
 else
