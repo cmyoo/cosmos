@@ -2,7 +2,7 @@ name: C/C++ CI
 
 on:
   push:
-    branches: master
+    branches: [master, chul]
 
 jobs:
   adiabatic_spherical:
@@ -31,8 +31,8 @@ jobs:
         pwd
         ./makecosmos.sh scalar_iso
         cd ./scalar_iso/
-        make
-        ./cosmos
+        make test
+        # ./cosmos
         ls out_*
 
   sample_pert:
