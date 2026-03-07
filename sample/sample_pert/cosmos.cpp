@@ -35,6 +35,7 @@
 #include <cmath>
 #include <cfloat>
 #include <cstring>
+#include <algorithm>
 #include "cosmos.h"		//header for Einstein solver
 #include "ahf2d.h"			//header for apparent horizon finder
 
@@ -1482,6 +1483,18 @@ void check_xkl(Fmv *fmv)
 	}
 	
 	int gridnum=fmv->get_jmax()-fmv->get_jmin()+1;
+
+	ofstream fdiff0("out_diff0.dat");
+	fdiff0.precision(16);
+	fdiff0.setf(ios_base::scientific, ios_base::floatfield);
+	double dmax = *max_element(begin(vdiff),end(vdiff))/gridnum;
+
+	if(dmax>1.e-10){
+	  fdiff0 << 0 << endl;
+	}else{
+	  fdiff0 << 1 << endl;
+	}
+	fdiff0.close();
 
 	ofstream fdiff("out_diff.dat");
 	fdiff.precision(16);
