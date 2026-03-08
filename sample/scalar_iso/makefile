@@ -44,6 +44,13 @@ $(PROG): $(OBJS)
 .cpp.o:
 	$(CXX) $(CFLAGS) -o $@ -c  $<
 
+
+.PHONY: test
+test: $(PROG)
+	./$(PROG)
+	@sh check.sh
+
+
 # clean rule
 .PHONY: clean
 clean:
