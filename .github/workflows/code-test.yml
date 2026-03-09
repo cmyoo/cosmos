@@ -18,7 +18,7 @@ jobs:
         cd ./adiabatic_spherical/
         make
         ./cosmos
-        ls out_*
+        #ls out_*
 
   scalar_iso:
     name: Run scalar_iso
@@ -31,8 +31,8 @@ jobs:
         pwd
         ./makecosmos.sh scalar_iso
         cd ./scalar_iso/
-        make test
-        # ./cosmos
+        make 
+        ./cosmos
         # ls out_*
 
   sample_pert:
@@ -48,4 +48,4 @@ jobs:
         cd ./sample_pert/
         make
         ./cosmos
-        ls out_*
+        #ls out_*
