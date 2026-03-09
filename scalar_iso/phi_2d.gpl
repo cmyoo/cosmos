@@ -1,0 +1,21 @@
+set style line 1 linetype 1 linewidth 1.00 
+set style line 2 linetype 2 linewidth 1.00 
+set style line 3 linetype 3 linewidth 1.00 
+set xrange [-1.001:1.001]
+set yrange [-0.001:1.001]
+set zrange [*:*]
+set xlabel "x/L" 
+set xlabel offset 1,0
+set ylabel offset -6,0
+set zlabel offset -1,0
+set ylabel "y/L" 
+set zlabel "phi" 
+set view 65,5,1,1
+set ticslevel 0
+ set xtics offset 0,-0.5
+ set ytics offset 0,0
+ set ztics offset 1,0
+splot \
+"out_xyl.dat" usi 1:2:49 ind 0 ti "lowest layer" w l ls 3,\
+"out_xyl.dat" usi 1:2:49 ind 1 ti "1st FMR layer" w l ls 2,\
+"out_xyl.dat" usi 1:2:49 ind 2 ti "2nd FMR layer" w l ls 1
