@@ -33,7 +33,7 @@ jobs:
         cd ./scalar_iso/
         make test
         # ./cosmos
-        ls out_*
+        # ls out_*
 
   sample_pert:
     name: Run sample_pert
