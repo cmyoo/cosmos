@@ -759,14 +759,14 @@ int main(int argc,char* argv[])
 	for(int i=0;i<=ln;i++)
 	{	
 		delete fmv0[i];	
-		cout << "fmv0-"<< i << "delete" << endl;
+		// cout << "fmv0-"<< i << "delete" << endl;
 	}
 
 	delete[] fmv0;
-	cout << "fmv0 delete" << endl;
+	// cout << "fmv0 delete" << endl;
 
 	delete[] fmv1;
-	cout << "fmv1 delete" << endl;
+	// cout << "fmv1 delete" << endl;
 	//finalize end
 
 	return 0;
@@ -1487,17 +1487,20 @@ void check_xkl(Fmv *fmv)
 	int gridnum=fmv->get_jmax()-fmv->get_jmin()+1;
 
 
-	ofstream fdiff0("out_diff0.dat");
-	fdiff0.precision(16);
-	fdiff0.setf(ios_base::scientific, ios_base::floatfield);
+	// ofstream fdiff0("out_diff0.dat");
+	// fdiff0.precision(16);
+	// fdiff0.setf(ios_base::scientific, ios_base::floatfield);
 	double dmax = *max_element(begin(vdiff),end(vdiff))/gridnum;
 
 	if(dmax>1.e-10){
-	  fdiff0 << 0 << endl;
+	  // fdiff0 << 0 << endl;
+	  cout << "Tests failed: see file (out_diff.dat)." << endl;
 	}else{
-	  fdiff0 << 1 << endl;
+	  cout << "Tests passed." << endl;
+	  // fdiff0 << 1 << endl;
+	  // fdiff0 << 1 << endl;
 	}
-	fdiff0.close();
+	// fdiff0.close();
 
 	ofstream fdiff("out_diff.dat");
 	fdiff.precision(16);
