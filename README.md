@@ -2,7 +2,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=flat)]()
 [![BSD-3-Clause](https://custom-icon-badges.herokuapp.com/badge/license-BSD%203%20Clause-8BB80A.svg?logo=law&logoColor=white)]()
  [![status](https://joss.theoj.org/papers/f03e0df3a83ae294aedc8629dddd88e8/status.svg)](https://joss.theoj.org/papers/f03e0df3a83ae294aedc8629dddd88e8)
- [![GitHub release](https://img.shields.io)](https://github.com)
+ [![GitHub release](https://img.shields.io/github/v/release/cmyoo/cosmos)](https://github.com/cmyoo/cosmos/releases)
 
 # COSMOS
 <!-- 
@@ -19,6 +19,13 @@ Please visit https://sites.google.com/view/cosmoscode/ for a list of publication
 <!-- ## Getting started
 Detailed installation instructions and usage examples are available in
 our [wiki](https://github.com/GRChombo/GRChombo/wiki), with the home page giving guidance on where to start. -->
+
+## CHANGELOG
+Please check [Releases](https://github.com/cmyoo/cosmos/releases). 
+
+
+### - 2024-03-24
+- 初回リリース
 
 ## Documents
 <!-- API documents are available in [https://cmyoo.github.io/cosmos/](https://cmyoo.github.io/cosmos/).  -->
