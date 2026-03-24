@@ -2,6 +2,7 @@
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=flat)]()
 [![BSD-3-Clause](https://custom-icon-badges.herokuapp.com/badge/license-BSD%203%20Clause-8BB80A.svg?logo=law&logoColor=white)]()
  [![status](https://joss.theoj.org/papers/f03e0df3a83ae294aedc8629dddd88e8/status.svg)](https://joss.theoj.org/papers/f03e0df3a83ae294aedc8629dddd88e8)
+ [![GitHub release](https://img.shields.io)](https://github.com)
 
 # COSMOS
 <!-- 
