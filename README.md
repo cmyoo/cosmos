@@ -20,12 +20,12 @@ Please visit https://sites.google.com/view/cosmoscode/ for a list of publication
 Detailed installation instructions and usage examples are available in
 our [wiki](https://github.com/GRChombo/GRChombo/wiki), with the home page giving guidance on where to start. -->
 
-## CHANGELOG
+## Changelog
 Please check [Releases](https://github.com/cmyoo/cosmos/releases). 
 
+### - 2026-03-24
+- First release: v1.0.0
 
-### - 2024-03-24
-- 初回リリース
 
 ## Documents
 <!-- API documents are available in [https://cmyoo.github.io/cosmos/](https://cmyoo.github.io/cosmos/).  -->
