@@ -92,7 +92,7 @@ In order to follow the whole non-linear gravitational dynamics, one has to rely 
 C++ packages for solving Einstein equations in 3+1 dimensions [^3]. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
 It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
 In this paper, we do not describe all scientific results obtained by using `COSMOS`. <!-- or `COSMOS-S`.  -->
-The readers who are interested in the past achievements may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo; [^4]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
+The readers who are interested in the past achievements may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo [^4]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
 
 [^1]: https://github.com/cmyoo/cosmos .
 [^2]: https://github.com/cmyoo/cosmos-s .
