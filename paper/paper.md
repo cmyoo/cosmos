@@ -67,7 +67,7 @@ affiliations:
    index: 5
  - name: Department of Information and Computer Science, Osaka Institute of Technology, Japan
    index: 6
- - name: Department of Physics, Kyoto University, Japan
+ - name: Department of Science Education, Ewha Womans University, Korea
    index: 7
 date: 5 February 2025
 bibliography: paper.bib
