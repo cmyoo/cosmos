@@ -80,99 +80,95 @@ bibliography: paper.bib
 
 # Summary
 
-Primordial black holes (PBHs) are black holes generated in the early universe without experience of the form of a star.
-It has been pointed out that PBHs may be candidates for black holes and compact objects of various masses in the universe
+Primordial black holes (PBHs) are black holes generated in the early universe without having gone through stellar evolution.
+It has been hypothesized that PBHs may be candidates for black holes and compact objects of various masses in the universe
 or a major component of dark matter. 
 In particular, PBHs have been attracting much attention in the recent development of gravitational wave observation. 
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
-In order to follow the whole non-linear gravitational dynamics, one has to rely on numerical relativity solving Einstein equations.
+In order to simulate the non-linear gravitational dynamics of PBH formation, one has to rely on numerical relativity solvers to approximate the solution of the Einstein equations.
 `COSMOS` [^1] [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and `COSMOS-S` [@Yoo:2021fxs] provide  -->
- simple tools for the simulation of PBH formation (see `COSMOS-S` [^2] for a spherically symmetric version of `COSMOS`, which we do not deal with in this paper. ). 
+ simple tools for the simulation of PBH formation (see `COSMOS-S` [^2] for a spherically symmetric version of `COSMOS`, which is not discussed in this paper). 
 `COSMOS` is a <!-- and `COSMOS-S` are  -->
-C++ packages for solving Einstein equations in 3+1 dimensions [^3]. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
-It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specialized for PBH formation. 
-In this paper, we do not describe all scientific results obtained by using `COSMOS`. <!-- or `COSMOS-S`.  -->
-The readers who are interested in the past achievements may refer to @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo [^4]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
+C++ package for solving the Einstein equations in 3+1 dimensions. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
+It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specifically for the simulation of PBH formation [^3]. 
+Past publications that use COSMOS for simulation include @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo [^4]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
 
 [^1]: https://github.com/cmyoo/cosmos .
 [^2]: https://github.com/cmyoo/cosmos-s .
 [^3]: C.Y. and H.O are the main contributors of this code, and other authors used the numerical code during the development and operational stages and contributed in part to its development and improvement.
-[^4]: In most of the references: @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo, additional functions and packages have been implemented to meet the requirements for individual settings. 
-Therefore the results may not be obtained by simply running the public code. 
+[^4]: In these works, additional functions and packages have been implemented that may not appear in the public release of COSMOS. Therefore the results may not be obtained by simply running the public code. 
 
 # Statement of need
 
-In the simulation of PBH formation, since there is a hierarchy between the size of the collapsing region and cosmological expansion scale, an efficient resolution refinement procedure is needed. 
+In the simulation of PBH formation, the presence of multiple lengthscales (the size of the collapsing region and that of cosmological expansion) necessitates an efficient resolution refinement procedure. 
 In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in `COSMOS`. <!-- The 1+1 dimensional simulation code `COSMOS-S` [@Yoo:2021fxs] is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab].  -->
-To achieve a practically acceptable computational speed, an OpenMP package is used for the parallelization. 
-No other packages are required, and the functionality is minimal. 
-Therefore it would be easy to use for beginners of numerical relativity. 
-A perfect fluid with a linear equation of states and a massless scalar field are implemented as matter fields. 
+In its model, COSMOS uses a perfect fluid with a linear equation of state and a massless scalar field as matter fields. 
+To achieve a practically acceptable computational speed, OpenMP is used for the parallelization. 
+COSMOS has no other dependencies, which makes for an easier installation. 
 Once users understand the source code to some extent, the system can be easily extended to various scientifically interesting settings.
 
 
 # Physical system settings
 
-Einstein equations 
+At the core of COSMOS, the Einstein equations
 <!-- \begin{equation} -->
 $$
 G_{\mu\nu}=R_{\mu\nu}-\frac{1}{2}Rg_{\mu\nu}=\frac{8\pi G}{c^4}T_{\mu\nu}
 $$ 
 <!-- \end{equation} --> 
 are solved, where $G_{\mu\nu}$, $g_{\mu\nu}$, $R_{\mu\nu}$, $R$, $G$, $c$ and $T_{\mu\nu}$
-are the Einstein tensor, metric tensor, Ricci tensor, Ricci scalar, Newtonian gravitational constant, speed of light and energy momentum tensor, respectively.
-The energy momentum tensor is divided into the fluid and scalar field contributions as follows:
+are the Einstein tensor, the metric tensor, the Ricci tensor, the Ricci scalar, the Newtonian gravitational constant, the speed of light, and the energy-momentum tensor, respectively. 
+The energy-momentum tensor is divided into fluid and scalar field contributions as
 <!-- \begin{equation} -->
 $$
-T_{\mu\nu}=T^{\rm SC}_{\mu\nu}+T^{\rm FL}_{\mu\nu}
+T_{\mu\nu}=T^{\rm SC}_{\mu\nu}+T^{\rm FL}_{\mu\nu}, 
 $$
 <!-- \end{equation} -->
 with
 <!-- \begin{equation} -->
 $$
-T^{\rm SC}_{\mu\nu}=\nabla_\mu\phi\nabla_\nu\phi-\frac{1}{2}g_{\mu\nu}\nabla^\lambda\phi\nabla_\lambda\phi
+T^{\rm SC}_{\mu\nu}=\nabla_\mu\phi\nabla_\nu\phi-\frac{1}{2}g_{\mu\nu}\nabla^\lambda\phi\nabla_\lambda\phi 
 $$
 <!-- \end{equation} -->
 and
 <!-- \begin{equation} -->
 $$
-T^{\rm FL}_{\mu\nu}=(\rho+P)u_\mu u_\nu+Pg_{\mu\nu},
+T^{\rm FL}_{\mu\nu}=(\rho+P)u_\mu u_\nu+Pg_{\mu\nu}, 
 $$
 <!-- \end{equation} -->
-where $\nabla$, $\phi$, $\rho$, $u_\mu$ and $P$ are the covariant derivative associated with $g_{\mu\nu}$, scalar field, fluid energy density, four-velocity and pressure, respectively. 
+where $\nabla$ denotes taking the covariant derivative using $g_{\mu\nu}$, 
+$\phi$ is the scalar field, and $\rho$, $u_\mu$ and $P$ are the energy density, the four-velocity, and the pressure of the fluid, respectively. 
 The pressure and the energy density are assumed to satisfy the linear equation of state $P=w\rho$ with $w$ being a constant. 
 The equations of motion for the scalar field
 <!-- \begin{equation} -->
 $$
-\nabla^\mu\nabla_\mu \phi=0
+\nabla^\mu\nabla_\mu \phi=0, 
 $$
 <!-- \end{equation} -->
 and the fluid
 <!-- \begin{equation} -->
 $$
-\nabla^\mu T^{\rm FL}_{\mu\nu}=0
+\nabla^\mu T^{\rm FL}_{\mu\nu}=0, 
 $$
 <!-- \end{equation} -->
 are also solved.
-Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) to learn how to rewrite these equations into a form suitable for numerical integration. 
+Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) on how to rewrite these equations into a form suitable for numerical integration. 
 To solve the fluid equations of motion, we basically follow the scheme discussed in @Kurganov:2000ovy; @Shibata:2005jv. 
 
 As for the initial data, we adopt the long-wavelength growing-mode solutions
-up through the next-leading order of the expansion parameter $\epsilon=k/(aH)\ll1$,
+up to (and including) the next-leading order of the expansion parameter $\epsilon=k/(aH)\ll1$,
 where $1/k$ gives the characteristic comoving scale of the inhomogeneity, and $a$ and $H$ are the scale factor and Hubble expansion rate in the reference background universe.
 The initial data can be characterized by a function of the spatial coordinates $\vec x$ as the curvature perturbation $\zeta(\vec x)$ for adiabatic fluctuations [@Harada:2015yda; @Yoo:2024lhp; @Yoo:2020lmg] and iso-curvature perturbation $\Upsilon(\vec x)$ for
 massless scalar iso-curvature [@Yoo:2021fxs]. 
 Since the space is filled with the fluid, the initial fluid distribution can be generated to meet the constraint equations included in the Einstein equations. 
-Then, the constraint equations are initially satisfied within the machine's precision. 
-Therefore, the constraint equations are not solved by integrating elliptic differential equations. 
-This is very different from the standard method to obtain the initial data for spacetimes 
-with asymptotically flat vacuum regions. 
-This is why elliptic solvers for constraint equations are not included in this package.
+Therefore the constraint equations are initially satisfied to within machine precision, and need not be solved by integrating elliptic differential equations. 
+This approach differs from the standard method of obtaining the initial data for spacetimes with asymptotically flat vacuum regions, and is the reason why elliptic solvers are not included in COSMOS. 
 
 # Examples
 
 Three examples are included in the package.
-These examples are intended primarily for demonstration and instructional purposes, and thus, the precision is not a primary concern. The resolution has been intentionally kept to a minimum.
+These examples are intended primarily for demonstration and instructional purposes, and thus, and thus they are not highly accurate. 
+The resolution has been intentionally kept as low as possible. 
 In the figures below, the length scale is normalized by the size $L$ of the box for the numerical simulation. 
 
 
@@ -180,7 +176,7 @@ In the figures below, the length scale is normalized by the size $L$ of the box 
 
 ### Evolution of a single-mode perturbation
 
-The evolution of sinusoidal small fluctuation is given as an example, which can be compared with the corresponding linear perturbation (see \autoref{fig:kap}).
+The evolution of a small sinusoidal fluctuation is given as an example, which can be compared to the corresponding linear perturbation (see \autoref{fig:kap}).
 
 ![The time evolution of the trace of the extrinsic curvature tr$K$ is compared with the solution of the linear perturbation equation.\label{fig:kap}](kap.pdf){height="6cm"}
 
@@ -188,22 +184,36 @@ The evolution of sinusoidal small fluctuation is given as an example, which can 
 
 ### Adiabatic spherically symmetric initial fluctuation
 
-The scalar field is absent in this example. The setting is similar to that in @Yoo:2020lmg.
-We also attach the data (`ini_all.dat`) obtained by solving the Einstein equations until an apparent horizon is found (see \autoref{fig:alp} and \autoref{fig:AH} which can be generated by following the instruction for the sample code [^5]). 
+Here, we consider the adiabatic perturbation generated by the initial curvature perturbation without scalar field contribution. 
+As is described in @Harada:2015yda, once the spatial profile of the curvature perturbation is specified,
+the growing mode solution can be described in the long-wavelength approximation.
+We use the analytic expressions for the geometrical variables with the constant-mean-curvature and zero-shift gauge 
+as the initial data for this example. More details including the specific functional form of the curvature perturbation can be found in [^5] (see also @Yoo:2020lmg). 
 
-![The lapse function (``$tt$-component" of the metric) on the $xy$-plane at the time when an apparent horizon is found.\label{fig:alp}](alp_2d.pdf){height="8cm"}
+In the repository, we include the data file `ini_all.dat` necessary to reconstruct the geometry and matter distribution at the time an apparent horizon is found (see \autoref{fig:alp} and \autoref{fig:AH} which can be generated by following the instructions [^6]). 
+
+![The lapse function (``$tt$-component" of the metric) on the $xy$-plane at the time when an apparent horizon is found. The blue, green, and purple meshes show the region covered by the lowest, 1st, and 2nd mesh refinement layers, respectively.\label{fig:alp}](alp_2d.pdf){height="8cm"}
 
 ![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf){height="6cm"}
 
-[^5]: https://github.com/cmyoo/cosmos/wiki/Adiabatic-spherically-symmetric-initial-fluctuation .
+[^5]: https://github.com/cmyoo/cosmos/wiki/Note-for-the-time-evolution-sample-of-an-adiabatic-spherical-case .
+[^6]: https://github.com/cmyoo/cosmos/wiki/Adiabatic-spherically-symmetric-initial-fluctuation .
 
 ### Spherically symmetric iso-curvature
 
-The setting is similar to that in @Yoo:2021fxs.
-We also attach the data (`ini_all.dat`) obtained by solving the Einstein equations until an apparent horizon is found, and 
-analyze them by following the instruction for the sample code [^6].
+Here, we consider the iso-curvature perturbation generated by a massless scalar field.
+We assume that the massless scalar field does not contribute to the background metric of the gradient expansion.
+Then, as is described in @Yoo:2021fxs, once the
+spatial profile of the scalar field is specified at the leading order of the gradient expansion,
+the growing mode solution can be described in the long-wavelength approximation.
+We use the analytic expressions for the geometrical variables with the constant-mean-curvature and zero-shift gauge
+as the initial data for this example. More details including the specific functional form of the curvature perturbation can be found in [^7] (see also @Yoo:2021fxs).
 
-[^6]: https://github.com/cmyoo/cosmos/wiki/Spherically-symmetric-isocurvature .
+In the repository, we include the data file `ini_all.dat` necessary to reconstruct the geometry and matter distribution at the time an apparent horizon is found, as for the adiabatic case. 
+
+
+[^7]: https://github.com/cmyoo/cosmos/wiki/Note-for-the-time-evolution-sample-of-a-massless-scalar-iso-curvature-system .
+[^8]: https://github.com/cmyoo/cosmos/wiki/Spherically-symmetric-isocurvature .
 
 
 <!--
