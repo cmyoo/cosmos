@@ -65,7 +65,7 @@ affiliations:
    index: 4
  - name: Center of Gravity, Niels Bohr Institute, Denmark
    index: 5
- - name: Department of Information and Computer Science, Osaka Institute of Technology, Japan
+ - name: Department of Physics, College of Humanities　and Sciences, Nihon University, Japan
    index: 6
  - name: Department of Science Education, Ewha Womans University, Korea
    index: 7
