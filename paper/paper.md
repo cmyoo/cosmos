@@ -65,9 +65,9 @@ affiliations:
    index: 4
  - name: Center of Gravity, Niels Bohr Institute, Denmark
    index: 5
- - name: Department of Physics, College of Humanities　and Sciences, Nihon University, Japan
+ - name: Department of Physics, College of Humanities and Sciences, Nihon University, Japan
    index: 6
- - name: Department of Science Education, Ewha Womans University, Korea
+ - name: Department of Science Education, Ewha Womans University, Republic of Korea
    index: 7
 date: 5 February 2025
 bibliography: paper.bib
@@ -86,22 +86,20 @@ or a major component of dark matter.
 In particular, PBHs have been attracting much attention in the recent development of gravitational wave observation. 
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
 In order to simulate the non-linear gravitational dynamics of PBH formation, one has to rely on numerical relativity solvers to approximate the solution of the Einstein equations.
-`COSMOS` [^1] [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and `COSMOS-S` [@Yoo:2021fxs] provide  -->
- simple tools for the simulation of PBH formation (see `COSMOS-S` [^2] for a spherically symmetric version of `COSMOS`, which is not discussed in this paper). 
-`COSMOS` is a <!-- and `COSMOS-S` are  -->
+[COSMOS](https://github.com/cmyoo/cosmos) [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and COSMOS-S [@Yoo:2021fxs] provide  -->
+ simple tools for the simulation of PBH formation (see [COSMOS-S](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of COSMOS, which is not discussed in this paper).
+COSMOS is a <!-- and COSMOS-S are  -->
 C++ package for solving the Einstein equations in 3+1 dimensions. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
-It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specifically for the simulation of PBH formation [^3]. 
-Past publications that use COSMOS for simulation include @Yoo:2013yea; @Okawa:2014nda; @Yoo:2014boa; @Okawa:2014sxa; @Ikeda:2015hqa; @Brito:2015yga; @Brito:2015yfh; @Okawa_2015; @Yoo:2016kzu; @Yoo:2018pda; @Yoo:2024lhp; @Escriva:2024lmm; @Escriva:2024aeo [^4]. <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
+It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specifically for the simulation of PBH formation.[^1]
+Past publications that use COSMOS for simulation include @Yoo:2013yea, @Okawa:2014nda, @Yoo:2014boa, @Okawa:2014sxa, @Ikeda:2015hqa, @Brito:2015yga, @Brito:2015yfh, @Okawa_2015, @Yoo:2016kzu, @Yoo:2018pda, @Yoo:2024lhp, @Escriva:2024lmm and @Escriva:2024aeo.[^2] <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
 
-[^1]: https://github.com/cmyoo/cosmos .
-[^2]: https://github.com/cmyoo/cosmos-s .
-[^3]: C.Y. and H.O are the main contributors of this code, and other authors used the numerical code during the development and operational stages and contributed in part to its development and improvement.
-[^4]: In these works, additional functions and packages have been implemented that may not appear in the public release of COSMOS. Therefore the results may not be obtained by simply running the public code. 
+[^1]: C.Y. and H.O are the main contributors of this code, and other authors used the numerical code during the development and operational stages and contributed in part to its development and improvement.
+[^2]: In these works, additional functions and packages have been implemented that may not appear in the public release of COSMOS. Therefore the results may not be obtained by simply running the public code.
 
 # Statement of need
 
-In the simulation of PBH formation, the presence of multiple lengthscales (the size of the collapsing region and that of cosmological expansion) necessitates an efficient resolution refinement procedure. 
-In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in `COSMOS`. <!-- The 1+1 dimensional simulation code `COSMOS-S` [@Yoo:2021fxs] is derived from `COSMOS` with the CARTOON method [@Alcubierre:1999ab].  -->
+In the simulation of PBH formation, the presence of multiple length scales (the size of the collapsing region and that of cosmological expansion) necessitates an efficient resolution refinement procedure. 
+In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in COSMOS. <!-- The 1+1 dimensional simulation code COSMOS-S [@Yoo:2021fxs] is derived from COSMOS with the CARTOON method [@Alcubierre:1999ab].  -->
 In its model, COSMOS uses a perfect fluid with a linear equation of state and a massless scalar field as matter fields. 
 To achieve a practically acceptable computational speed, OpenMP is used for the parallelization. 
 COSMOS has no other dependencies, which makes for an easier installation. 
@@ -152,10 +150,10 @@ $$
 $$
 <!-- \end{equation} -->
 are also solved.
-Readers are asked to refer to standard textbooks of numerical relativity (e.g., @gourgoulhon20123+1; @shibata2016numerical) on how to rewrite these equations into a form suitable for numerical integration. 
-To solve the fluid equations of motion, we basically follow the scheme discussed in @Kurganov:2000ovy; @Shibata:2005jv. 
+Readers are asked to refer to standard textbooks of numerical relativity [e.g., @gourgoulhon20123+1; @shibata2016numerical] on how to rewrite these equations into a form suitable for numerical integration. 
+To solve the fluid equations of motion, we basically follow the scheme discussed in @Kurganov:2000ovy and @Shibata:2005jv. 
 
-As for the initial data, we adopt the long-wavelength growing-mode solutions
+For the initial data, we adopt the long-wavelength growing-mode solutions
 up to (and including) the next-leading order of the expansion parameter $\epsilon=k/(aH)\ll1$,
 where $1/k$ gives the characteristic comoving scale of the inhomogeneity, and $a$ and $H$ are the scale factor and Hubble expansion rate in the reference background universe.
 The initial data can be characterized by a function of the spatial coordinates $\vec x$ as the curvature perturbation $\zeta(\vec x)$ for adiabatic fluctuations [@Harada:2015yda; @Yoo:2024lhp; @Yoo:2020lmg] and iso-curvature perturbation $\Upsilon(\vec x)$ for
@@ -187,14 +185,12 @@ The evolution of a small sinusoidal fluctuation is given as an example, which ca
 Here, we consider the adiabatic perturbation generated by the initial curvature perturbation without scalar field contribution. 
 As is described in @Harada:2015yda, once the spatial profile of the curvature perturbation $\zeta(\vec x)$ is specified,
 the growing mode solution can be described in the long-wavelength approximation. 
-More details including the specific functional form of the curvature perturbation can be found in the instruction page[^5] (see also @Yoo:2020lmg). 
+More details including the specific functional form of the curvature perturbation can be found in the [instruction page](https://github.com/cmyoo/cosmos/wiki/Adiabatic-spherically-symmetric-initial-fluctuation) [see also @Yoo:2020lmg]. 
 In the repository, we include the data file `ini_all.dat` necessary to reconstruct the geometry and matter distribution at the time an apparent horizon is found (see \autoref{fig:alp} and \autoref{fig:AH} which can be generated by following the instructions).  
 
-![The lapse function (``$tt$-component" of the metric) on the $xy$-plane at the time when an apparent horizon is found. The blue, green, and purple meshes show the region covered by the lowest, 1st, and 2nd mesh refinement layers, respectively.\label{fig:alp}](alp_2d.pdf){height="7cm"}
+![The lapse function (``$tt$-component" of the metric) on the $xy$-plane at the time when an apparent horizon is found. The blue, green, and purple meshes show the region covered by the lowest, first, and second mesh refinement layers, respectively.\label{fig:alp}](alp_2d.pdf){height="7cm"}
 
 ![The shape of the apparent horizon when it is found.\label{fig:AH}](AH_tex.pdf){height="5cm"}
-
-[^5]: https://github.com/cmyoo/cosmos/wiki/Adiabatic-spherically-symmetric-initial-fluctuation .
 
 ### Spherically symmetric iso-curvature
 
@@ -203,11 +199,8 @@ We assume that the massless scalar field does not contribute to the background m
 Then, as is described in @Yoo:2021fxs, once the 
 spatial profile of the iso-curvature mode $\Upsilon(\vec x)$ is specified at the leading order of the gradient expansion,
 the growing mode solution can be described in the long-wavelength approximation. 
-More details including the specific functional form of $\Upsilon(\vec x)$ can be found in the instruction page[^6] (see also @Yoo:2021fxs).
+More details including the specific functional form of $\Upsilon(\vec x)$ can be found in the [instruction page](https://github.com/cmyoo/cosmos/wiki/Spherically-symmetric-isocurvature) [see also @Yoo:2021fxs].
 In the repository, we include the data file `ini_all.dat` necessary to reconstruct the geometry and matter distribution at the time an apparent horizon is found, as for the adiabatic case. 
-
-[^6]: https://github.com/cmyoo/cosmos/wiki/Spherically-symmetric-isocurvature .
-
 
 <!--
 ### COSMOS-S (spherically symmetric simulation)
