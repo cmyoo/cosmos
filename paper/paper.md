@@ -86,20 +86,18 @@ or a major component of dark matter.
 In particular, PBHs have been attracting much attention in the recent development of gravitational wave observation. 
 In the standard formation process, PBHs are formed from super-horizon primordial fluctuations with non-linearly large initial amplitude.
 In order to simulate the non-linear gravitational dynamics of PBH formation, one has to rely on numerical relativity solvers to approximate the solution of the Einstein equations.
-[COSMOS](https://github.com/cmyoo/cosmos) [@Yoo:2013yea; @Okawa:2014nda] provides <!-- and COSMOS-S [@Yoo:2021fxs] provide  -->
- simple tools for the simulation of PBH formation (see [COSMOS-S](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of COSMOS, which is not discussed in this paper).
-COSMOS is a <!-- and COSMOS-S are  -->
-C++ package for solving the Einstein equations in 3+1 dimensions. <!-- and spherical symmetry (1+1 dimensions), respectively.  -->
+[COSMOS](https://github.com/cmyoo/cosmos) [@Yoo:2013yea; @Okawa:2014nda] provides simple tools for the simulation of PBH formation (see [COSMOS-S](https://github.com/cmyoo/cosmos-s) for a spherically symmetric version of COSMOS, which is not discussed in this paper). 
+COSMOS is a C++ package for solving the Einstein equations in 3+1 dimensions. 
 It was originally translated from SACRA code [@Yamamoto:2008js] into C++ and has been developed specifically for the simulation of PBH formation.[^1]
-Past publications that use COSMOS for simulation include @Yoo:2013yea, @Okawa:2014nda, @Yoo:2014boa, @Okawa:2014sxa, @Ikeda:2015hqa, @Brito:2015yga, @Brito:2015yfh, @Okawa_2015, @Yoo:2016kzu, @Yoo:2018pda, @Yoo:2024lhp, @Escriva:2024lmm and @Escriva:2024aeo.[^2] <!-- @Yoo:2021fxs; @Shimada:2024eec  -->
+Past publications that use COSMOS for simulation include @Yoo:2013yea, @Okawa:2014nda, @Yoo:2014boa, @Okawa:2014sxa, @Ikeda:2015hqa, @Brito:2015yga, @Brito:2015yfh, @Okawa_2015, @Yoo:2016kzu, @Yoo:2018pda, @Yoo:2024lhp, @Escriva:2024lmm and @Escriva:2024aeo.[^2] 
 
-[^1]: C.Y. and H.O are the main contributors of this code, and other authors used the numerical code during the development and operational stages and contributed in part to its development and improvement.
-[^2]: In these works, additional functions and packages have been implemented that may not appear in the public release of COSMOS. Therefore the results may not be obtained by simply running the public code.
+[^1]: C.Y. and H.O. are the main contributors of this code, and other authors used the numerical code during the development and operational stages and contributed in part to its development and improvement.
+[^2]: In these works, additional functions and packages have been implemented that may not appear in the public release of COSMOS. Therefore, the results may not be obtained by simply running the public code.
 
 # Statement of need
 
 In the simulation of PBH formation, the presence of multiple length scales (the size of the collapsing region and that of cosmological expansion) necessitates an efficient resolution refinement procedure. 
-In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in COSMOS. <!-- The 1+1 dimensional simulation code COSMOS-S [@Yoo:2021fxs] is derived from COSMOS with the CARTOON method [@Alcubierre:1999ab].  -->
+In order to resolve the collapsing region, non-Cartesian scale-up coordinates [@Yoo:2018pda] and a fixed mesh-refinement procedure [@Yoo:2024lhp] are implemented in COSMOS. 
 In its model, COSMOS uses a perfect fluid with a linear equation of state and a massless scalar field as matter fields. 
 To achieve a practically acceptable computational speed, OpenMP is used for the parallelization. 
 COSMOS has no other dependencies, which makes for an easier installation. 
@@ -159,7 +157,7 @@ where $1/k$ gives the characteristic comoving scale of the inhomogeneity, and $a
 The initial data can be characterized by a function of the spatial coordinates $\vec x$ as the curvature perturbation $\zeta(\vec x)$ for adiabatic fluctuations [@Harada:2015yda; @Yoo:2024lhp; @Yoo:2020lmg] and iso-curvature perturbation $\Upsilon(\vec x)$ for
 massless scalar iso-curvature [@Yoo:2021fxs]. 
 Since the space is filled with the fluid, the initial fluid distribution can be generated to meet the constraint equations included in the Einstein equations. 
-Therefore the constraint equations are initially satisfied to within machine precision, and need not be solved by integrating elliptic differential equations. 
+Therefore, the constraint equations are initially satisfied to within machine precision, and need not be solved by integrating elliptic differential equations. 
 This approach differs from the standard method of obtaining the initial data for spacetimes with asymptotically flat vacuum regions, and is the reason why elliptic solvers are not included in COSMOS. 
 
 # Examples
@@ -201,27 +199,6 @@ spatial profile of the iso-curvature mode $\Upsilon(\vec x)$ is specified at the
 the growing mode solution can be described in the long-wavelength approximation. 
 More details including the specific functional form of $\Upsilon(\vec x)$ can be found in the [instruction page](https://github.com/cmyoo/cosmos/wiki/Spherically-symmetric-isocurvature) [see also @Yoo:2021fxs].
 In the repository, we include the data file `ini_all.dat` necessary to reconstruct the geometry and matter distribution at the time an apparent horizon is found, as for the adiabatic case. 
-
-<!--
-### COSMOS-S (spherically symmetric simulation)
-
-- Adiabatic spherically symmetric initial fluctuation
-
-The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. However, 
-the resolution is finer in this example of the spherically symmetric 1+1 code.
-
-- Spherically symmetric iso-curvature
-
-The physical parameter setting is the same as the corresponding example for the 3+1 dimensional simulation. However, 
-the resolution is finer in this example of the spherically symmetric 1+1 code.
-
-- Type II-B PBH formation
-
-PBH formation from adiabatic fluctuation with extremely large initial amplitude is given as an example. The setting is similar to that in @Uehara:2024yyp. One can find the non-trivial trapping horizon configuration as \autoref{fig:horizon}.
-
-![Trapping horizon trajectories.\label{fig:horizon}](horizon.pdf){height="6cm"}
-
--->
 
 # Acknowledgements
 
