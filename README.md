@@ -2,7 +2,18 @@
 [![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=flat)]()
 [![BSD-3-Clause](https://custom-icon-badges.herokuapp.com/badge/license-BSD%203%20Clause-8BB80A.svg?logo=law&logoColor=white)]()
  [![status](https://joss.theoj.org/papers/f03e0df3a83ae294aedc8629dddd88e8/status.svg)](https://joss.theoj.org/papers/f03e0df3a83ae294aedc8629dddd88e8)
- [![GitHub release](https://img.shields.io/github/v/release/cmyoo/cosmos)](https://github.com/cmyoo/cosmos/releases)
+[![GitHub release](https://img.shields.io/github/v/release/cmyoo/cosmos)](https://github.com/cmyoo/cosmos/releases)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.09570/status.svg)](https://doi.org/10.21105/joss.09570)
+
+<!-- 
+HTML:
+<a style="border-width:0" href="https://doi.org/10.21105/joss.09570">
+  <img src="https://joss.theoj.org/papers/10.21105/joss.09570/status.svg" alt="DOI badge" >
+</a>
+
+reStructuredText:
+.. image:: https://joss.theoj.org/papers/10.21105/joss.09570/status.svg
+   :target: https://doi.org/10.21105/joss.09570 -->
 
 # COSMOS
 <!-- 
